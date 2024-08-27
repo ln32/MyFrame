@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ServerName: 
-  _id: 
+  _UID: 
   _profileImg: {fileID: 0}
   _name: sad
   _gender: 0
@@ -342,8 +342,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1281522002}
   - {fileID: 85585106}
+  - {fileID: 1281522002}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1874979558
@@ -358,8 +358,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb2592524e0410408312d6bdde44ee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ProfileDataHandler: {fileID: 85585107}
-  _MoneyDataHandler: {fileID: 1281522001}
+  _ProfileData: {fileID: 85585107}
+  _CurrencyData: {fileID: 1281522001}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

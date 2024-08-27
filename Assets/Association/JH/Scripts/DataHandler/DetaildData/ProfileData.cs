@@ -24,11 +24,12 @@ public interface IProfileDataHandler
     VisualDataSet VisualData { get; set; }
 }
 
-internal class ProfileDataHandler : MonoBehaviour, IProfileDataHandler
+internal class ProfileData : MonoBehaviour, IProfileDataHandler
 {
 
     [SerializeField] private string _ServerName;
     [SerializeField] private string _UID;
+
     [Header("- Default Exposure")]
     [SerializeField] private Sprite _profileImg;
     [SerializeField] private string _name;
@@ -36,10 +37,12 @@ internal class ProfileDataHandler : MonoBehaviour, IProfileDataHandler
     [SerializeField] private MbtiSet _mbti;
     [SerializeField] private LivePlaceSet _livePlace;
     [SerializeField] private string _introduceComment;
+
     [Header("- Profile Details")]
     [SerializeField] private Sprite _subProfile_1;
     [SerializeField] private Sprite _subProfile_2;
     [SerializeField] private Sprite _subProfile_3;
+
     [Header("- Extra Details")]
     [SerializeField] private InterestFlagSet _interestFlag;
     [SerializeField] private VisualDataSet _visualData;
@@ -70,33 +73,6 @@ internal class ProfileDataHandler : MonoBehaviour, IProfileDataHandler
     public InterestFlagSet InterestFlag { get { return _interestFlag; } set { _interestFlag = value; } }
 
     public VisualDataSet VisualData { get { return _visualData; } set { _visualData = value; } }
-}
-public enum GenderSet
-{
-    Male,
-    Female
-}
-
-public enum MbtiSet
-{
-    entp,
-    intp
-}
-
-public enum LivePlaceSet
-{
-    Seoul,
-    Busan
-}
-
-[Flags]
-public enum InterestFlagSet
-{
-    None = 0,
-    Game = 1 << 0,  // 0001
-    Sports = 1 << 1,  // 0010
-    Meetings = 1 << 2,  // 0100
-    Movies = 1 << 3   // 1000
 }
 
 [Serializable]
