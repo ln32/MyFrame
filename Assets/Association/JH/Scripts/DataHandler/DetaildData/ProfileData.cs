@@ -1,28 +1,7 @@
-﻿using System;
+using DataSet;
+using System;
 using UnityEngine;
 
-public interface IProfileDataHandler
-{
-    string ServerName { get; set; }
-    string UID { get; set; }
-
-    Sprite ProfileImg { get; set; }
-    string Name { get; set; }
-
-    GenderSet Gender { get; set; }
-    MbtiSet Mbti { get; set; }
-    LivePlaceSet LivePlace { get; set; }
-    string IntroduceComment { get; set; }
-
-
-    Sprite SubProfile_1 { get; set; }
-    Sprite SubProfile_2 { get; set; }
-    Sprite SubProfile_3 { get; set; }
-
-    InterestFlagSet InterestFlag { get; set; }
-
-    VisualDataSet VisualData { get; set; }
-}
 
 internal class ProfileData : MonoBehaviour, IProfileDataHandler
 {

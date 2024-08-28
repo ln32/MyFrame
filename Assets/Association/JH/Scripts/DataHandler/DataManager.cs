@@ -2,18 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataManager : MonoBehaviour
+public class DataManager : MonoSingleton<DataManager>
 {
-    [SerializeField] internal ProfileData _ProfileData;
-    [SerializeField] internal CurrencyData _CurrencyData;
+    [SerializeField] internal CurrencyData _Currency;
 
-    public IProfileDataHandler GetProfileDataDataHandler()
-    {
-        return _ProfileData;
-    }
-
-    public ICurrencyDataHandler GetCurrencyDataHandler()
-    {
-        return _CurrencyData;
-    }
+    public CurrencyData Currency { get { return _Currency; } }
 }
