@@ -18,5 +18,5 @@ public class ManangingData<T>
         }
     }
 
-    public Action<T> onChange;
+    public Action<T> onChange = new((value) => {;});
 }

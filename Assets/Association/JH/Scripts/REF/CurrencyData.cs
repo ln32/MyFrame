@@ -38,4 +38,8 @@ public class CurrencyData : MonoBehaviour ,ICurrencyDataHandler
         DataSet[type].Data = value;
     }
 
+    public void SetDelta(CurrencyType_Int type, int value)
+    {
+        DataSet[type].Data = DataSet[type].Data + value;
+    }
 }
