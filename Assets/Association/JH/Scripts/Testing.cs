@@ -8,6 +8,6 @@ public class Testing : MonoBehaviour
     [ContextMenu("Func")]
     public void Func()
     {
-        DataManager.instance.Currency.Set(CurrencyType.Gold,10);
+        DataManager.instance.Currency.Set(CurrencyType_Int.Gold,10);
     }
 }

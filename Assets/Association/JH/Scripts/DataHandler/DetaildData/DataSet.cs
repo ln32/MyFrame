@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace DataSet
 {
-    public interface IProfileDataHandler
+    public interface IProfileData
     {
         string ServerName { get; set; }
         string UID { get; set; }
@@ -29,17 +30,22 @@ namespace DataSet
 
     public interface ICurrencyDataHandler
     {
-        int Get(CurrencyType type);
-        void Set(CurrencyType type, int value);
+        void AddEvent(CurrencyType_Int type, Action<int> interactFunc);
+
+
+        int Get(CurrencyType_Int type);
+
+        void Set(CurrencyType_Int type, int value);
+
     }
-
-
 }
 
-public enum CurrencyType
+
+
+public enum CurrencyType_Int
 {
     Gold,
-    Dia,
+    Diamond,
     Ruby,
     Ticket_0,
     Ticket_1,
@@ -48,7 +54,7 @@ public enum CurrencyType
 
 public enum VisualType
 {
-    BaseCostume, 
+    BaseCostume,
     BaseJob,
     BaseColor,
     WeaponType,

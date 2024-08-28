@@ -1,40 +1,46 @@
+using System;
 using TMPro;
 using UnityEngine;
 
 public class UIView : MonoBehaviour
 {
-    public ManangingData<int> targetData;
     public TextMeshProUGUI textMeshPro;
-
+    bool isAdded = false;
     private void OnEnable()
     {
-        targetData.onChange += UpdateHpUI;
+        AddEvent();
     }
 
     private void OnDisable()
     {
-        DataManager.instance.Currency.Set(CurrencyType.Gold, 10);
+        RemoveEvent();
     }
 
-    int temp => DataManager.instance.Currency.Get(CurrencyType.Gold);
+
     [ContextMenu("AddEvent")]
     private void AddEvent()
     {
-        targetData.onChange += UpdateHpUI;
-        Debug.Log(temp + " <<");
+        if (isAdded)
+            return;
+        DataManager.instance.Currency.AddEvent(CurrencyType_Int.Gold, UpdateHpUI);
+        isAdded = true;
     }
 
     [ContextMenu("RemoveEvent")]
     private void RemoveEvent()
     {
-        targetData.onChange -= UpdateHpUI;
+        if (!isAdded)
+            return;
+        DataManager.instance.Currency.RemoveEvent(CurrencyType_Int.Gold, UpdateHpUI);
+        isAdded = false;
     }
 
-    [ContextMenu("RemoveEvent")]
+    [ContextMenu("ChangeEvent")]
     private void ChangeEvent()
-    {
-        targetData.onChange -= UpdateHpUI;
-        DataManager.instance.Currency.Set(CurrencyType.Gold, 10);
+    { 
+        int value = DataManager.instance.Currency.Get(CurrencyType_Int.Gold);
+        Debug.Log( value + " <<" );
+        DataManager.instance.Currency.Set(CurrencyType_Int.Gold, value+1);
     }
 
     public void UpdateHpUI(int hp)

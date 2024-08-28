@@ -5,25 +5,37 @@ using UnityEngine;
 
 public class CurrencyData : MonoBehaviour ,ICurrencyDataHandler
 {
-    private Dictionary<CurrencyType, ManangingData<int>> _currencies = null;
+    private Dictionary<CurrencyType_Int, ManangingData<int>> DataSet = null;
 
     public CurrencyData()
     {
-        _currencies = new Dictionary<CurrencyType, ManangingData<int>>();
+        DataSet = new Dictionary<CurrencyType_Int, ManangingData<int>>();
 
-        foreach (CurrencyType type in Enum.GetValues(typeof(CurrencyType)))
+        foreach (CurrencyType_Int type in Enum.GetValues(typeof(CurrencyType_Int)))
         {
-            _currencies[type] = new ManangingData<int>();
+            DataSet[type] = new ManangingData<int>();
         }
     }
 
-    public int Get(CurrencyType type)
+    public void AddEvent(CurrencyType_Int type, Action<int> interactFunc)
     {
-        return _currencies[type].Data;
+        DataSet[type].onChange += interactFunc;
     }
 
-    public void Set(CurrencyType type, int value)
+    public void RemoveEvent(CurrencyType_Int type, Action<int> interactFunc)
     {
-        _currencies[type].Data = value;
+        DataSet[type].onChange -= interactFunc;
     }
+
+    public int Get(CurrencyType_Int type)
+    {
+        return DataSet[type].Data;
+    }
+
+
+    public void Set(CurrencyType_Int type, int value)
+    {
+        DataSet[type].Data = value;
+    }
+
 }
