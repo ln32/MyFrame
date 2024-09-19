@@ -52,7 +52,7 @@ public enum CurrencyType_Int
     Ticket_2
 }
 
-public enum VisualType
+public enum VisualType_String
 {
     BaseCostume,
     BaseJob,

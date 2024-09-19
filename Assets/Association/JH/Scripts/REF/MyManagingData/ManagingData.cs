@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class ManangingData<T>
+public class ManagingData<T>
 {
     private T _value;
 

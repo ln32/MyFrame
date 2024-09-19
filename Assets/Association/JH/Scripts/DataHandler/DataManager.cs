@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class DataManager : MonoSingleton<DataManager>
 {
-    [SerializeField] internal CurrencyData _Currency;
+    [SerializeField] internal ManagingEnumData_DEBUG<VisualType_String, string> _VisualDataDBG;
 
-    public CurrencyData Currency { get { return _Currency; } }
+    [SerializeField] internal ManagingEnumData_DEBUG<CurrencyType_Int,int> _CurrencyDBG;
+    public ManagingEnumData_DEBUG<CurrencyType_Int, int> Currency { get { return _CurrencyDBG; } }
+    public ManagingEnumData_DEBUG<VisualType_String, string> VisualData { get { return _VisualDataDBG; } }
+
 }
