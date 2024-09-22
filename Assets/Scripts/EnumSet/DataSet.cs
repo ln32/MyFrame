@@ -28,41 +28,29 @@ namespace DataSet
         VisualDataSet VisualData { get; set; }
     }
 
-    public interface ICurrencyDataHandler
+    public enum CurrencyType_Int
     {
-        void AddEvent(CurrencyType_Int type, Action<int> interactFunc);
+        Gold,
+        Diamond,
+        Ruby,
+        Ticket_0,
+        Ticket_1,
+        Ticket_2
+    }
 
-
-        int Get(CurrencyType_Int type);
-
-        void Set(CurrencyType_Int type, int value);
-
+    public enum VisualType_String
+    {
+        BaseCostume,
+        BaseJob,
+        BaseColor,
+        WeaponType,
+        DecorHair,
+        DecorFace,
+        PersonalityTitle,
+        PersonalityFrame,
+        PersonalityBubble,
+        MiscMount,
+        Costume
     }
 }
 
-
-
-public enum CurrencyType_Int
-{
-    Gold,
-    Diamond,
-    Ruby,
-    Ticket_0,
-    Ticket_1,
-    Ticket_2
-}
-
-public enum VisualType_String
-{
-    BaseCostume,
-    BaseJob,
-    BaseColor,
-    WeaponType,
-    DecorHair,
-    DecorFace,
-    PersonalityTitle,
-    PersonalityFrame,
-    PersonalityBubble,
-    MiscMount,
-    Costume
-}

@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2775084087659332130
 RectTransform:
   m_ObjectHideFlags: 0
@@ -53,6 +53,7 @@ MonoBehaviour:
   fixedTMP: {fileID: 4669696871086529593}
   valueTMP: {fileID: 1053697382570522052}
   myType: 5
+  isSet: 0
 --- !u!1 &3423689921818293824
 GameObject:
   m_ObjectHideFlags: 0
