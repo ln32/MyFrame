@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace DataSet
 {
-    public interface IProfileData
+    public class ProfileData
     {
         string ServerName { get; set; }
         string UID { get; set; }
@@ -28,17 +28,22 @@ namespace DataSet
         VisualDataSet VisualData { get; set; }
     }
 
-    public enum CurrencyType_Int
+    public enum DefaultCurrency
     {
-        Gold,
-        Diamond,
-        Ruby,
-        Ticket_0,
-        Ticket_1,
-        Ticket_2
+        //ruby
+        GoldCoin = 1,
+        RubiCoin = 2,
+        DiamondCoin = 3,
+
+        EquipGachaTicket = 101,
+        PetGachaTicket = 102,
+        SkillGachaTicket = 103,
+
+
+        PickupGachaTicket = 201
     }
 
-    public enum VisualType_String
+    public enum VisualType
     {
         BaseCostume,
         BaseJob,
@@ -52,5 +57,51 @@ namespace DataSet
         MiscMount,
         Costume
     }
-}
 
+    namespace UserCharactor
+    {
+ 
+
+
+        // int 이벤트성(탈것 신물 스킨.. )
+        public enum PlayerGrowth
+        {
+            ExpriencePoint,
+            CharPoint,
+            SkillPoint
+        }
+    }
+
+    namespace RewardListup
+    {
+
+        // int 이벤트성(탈것 신물 스킨.. )
+        public enum UsualFieldReward
+        {
+            UsualFieldReward_1,
+            UsualFieldReward_2,
+            UsualFieldReward_3
+        }
+
+        public enum EventReward
+        {
+            EventReward_1,
+            EventReward_2,
+            EventReward_3
+        }
+
+        public enum DungeonReward
+        {
+            DungeonReward_1,
+            DungeonReward_2,
+            DungeonReward_3
+        }
+
+        public enum BossRaidReward
+        {
+            BossRaidReward_1,
+            BossRaidReward_2,
+            BossRaidReward_3
+        }
+    }
+}

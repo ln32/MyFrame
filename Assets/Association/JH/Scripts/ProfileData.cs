@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 
 
-internal class ProfileData : MonoBehaviour, IProfileData
+internal class ProfileData : MonoBehaviour//, IProfileData
 {
 
     [SerializeField] private string _ServerName;
