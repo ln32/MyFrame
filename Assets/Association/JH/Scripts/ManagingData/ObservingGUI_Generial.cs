@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class ObservingGUI_Generial<TEnum> where TEnum : Enum
+public class ObservingGUI_Generial<TEnum>
 {
     internal ObservingGUI myGUI;
     internal TEnum type;
