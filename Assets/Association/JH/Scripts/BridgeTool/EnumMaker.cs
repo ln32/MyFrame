@@ -7,8 +7,8 @@ using UnityEngine;
 class EunmMaker : MonoBehaviour
 {
 
-    [ContextMenu("exe")]
-    void Main()
+    [ContextMenu("execute")]
+    void Func()
     {
         try
         {
@@ -55,3 +55,4 @@ public enum TestEnum
         }
     }
 }
+

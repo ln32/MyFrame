@@ -17,7 +17,10 @@ public interface IManagingDataHandler<TEnum, T>
 
 
 public abstract class ManagingEnumData<TEnum, T> : IManagingDataHandler<TEnum, T> where TEnum : Enum
-{
+{   
+    abstract internal bool IsAvailable(T type);
+
+    #region Set iManagingDataHandler
     internal Dictionary<TEnum, ManagingData<T>> DataSet = null;
 
     public ManagingEnumData()
@@ -53,8 +56,6 @@ public abstract class ManagingEnumData<TEnum, T> : IManagingDataHandler<TEnum, T
         }
     }
 
-    abstract internal bool IsAvailable(T type);
-
     public void SetDelta(TEnum type, T value)
     {
         try
@@ -89,27 +90,5 @@ public abstract class ManagingEnumData<TEnum, T> : IManagingDataHandler<TEnum, T
             throw new InvalidOperationException("덧셈이 불가능한 타입입니다.");
         }
     }
-}
-
-
-public class ManagingCurrencyInt : ManagingEnumData<DefaultCurrency,int>
-{
-    internal override bool IsAvailable(int input)
-    {
-        return input >= 0;
-    }
-}
-
-public class ManagingVisualTypeString : ManagingEnumData<VisualType, string> {
-    internal override bool IsAvailable(string input)
-    {
-        return true;
-    }
-}
-public class ManagingReturnEnumInt : ManagingEnumData<TestEnum, int>
-{
-    internal override bool IsAvailable(int input)
-    {
-        return input >= 0;
-    }
+    #endregion
 }

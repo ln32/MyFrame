@@ -1,10 +1,8 @@
-using DataSet;
 using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class ObservingGUI_Generial<TEnum>
+public class ObservingGUI_Generial<TEnum> where TEnum : Enum
 {
     internal ObservingGUI myGUI;
     internal TEnum type;

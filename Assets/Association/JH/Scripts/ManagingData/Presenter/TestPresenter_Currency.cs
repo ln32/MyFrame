@@ -1,21 +1,19 @@
 using DataSet;
 using FuncSet_CreateGUI;
-using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class TestPresenter_Currency : MonoBehaviour, DataInterface<DefaultCurrency>
+public class TestPresenter_Currency : MonoBehaviour, DataInterface<Currency_Old>
 {
     [SerializeField] ObservingGUI _prefab;
-    List<ObservingGUI_Generial<DefaultCurrency>> _observingGUIs = new List<ObservingGUI_Generial<DefaultCurrency>>();
+    List<ObservingGUI_Generial<Currency_Old>> _observingGUIs = new List<ObservingGUI_Generial<Currency_Old>>();
 
 
     #region SetDataInterface
     public Transform _transform => this.transform;
-    ObservingGUI DataInterface<DefaultCurrency>._prefab => this._prefab;
-    public IManagingDataHandler<DefaultCurrency, int> _handler => DataManager.instance.Currency;
-    List<ObservingGUI_Generial<DefaultCurrency>> DataInterface<DefaultCurrency>._observingGUIs => this._observingGUIs;
+    ObservingGUI DataInterface<Currency_Old>._prefab => this._prefab;
+    public IManagingDataHandler<Currency_Old, int> _handler => DataManager.instance.Currency;
+    List<ObservingGUI_Generial<Currency_Old>> DataInterface<Currency_Old>._observingGUIs => this._observingGUIs;
     #endregion
 
     private void Awake()

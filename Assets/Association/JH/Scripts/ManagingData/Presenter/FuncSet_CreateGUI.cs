@@ -5,9 +5,9 @@ using Transform = UnityEngine.Transform;
 
 namespace FuncSet_CreateGUI
 {
-    public static class FuncSet_CreateGUI
+    internal static class FuncSet_CreateGUI
     {
-        static public void CreateFunc<TEnum>(this DataInterface<TEnum> _data)
+        static internal void CreateFunc<TEnum>(this DataInterface<TEnum> _data)
         {
             Transform _trans = _data._transform;
             ObservingGUI _prefab = _data._prefab;
@@ -46,8 +46,7 @@ namespace FuncSet_CreateGUI
             }
         }
 
-
-        static public void RemoveFunc<TEnum>(this DataInterface<TEnum> _data)
+        static internal void RemoveFunc<TEnum>(this DataInterface<TEnum> _data)
         {
             Transform _trans = _data._transform;
 

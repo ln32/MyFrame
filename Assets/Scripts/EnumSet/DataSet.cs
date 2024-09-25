@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace DataSet
@@ -28,9 +25,8 @@ namespace DataSet
         VisualDataSet VisualData { get; set; }
     }
 
-    public enum DefaultCurrency
+    public enum Currency_Old
     {
-        //ruby
         GoldCoin = 1,
         RubiCoin = 2,
         DiamondCoin = 3,
@@ -43,7 +39,7 @@ namespace DataSet
         PickupGachaTicket = 201
     }
 
-    public enum VisualType
+    public enum VisualType_Old
     {
         BaseCostume,
         BaseJob,
@@ -60,9 +56,6 @@ namespace DataSet
 
     namespace UserCharactor
     {
- 
-
-
         // int 이벤트성(탈것 신물 스킨.. )
         public enum PlayerGrowth
         {
