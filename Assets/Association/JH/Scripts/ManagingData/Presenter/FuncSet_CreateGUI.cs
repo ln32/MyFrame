@@ -7,7 +7,7 @@ namespace FuncSet_CreateGUI
 {
     public static class FuncSet_CreateGUI
     {
-        static public void MyCreateFunc<TEnum>(this DataInterface<TEnum> _data)
+        static public void CreateFunc<TEnum>(this DataInterface<TEnum> _data)
         {
             Transform _trans = _data._transform;
             ObservingGUI _prefab = _data._prefab;
@@ -15,7 +15,7 @@ namespace FuncSet_CreateGUI
             List<ObservingGUI_Generial<TEnum>> _observingGUIs = _data._observingGUIs;
 
 
-            RemoveFunc(_trans);
+            _data.RemoveFunc();
             _observingGUIs.Clear();
 
             int count = 0;
@@ -46,42 +46,12 @@ namespace FuncSet_CreateGUI
             }
         }
 
-        static public void CreateFunc<TEnum>(Transform tras, ObservingGUI _prefab, IManagingDataHandler<TEnum,int> _handler, List<ObservingGUI_Generial<TEnum>> _observingGUIs)
+
+        static public void RemoveFunc<TEnum>(this DataInterface<TEnum> _data)
         {
-            RemoveFunc(tras);
-            _observingGUIs.Clear();
+            Transform _trans = _data._transform;
 
-            int count = 0;
-            foreach (TEnum type in Enum.GetValues(typeof(TEnum)))
-            {
-                ObservingGUI insGUI = UnityEngine.Object.Instantiate(_prefab, tras);
-                ObservingGUI_Generial<TEnum> ins = new ObservingGUI_Generial<TEnum>();
-                if (true)
-                {
-                    insGUI.transform.position += Vector3.down * (count * 100);
-                    _observingGUIs.Add(ins);
-
-                    insGUI.OnEnableEvent += () => {
-                        _handler.AddEvent(type, insGUI.ReactEvent); insGUI.isSet = true;
-                        ins.SetType(insGUI, type, _handler.Get(type));
-                    };
-
-                    insGUI.OnDisableEvent += () => {
-                        if (!DataManager.instance)
-                            return; _handler.RemoveEvent(type, insGUI.ReactEvent);
-                        insGUI.isSet = false;
-                    };
-
-                    insGUI.gameObject.SetActive(true);
-                }
-
-                count++;
-            }
-        }
-
-        static public void RemoveFunc(Transform tras)
-        {
-            foreach (Transform child in tras)
+            foreach (Transform child in _trans)
             {
                 GameObject.Destroy(child.gameObject);
             }

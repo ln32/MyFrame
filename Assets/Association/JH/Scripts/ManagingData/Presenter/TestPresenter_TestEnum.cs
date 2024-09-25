@@ -3,25 +3,33 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestPresenter_TestEnum : MonoBehaviour
+public class TestPresenter_TestEnum : MonoBehaviour, DataInterface<TestEnum>
 {
     [SerializeField] ObservingGUI _prefab;
     List<ObservingGUI_Generial<TestEnum>> _observingGUIs = new List<ObservingGUI_Generial<TestEnum>>();
 
+    #region SetDataInterface
+    public Transform _transform => this.transform;
+    ObservingGUI DataInterface<TestEnum>._prefab => this._prefab;
+    public IManagingDataHandler<TestEnum, int> _handler => DataManager.instance.TestEnum;
+    List<ObservingGUI_Generial<TestEnum>> DataInterface<TestEnum>._observingGUIs => this._observingGUIs;
+    #endregion
+
+
     private void Awake()
     {
-        CreateFunc();
+        CreateGUI();
     }
 
     [ContextMenu("CreateGUI")]
-    public void CreateFunc()
+    public void CreateGUI()
     {
-        FuncSet_CreateGUI.FuncSet_CreateGUI.CreateFunc(transform, _prefab, DataManager.instance.TestEnum, _observingGUIs);
+        this.CreateFunc();
     }
 
     [ContextMenu("RemoveGUI")]
-    public void RemoveFunc()
+    public void RemoveGUI()
     {
-        FuncSet_CreateGUI.FuncSet_CreateGUI.RemoveFunc(transform);
+        this.RemoveFunc();
     }
 }
