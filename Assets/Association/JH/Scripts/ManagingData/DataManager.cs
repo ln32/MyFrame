@@ -10,5 +10,4 @@ public class DataManager : MonoSingleton<DataManager>
     public IManagingDataHandler<DefaultCurrency,int> Currency { get { return _CurrencyDBG; } }
     public IManagingDataHandler<VisualType, string> VisualData { get { return _VisualDataDBG; } }
     public IManagingDataHandler<TestEnum, int> TestEnum { get { return _ManagingReturnEnumInt; } }
-
 }
