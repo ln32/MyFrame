@@ -1,10 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PresentingGUI_Sample : MonoBehaviour
 {
     [SerializeField] internal List<ManagingGUI_Sameple> myMember;
+
     public iManagingDataHandler<DataEnum, int> _handler => DataManager.instance.DataEnum;
 
     private void Start()

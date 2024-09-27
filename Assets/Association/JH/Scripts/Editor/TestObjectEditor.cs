@@ -4,10 +4,8 @@ using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(JH_Test))]
-public class ItemEffectTriggerEditor : Editor //Monobehaviour 대신 Editor를 넣습니다.
+public class ItemEffectTriggerEditor : Editor
 {
-
-
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
@@ -17,11 +15,11 @@ public class ItemEffectTriggerEditor : Editor //Monobehaviour 대신 Editor를 �
         EditorGUILayout.BeginHorizontal(); 
         GUILayout.FlexibleSpace(); 
 
-        if (GUILayout.Button("GoldCoin++", GUILayout.Width(100), GUILayout.Height(20)))
+        if (GUILayout.Button("+= value", GUILayout.Width(100), GUILayout.Height(20)))
         {
-            itemtrigger.Func_1();
+            itemtrigger.Func_1(); 
         }
-        if (GUILayout.Button("index += Gold", GUILayout.Width(100), GUILayout.Height(20)))
+        if (GUILayout.Button("*= value", GUILayout.Width(100), GUILayout.Height(20)))
         {
             itemtrigger.Func_2();
         }

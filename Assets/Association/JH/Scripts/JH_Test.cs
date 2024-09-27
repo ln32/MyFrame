@@ -6,16 +6,19 @@ using UnityEngine;
 public class JH_Test : MonoBehaviour
 {
     public DataEnum index = DataEnum.GoldCoin;
+    public float value = 1;
 
-    [ContextMenu("GoldCoin ++")]
+    [ContextMenu("+= value")]
     public void Func_1()
     {
-        DataManager.instance.DataEnum.SetDelta(DataEnum.GoldCoin, 1);
+        int cash = DataManager.instance.DataEnum.Get(index);
+        DataManager.instance.DataEnum.Set(index, (int)(cash + value));
     }
 
-    [ContextMenu("index += GoldCoin")]
+    [ContextMenu("*= value")]
     public void Func_2()
     {
-        DataManager.instance.DataEnum.SetDelta(index, DataManager.instance.DataEnum.Get(DataEnum.GoldCoin));
+        int cash = DataManager.instance.DataEnum.Get(index);
+        DataManager.instance.DataEnum.Set(index, (int)(cash * value));
     }
 }

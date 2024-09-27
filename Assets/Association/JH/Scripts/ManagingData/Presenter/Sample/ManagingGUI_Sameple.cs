@@ -1,13 +1,9 @@
-using FuncSet_CreateGUI;
 using System;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class ManagingGUI_Sameple : MonoBehaviour, iManagningGUI<int>
 {
-    //public Action 
-    [SerializeField] internal TextMeshProUGUI valueTMP;
     public DataEnum _dataEnum;
 
     public Action<int> _Reaction;
@@ -15,7 +11,6 @@ public class ManagingGUI_Sameple : MonoBehaviour, iManagningGUI<int>
     public Action _OnDisableAction;
 
     #region iReactingGUI<int> implementation
-
     public Action<int> Reaction => _Reaction;
     public Action OnEnableAction => _OnEnableAction;
     public Action OnDisableAction => _OnDisableAction;
@@ -32,12 +27,21 @@ public class ManagingGUI_Sameple : MonoBehaviour, iManagningGUI<int>
         }
     }
 
+
+    // ----------------------
+
+    [SerializeField] internal TextMeshProUGUI valueTMP;
+
+
     public void ReactFunc(int value)
     {
         // React
         Debug.Log(_dataEnum + " <<");
         valueTMP.text = value.ToString();
     }
+
+
+    // ----------------------
 
     private void OnEnable()
     {

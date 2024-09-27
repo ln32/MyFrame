@@ -23,7 +23,7 @@ public interface iManagingDataHandler<TEnum, T>
 
 public abstract class ManagingEnumData<TEnum, T> : iManagingDataHandler<TEnum, T> where TEnum : Enum
 {   
-    abstract internal bool IsAvailable(T type);
+    abstract internal bool IsAvailable(TEnum index, T input);
 
     #region Set iManagingDataHandler
     internal Dictionary<TEnum, ManagingData<T>> DataSet = null;
@@ -55,7 +55,7 @@ public abstract class ManagingEnumData<TEnum, T> : iManagingDataHandler<TEnum, T
 
     public void Set(TEnum type, T value)
     {
-        if (IsAvailable(value))
+        if (IsAvailable(type,value))
         {
             DataSet[type].Data = value;
         }
