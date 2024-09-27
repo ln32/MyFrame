@@ -1,14 +1,18 @@
 using System;
 using System.IO;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
+using UnityEditor;
 
-class EunmMaker : MonoBehaviour
+public class EnumMaker : MonoBehaviour
 {
 
-    [ContextMenu("execute")]
-    void Func()
+    static string EnumScriptName = "DataEnum";
+
+
+    //[MenuItem("EnumMaker/Execute", false, 100)]
+
+    static void MakeEnum()
     {
         try
         {
@@ -17,7 +21,7 @@ class EunmMaker : MonoBehaviour
             string currentDirectory = Application.dataPath + "\\Scripts\\EnumSet";
 
             // CSV 파일 경로 (상대 경로)
-            string csvPath = Path.Combine(currentDirectory, "CSV_Data.csv");
+            string csvPath = Path.Combine(currentDirectory,"CSV_Data.csv");
 
             // CSV 읽기
             var lines = File.ReadAllLines(csvPath);
@@ -32,11 +36,11 @@ class EunmMaker : MonoBehaviour
                                    .Select(entry => $"{entry.Letter} = {entry.Number}");
 
             // Enum 파일 생성 경로 (상대 경로)
-            string enumFilePath = Path.Combine(currentDirectory, "TestEnum.cs");
+            string enumFilePath = Path.Combine(currentDirectory, EnumScriptName+".cs");
 
             // Enum 파일에 들어갈 내용
             string enumContent = $@"
-public enum TestEnum
+public enum {EnumScriptName}
 {{
     {string.Join(",\n    ", enumEntries)}
 }}

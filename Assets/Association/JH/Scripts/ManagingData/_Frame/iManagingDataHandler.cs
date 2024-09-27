@@ -1,8 +1,10 @@
 using DataSet;
+using FuncSet_CreateGUI;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
-public interface IManagingDataHandler<TEnum, T>
+public interface iManagingDataHandler<TEnum, T>
 {
     void AddEvent(TEnum type, Action<T> interactFunc);
 
@@ -13,10 +15,13 @@ public interface IManagingDataHandler<TEnum, T>
     void Set(TEnum type, T value);
 
     void SetDelta(TEnum type, T value);
+
+    
+    
 }
 
 
-public abstract class ManagingEnumData<TEnum, T> : IManagingDataHandler<TEnum, T> where TEnum : Enum
+public abstract class ManagingEnumData<TEnum, T> : iManagingDataHandler<TEnum, T> where TEnum : Enum
 {   
     abstract internal bool IsAvailable(T type);
 
@@ -92,3 +97,4 @@ public abstract class ManagingEnumData<TEnum, T> : IManagingDataHandler<TEnum, T
     }
     #endregion
 }
+

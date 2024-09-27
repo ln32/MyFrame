@@ -1,6 +1,6 @@
 using DataSet;
 
-public class Managing_Currency_Int : ManagingEnumData<Currency_Old, int>
+public class Managing_PlayerGrowth_Int : ManagingEnumData<PlayerGrowth, int>
 {
     internal override bool IsAvailable(int input)
     {
@@ -8,7 +8,7 @@ public class Managing_Currency_Int : ManagingEnumData<Currency_Old, int>
     }
 }
 
-public class Managing_VisualType_String : ManagingEnumData<VisualType_Old, string>
+public class Managing_VisualType_String : ManagingEnumData<VisualType, string>
 {
     internal override bool IsAvailable(string input)
     {
@@ -16,7 +16,7 @@ public class Managing_VisualType_String : ManagingEnumData<VisualType_Old, strin
     }
 }
 
-public class Managing_TestEnum_Int : ManagingEnumData<TestEnum, int>
+public class Managing_TestEnum_Int : ManagingEnumData<DataEnum, int>
 {
     internal override bool IsAvailable(int input)
     {

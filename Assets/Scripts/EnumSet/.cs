@@ -1,5 +1,5 @@
 
-public enum TestEnum
+public enum 
 {
     GoldCoin = 1,
     RubiCoin = 2,

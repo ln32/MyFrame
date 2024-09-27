@@ -7,11 +7,11 @@ namespace FuncSet_CreateGUI
 {
     internal static class FuncSet_CreateGUI
     {
-        static internal void CreateFunc<TEnum>(this DataInterface<TEnum> _data)
+        static internal void CreateFunc<TEnum>(this Debug_DataInterface<TEnum> _data)
         {
             Transform _trans = _data._transform;
             ObservingGUI _prefab = _data._prefab;
-            IManagingDataHandler<TEnum, int> _handler = _data._handler;
+            iManagingDataHandler<TEnum, int> _handler = _data._handler;
             List<ObservingGUI_Generial<TEnum>> _observingGUIs = _data._observingGUIs;
 
 
@@ -46,7 +46,7 @@ namespace FuncSet_CreateGUI
             }
         }
 
-        static internal void RemoveFunc<TEnum>(this DataInterface<TEnum> _data)
+        static internal void RemoveFunc<TEnum>(this Debug_DataInterface<TEnum> _data)
         {
             Transform _trans = _data._transform;
 
@@ -57,12 +57,11 @@ namespace FuncSet_CreateGUI
         }
     }
 
-    public interface DataInterface<TEnum>
+    public interface Debug_DataInterface<TEnum>
     {
         Transform _transform { get; }
         ObservingGUI _prefab { get; }
-        IManagingDataHandler<TEnum, int> _handler { get; }
+        iManagingDataHandler<TEnum, int> _handler { get; }
         List<ObservingGUI_Generial<TEnum>> _observingGUIs { get; }
     }
 }
-

@@ -17,11 +17,11 @@ public class ItemEffectTriggerEditor : Editor //Monobehaviour 대신 Editor를 �
         EditorGUILayout.BeginHorizontal(); 
         GUILayout.FlexibleSpace(); 
 
-        if (GUILayout.Button("Func_1", GUILayout.Width(100), GUILayout.Height(20)))
+        if (GUILayout.Button("GoldCoin++", GUILayout.Width(100), GUILayout.Height(20)))
         {
             itemtrigger.Func_1();
         }
-        if (GUILayout.Button("Func_2", GUILayout.Width(100), GUILayout.Height(20)))
+        if (GUILayout.Button("index += Gold", GUILayout.Width(100), GUILayout.Height(20)))
         {
             itemtrigger.Func_2();
         }

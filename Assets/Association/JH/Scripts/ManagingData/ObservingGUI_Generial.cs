@@ -7,6 +7,7 @@ public class ObservingGUI_Generial<TEnum>
     internal ObservingGUI myGUI;
     internal TEnum type;
 
+
     // Fix Text 수정을 위한 함수, Ruby Dia 등등...
     internal void SetType(ObservingGUI insGUI, TEnum _type, int value)
     {

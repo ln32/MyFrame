@@ -5,15 +5,17 @@ using UnityEngine;
 
 public class JH_Test : MonoBehaviour
 {
-    [ContextMenu("Func_1")]
+    public DataEnum index = DataEnum.GoldCoin;
+
+    [ContextMenu("GoldCoin ++")]
     public void Func_1()
     {
-        DataManager.instance.Currency.SetDelta(Currency_Old.GoldCoin, 1);
+        DataManager.instance.DataEnum.SetDelta(DataEnum.GoldCoin, 1);
     }
 
-    [ContextMenu("Func_2")]
+    [ContextMenu("index += GoldCoin")]
     public void Func_2()
     {
-        DataManager.instance.Currency.SetDelta(Currency_Old.DiamondCoin, 2);
+        DataManager.instance.DataEnum.SetDelta(index, DataManager.instance.DataEnum.Get(DataEnum.GoldCoin));
     }
 }

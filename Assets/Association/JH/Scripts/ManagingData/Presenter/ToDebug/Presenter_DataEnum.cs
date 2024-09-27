@@ -2,16 +2,16 @@ using FuncSet_CreateGUI;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestPresenter_TestEnum : MonoBehaviour, DataInterface<TestEnum>
+public class Presenter_DataEnum : MonoBehaviour, Debug_DataInterface<DataEnum>
 {
     [SerializeField] ObservingGUI _prefab;
-    List<ObservingGUI_Generial<TestEnum>> _observingGUIs = new List<ObservingGUI_Generial<TestEnum>>();
+    List<ObservingGUI_Generial<DataEnum>> _observingGUIs = new List<ObservingGUI_Generial<DataEnum>>();
 
     #region SetDataInterface
     public Transform _transform => this.transform;
-    ObservingGUI DataInterface<TestEnum>._prefab => this._prefab;
-    public IManagingDataHandler<TestEnum, int> _handler => DataManager.instance.TestEnum;
-    List<ObservingGUI_Generial<TestEnum>> DataInterface<TestEnum>._observingGUIs => this._observingGUIs;
+    ObservingGUI Debug_DataInterface<DataEnum>._prefab => this._prefab;
+    public iManagingDataHandler<DataEnum, int> _handler => DataManager.instance.DataEnum;
+    List<ObservingGUI_Generial<DataEnum>> Debug_DataInterface<DataEnum>._observingGUIs => this._observingGUIs;
     #endregion
 
 
