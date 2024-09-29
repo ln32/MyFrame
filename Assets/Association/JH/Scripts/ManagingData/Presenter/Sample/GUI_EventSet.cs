@@ -2,7 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GUI_EventSet : MonoBehaviour, iManagningGUI<int>
+[Serializable]
+public class GUI_EventSet : iManagningGUI<int>
 {
     [SerializeField] internal DataEnum _dataEnum = DataEnum.GoldCoin;
     [SerializeField] public UnityEvent<int> eventSet;

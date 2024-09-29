@@ -1,5 +1,6 @@
 using System;
 using UnityEditor;
+using static UnityEditor.Progress;
 
 public interface iManagningGUI<T>
 {
@@ -10,7 +11,7 @@ public interface iManagningGUI<T>
 
 internal static class Expand_iManagningGUI
 {
-    static public void SetObserving<TEnum,T>(this iManagingDataHandler<TEnum,T> _handler, TEnum _data, iManagningGUI<T> _gui)
+    static public void SetObserving<TEnum,T>(this iManagingDataHandler<TEnum,T> _handler, TEnum _data, iManagningGUI<T> _gui, bool onInvoke = false)
     {
         Action OnEnableAction = _gui.OnEnableAction;
         Action OnDisableAction = _gui.OnDisableAction;
@@ -20,5 +21,8 @@ internal static class Expand_iManagningGUI
         OnDisableAction += () => _handler.RemoveEvent(_data, Reaction);
 
         _handler.AddEvent(_data, Reaction);
+
+        if (onInvoke)
+            Reaction?.Invoke(_handler.Get(_data));
     }
 }
