@@ -14,16 +14,15 @@ public interface iManagingDataHandler<TEnum, T>
 
     void Set(TEnum type, T value);
 
-    void SetDelta(TEnum type, T value);
-
-    
-    
+    // 그냥 set( get()+value ) 간편화 시킨 함수
+    void SetDelta(TEnum type, T value);    
 }
 
 
 public abstract class ManagingEnumData<TEnum, T> : iManagingDataHandler<TEnum, T> where TEnum : Enum
-{   
-    abstract internal bool IsAvailable(TEnum index, T input);
+{
+    // 유효성검사
+    abstract internal bool IsAvailable(TEnum index, T input, bool semiCheck = true);
 
     #region Set iManagingDataHandler
     internal Dictionary<TEnum, ManagingData<T>> DataSet = null;

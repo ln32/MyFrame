@@ -1,6 +1,8 @@
 using UnityEngine;
 using System;
 
+
+// 평범한 observing
 public class ManagingData<T>
 {
     private T _value;
