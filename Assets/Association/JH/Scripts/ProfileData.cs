@@ -3,55 +3,10 @@ using System;
 using UnityEngine;
 
 
-internal class ProfileData : MonoBehaviour//, IProfileData
+internal class ProfileData
 {
+    internal ManagingData<Sprite> _profileImg = new();
 
-    [SerializeField] private string _ServerName;
-    [SerializeField] private string _UID;
-
-    [Header("- Default Exposure")]
-    [SerializeField] private Sprite _profileImg;
-    [SerializeField] private string _name;
-    [SerializeField] private GenderSet _gender;
-    [SerializeField] private MbtiSet _mbti;
-    [SerializeField] private LivePlaceSet _livePlace;
-    [SerializeField] private string _introduceComment;
-
-    [Header("- Profile Details")]
-    [SerializeField] private Sprite _subProfile_1;
-    [SerializeField] private Sprite _subProfile_2;
-    [SerializeField] private Sprite _subProfile_3;
-
-    [Header("- Extra Details")]
-    [SerializeField] private InterestFlagSet _interestFlag;
-    [SerializeField] private VisualDataSet _visualData;
-
-
-    public string ServerName {  get { return _ServerName; } set { _ServerName = value; } }
-
-    public string UID { get { return _UID; } set { _UID = value; } }
-
-    public Sprite ProfileImg { get { return _profileImg; } set { _profileImg = value; } }
-
-    public string Name { get { return _name; } set { _name = value; } }
-
-    public GenderSet Gender { get { return _gender; } set { _gender = value; } }
-
-    public MbtiSet Mbti { get { return _mbti; } set { _mbti = value; } }
-
-    public LivePlaceSet LivePlace { get { return _livePlace; } set { _livePlace = value; } }
-
-    public string IntroduceComment { get { return _introduceComment; } set { _introduceComment = value; } }
-
-    public Sprite SubProfile_1 { get { return _subProfile_1; } set { _subProfile_1 = value; } }
-
-    public Sprite SubProfile_2 { get { return _subProfile_2; } set { _subProfile_2 = value; } }
-
-    public Sprite SubProfile_3 { get { return _subProfile_3; } set { _subProfile_3 = value; } }
-
-    public InterestFlagSet InterestFlag { get { return _interestFlag; } set { _interestFlag = value; } }
-
-    public VisualDataSet VisualData { get { return _visualData; } set { _visualData = value; } }
 }
 
 [Serializable]

@@ -12,7 +12,7 @@ public interface iManagningGUI<T>
 internal static class Expand_iManagningGUI
 {
     // 위 인터페이스 만족 시 할당 제거 등록 매크로
-    static public void SetObserving<TEnum,T>(this iManagingDataHandler<TEnum,T> _handler, TEnum _data, iManagningGUI<T> _gui, bool onInvoke = false)
+    static public void SetObserving<TEnum, T>(this iManagingDataHandler<TEnum, T> _handler, TEnum _data, iManagningGUI<T> _gui, bool onInvoke = false)
     {
         Action OnEnableAction = _gui.OnEnableAction;
         Action OnDisableAction = _gui.OnDisableAction;
@@ -21,11 +21,27 @@ internal static class Expand_iManagningGUI
         OnEnableAction += () => _handler.AddEvent(_data, Reaction);
         OnDisableAction += () => _handler.RemoveEvent(_data, Reaction);
 
-        DataEnum a = DataEnum.DiamondCoin;
+        if (onInvoke)
+        {
+            _handler.AddEvent(_data, Reaction);
+            Reaction?.Invoke(_handler.Get(_data));
+        }
+    }
 
-        _handler.AddEvent(_data, Reaction);
+    static public void SetObserving<T>(this ManagingData<T> _single, iManagningGUI<T> _gui, bool onInvoke = false)
+    {
+        Action OnEnableAction = _gui.OnEnableAction;
+        Action OnDisableAction = _gui.OnDisableAction;
+        Action<T> Reaction = _gui.Reaction;
+
+        OnEnableAction += () => { _single.onChange += (Reaction); };
+        OnDisableAction += () => { _single.onChange -= (Reaction); };
+
 
         if (onInvoke)
-            Reaction?.Invoke(_handler.Get(_data));
+        {
+            _single.onChange += (Reaction);
+            Reaction?.Invoke(_single.Data);
+        }
     }
 }

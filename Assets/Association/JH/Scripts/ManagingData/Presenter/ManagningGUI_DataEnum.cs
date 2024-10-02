@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 
 [Serializable]
-public class ManagningGUI_Sample : iManagningGUI<int>
+public class ManagningGUI_DataEnum : iManagningGUI<int>
 {
     // 특정변수 set() 발생 시, Event.invoke 되도록 대응시킴
 
