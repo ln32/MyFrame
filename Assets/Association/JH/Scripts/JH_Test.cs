@@ -28,6 +28,6 @@ public class JH_Test : MonoBehaviour
     [ContextMenu("SetSprite")]
     public void SetSprite()
     {
-        DataManager.instance._ProfileData._profileImg.Data = _sprite;
+        //Debug.Log(GradeSelector.GetRandomIndex_Sample() + " <<");
     }
 }
