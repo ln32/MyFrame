@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class Proto_Gacha : MonoBehaviour
 {
-    public List<ToggleCmdUnit> toggleList = new();
+    public List<CommandUnit> toggleList = new();
     private int currentIndex = -1;
 
     private void Update()
@@ -32,29 +32,5 @@ public class Proto_Gacha : MonoBehaviour
         }
 
         toggleList[currentIndex].InvokeFunc();
-    }
-}
-
-[Serializable]
-public class ToggleCmdUnit
-{
-    public List<GameObject> _goList;
-    public UnityEvent _event;
-
-    public void InvokeFunc()
-    {
-        _event?.Invoke();
-        foreach (var item in _goList)
-        {
-            item.SetActive(true);
-        }
-    }
-
-    public void SetActiveFalse_Func()
-    {
-        foreach (var item in _goList)
-        {
-            item.SetActive(false);
-        }
     }
 }
