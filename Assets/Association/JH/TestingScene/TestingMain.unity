@@ -1534,18 +1534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f398a45fb18d4234787eda1735496a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainUI:
-    <profile_Main>k__BackingField: {fileID: 0}
-    <currency_Main>k__BackingField: {fileID: 0}
-    <roundInfo_Main>k__BackingField: {fileID: 0}
-    <quick_Main>k__BackingField: {fileID: 0}
-    <skill_Main>k__BackingField: {fileID: 0}
-    <equipment_Main>k__BackingField: {fileID: 0}
-    <option_Main>k__BackingField: {fileID: 0}
-    <chat_Main>k__BackingField: {fileID: 0}
-    <gacha_Main>k__BackingField: {fileID: 0}
-    <mission_Main>k__BackingField: {fileID: 0}
-    <bottom_Main>k__BackingField: {fileID: 0}
+  view: {fileID: 0}
 --- !u!1 &717729470
 GameObject:
   m_ObjectHideFlags: 0
