@@ -15,9 +15,9 @@ public class PresentingGUI_ExecuteBtn : Editor
         EditorGUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
 
-        if (GUILayout.Button("Execute", GUILayout.Width(100), GUILayout.Height(20)))
+        if (GUILayout.Button("Refresh", GUILayout.Width(100), GUILayout.Height(20)))
         {
-            itemtrigger.ReFresh();
+            itemtrigger.Refresh();
         }
         GUILayout.FlexibleSpace();  // 고정된 여백을 넣습니다.
         EditorGUILayout.EndHorizontal();  // 가로 생성 끝

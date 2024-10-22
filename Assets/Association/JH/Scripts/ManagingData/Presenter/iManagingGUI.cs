@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 
 // 편의를 위한 인터페이스. Reaction - observing event / OnEnableAction - 할당 / OnDisableAction - 제거
@@ -20,6 +21,8 @@ internal static class Expand_iManagningGUI
 
         OnEnableAction += () => _handler.AddEvent(_data, Reaction);
         OnDisableAction += () => _handler.RemoveEvent(_data, Reaction);
+        
+
 
         if (onInvoke)
         {
