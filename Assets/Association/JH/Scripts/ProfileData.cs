@@ -5,7 +5,7 @@ using UnityEngine;
 
 internal class ProfileData
 {
-    internal ManagingData<Sprite> _profileImg = new();
+    internal ObservingData<Sprite> _profileImg = new();
 
 }
 

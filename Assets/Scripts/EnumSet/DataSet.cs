@@ -4,25 +4,25 @@ namespace DataSet
 {
     public class ProfileData
     {
-        ManagingData<string> ServerName { get; set; }
-        ManagingData<string> UID { get; set; }
+        ObservingData<string> ServerName { get; set; }
+        ObservingData<string> UID { get; set; }
 
-        ManagingData<Sprite> ProfileImg { get; set; }
-        ManagingData<string> Name { get; set; }
+        ObservingData<Sprite> ProfileImg { get; set; }
+        ObservingData<string> Name { get; set; }
 
-        ManagingData<GenderSet> Gender { get; set; }
-        ManagingData<MbtiSet> Mbti { get; set; }
-        ManagingData<LivePlaceSet> LivePlace { get; set; }
-        ManagingData<string> IntroduceComment { get; set; }
+        ObservingData<GenderSet> Gender { get; set; }
+        ObservingData<MbtiSet> Mbti { get; set; }
+        ObservingData<LivePlaceSet> LivePlace { get; set; }
+        ObservingData<string> IntroduceComment { get; set; }
 
 
-        ManagingData<Sprite> SubProfile_1 { get; set; }
-        ManagingData<Sprite> SubProfile_2 { get; set; }
-        ManagingData<Sprite> SubProfile_3 { get; set; }
+        ObservingData<Sprite> SubProfile_1 { get; set; }
+        ObservingData<Sprite> SubProfile_2 { get; set; }
+        ObservingData<Sprite> SubProfile_3 { get; set; }
 
-        ManagingData<InterestFlagSet> InterestFlag { get; set; }
+        ObservingData<InterestFlagSet> InterestFlag { get; set; }
 
-        ManagingData<VisualDataSet> VisualData { get; set; }
+        ObservingData<VisualDataSet> VisualData { get; set; }
     }
 
 
