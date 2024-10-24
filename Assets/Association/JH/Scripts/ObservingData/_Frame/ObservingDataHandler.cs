@@ -5,16 +5,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DataInitializer", menuName = "ScriptableObjects/DataInitializer", order = 1)]
 public class ObservingDataHandler : ScriptableObject, iDataHandler, iActionHandler
 {
+    // 최초 초기화 여부 bool
     [SerializeField] private bool isAwaked = false;
 
+    // 타입별 딕셔너리 1:1대응
+    [SerializeField] private Dictionary<Type, iDictionaryProvider> typeDictionaryMap = new();
+
+    // 타입별 변수명 데이터
     [SerializeField] List<string> InitNames_string = new();
     [SerializeField] List<string> InitNames_int = new();
     [SerializeField] List<string> InitNames_float = new();
     [SerializeField] List<string> InitNames_Sprite = new();
 
-    // 타입별 딕셔너리 관리
-    [SerializeField] private Dictionary<Type, iDictionaryProvider> typeDictionaryMap = new();
-
+    // 위 InitNames 데이터를 생성하는 함수. 아마 데이터 로드할 때 데이터마다 변수명 엮고 생성할 거 같음.
     public void AwakeFunc()
     {
         if (isAwaked == true)
@@ -51,7 +54,7 @@ public class ObservingDataHandler : ScriptableObject, iDataHandler, iActionHandl
         }
     }
 
-    ObservingData<T> GetObservingData<T>(string valueName)
+    private ObservingData<T> GetObservingData<T>(string valueName)
     {
         EnsureDictionaryExists<T>();
 
