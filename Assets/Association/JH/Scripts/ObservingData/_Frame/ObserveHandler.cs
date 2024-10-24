@@ -5,24 +5,21 @@ using UnityEngine;
 
 public interface iDictionaryProvider
 {
+    void AddData_withName(string name);
     ObservingData<T> GetData<T>(string key);
 }
 
 [Serializable]
 public class TypeDictionary<T> : iDictionaryProvider
 {
-    [SerializeField] private List<string> names = new();
     private Dictionary<string, ObservingData<T>> dataDictionary = new();
 
-    public TypeDictionary<T> InitComponent()
+    public void AddData_withName(string name)
     {
-        foreach (var item in names)
+        if (!dataDictionary.ContainsKey(name))
         {
-            if (!dataDictionary.ContainsKey(item))
-                dataDictionary[item] = new ObservingData<T>();
+            dataDictionary[name] = new ObservingData<T>();
         }
-
-        return this;
     }
 
     public ObservingData<T> GetData<T>(string key)

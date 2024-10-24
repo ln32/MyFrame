@@ -12,20 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b365682dae3af984ab55d67113fe0746, type: 3}
   m_Name: DataInitializer
   m_EditorClassIdentifier: 
-  values_string:
-    names:
-    - Name
-    - Job Name
-  values_int:
-    names:
-    - Level
-    - Exp
-    - Diamond
-    - Gold
-    - GachaTicket
-  values_float:
-    names: []
-  values_Sprite:
-    names: []
-  typeList:
-  - Profile
+  isAwaked: 0
+  InitNames_string:
+  - UserName
+  InitNames_int:
+  - Gold
+  - Diamond
+  InitNames_float:
+  - Float_1
+  InitNames_Sprite:
+  - Sprite_1

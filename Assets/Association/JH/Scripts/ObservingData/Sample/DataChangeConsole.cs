@@ -11,10 +11,6 @@ public class DataChangeConsole : MonoBehaviour
     public int value_int;
     public Sprite value_sprite;
 
-    private void Start()
-    {
-    }
-
     public void SetValue_string()
     {
         data.SetValue(valueName, value_str);

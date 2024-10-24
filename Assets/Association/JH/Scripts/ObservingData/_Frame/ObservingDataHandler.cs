@@ -2,71 +2,86 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 [CreateAssetMenu(fileName = "DataInitializer", menuName = "ScriptableObjects/DataInitializer", order = 1)]
-
 public class ObservingDataHandler : ScriptableObject, iDataHandler, iActionHandler
 {
-    [SerializeField] TypeDictionary<string> values_string= new();
-    [SerializeField] TypeDictionary<int> values_int= new();
-    [SerializeField] TypeDictionary<float> values_float = new();
-    [SerializeField] TypeDictionary<Sprite> values_Sprite = new();
+    [SerializeField] private bool isAwaked = false;
 
-    [Space(10)]
-    List<iDictionaryProvider> list = new List<iDictionaryProvider>();
+    [SerializeField] List<string> InitNames_string = new();
+    [SerializeField] List<string> InitNames_int = new();
+    [SerializeField] List<string> InitNames_float = new();
+    [SerializeField] List<string> InitNames_Sprite = new();
 
-    void Awake()
+    // 타입별 딕셔너리 관리
+    [SerializeField] private Dictionary<Type, iDictionaryProvider> typeDictionaryMap = new();
+
+    public void AwakeFunc()
     {
-        list.Clear();
-        list.Add(values_string.InitComponent());
-        list.Add(values_int.InitComponent());
-        list.Add(values_float.InitComponent());
-        list.Add(values_Sprite.InitComponent());
-    }
+        if (isAwaked == true)
+            return;
+        //isAwaked = true;
 
-    ObservingData<T> getObservingData<T>(string valueName)
-    {
-        try
+        _InitMacro<string>(InitNames_string);
+        _InitMacro<int>(InitNames_int);
+        _InitMacro<float>(InitNames_float);
+        _InitMacro<Sprite>(InitNames_Sprite);
+
+        void _InitMacro<T>(List<string> target)
         {
-            ObservingData<T> target = null;
-            foreach (var item in list)
+            if (!typeDictionaryMap.ContainsKey(typeof(T)))
             {
-                if (item.GetData<T>(valueName) != null)
-                {
-                    target = item.GetData<T>(valueName);
-                    break;
-                }
+                typeDictionaryMap[typeof(T)] = new TypeDictionary<T>();
             }
 
-            if (target == null)
-                throw new Exception("Null Execption");
-
-            return target;
+            for (int i = 0; i < target.Count; i++)
+            {
+                string valueName = target[i];
+                typeDictionaryMap[typeof(T)].AddData_withName(valueName);
+            }
         }
-        catch (Exception e)
+    }
+
+    // 딕셔너리 등록 및 초기화
+    private void EnsureDictionaryExists<T>()
+    {
+        var type = typeof(T);
+        if (!typeDictionaryMap.ContainsKey(type))
         {
-            Debug.Log(valueName + "(" + typeof(T).Name + ") - " + e);
-            throw;
+            typeDictionaryMap[type] = new TypeDictionary<T>();
+        }
+    }
+
+    ObservingData<T> GetObservingData<T>(string valueName)
+    {
+        EnsureDictionaryExists<T>();
+
+        if (typeDictionaryMap[typeof(T)] is TypeDictionary<T> typeDict)
+        {
+            var data = typeDict.GetData<T>(valueName);
+            if (data == null)
+                throw new Exception($"Value '{valueName}' of type {typeof(T).Name} not found");
+
+            return data;
         }
 
+        throw new Exception($"Dictionary for type {typeof(T).Name} not found");
     }
 
     public void SetValue<T>(string valueName, T value)
     {
-        ObservingData<T> target = getObservingData<T>(valueName);
+        var target = GetObservingData<T>(valueName);
         target.Data = value;
     }
 
     public T GetValue<T>(string valueName)
     {
-        ObservingData<T> target = getObservingData<T>(valueName);
+        var target = GetObservingData<T>(valueName);
         return target.Data;
     }
 
     public void AddAction<T>(string valueName, Action<T> reactAction, bool updateData = false)
     {
-        ObservingData<T> target = getObservingData<T>(valueName);
+        var target = GetObservingData<T>(valueName);
         target.onChange += reactAction;
 
         if (updateData)
@@ -75,7 +90,7 @@ public class ObservingDataHandler : ScriptableObject, iDataHandler, iActionHandl
 
     public void RemoveAction<T>(string valueName, Action<T> reactAction)
     {
-        ObservingData<T> target = getObservingData<T>(valueName);
+        var target = GetObservingData<T>(valueName);
         target.onChange -= reactAction;
     }
 }
@@ -89,6 +104,5 @@ public interface iDataHandler
 public interface iActionHandler
 {
     void AddAction<T>(string ValueName, Action<T> reactAction, bool updateData = false);
-
     void RemoveAction<T>(string ValueName, Action<T> reactAction);
 }
