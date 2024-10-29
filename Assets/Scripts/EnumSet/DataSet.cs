@@ -1,51 +1,47 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace DataSet
 {
-    public class ProfileData
+    [Serializable]
+    public class DataTypePairing<T, TEnum> where TEnum : Enum
     {
-        ObservingData<string> ServerName { get; set; }
-        ObservingData<string> UID { get; set; }
+        public string PairingName { get; set; }
+        public Type ParingType{ get; set; } = typeof(T);
+        [SerializeField] public List<string> DataNameList;
 
-        ObservingData<Sprite> ProfileImg { get; set; }
-        ObservingData<string> Name { get; set; }
-
-        ObservingData<GenderSet> Gender { get; set; }
-        ObservingData<MbtiSet> Mbti { get; set; }
-        ObservingData<LivePlaceSet> LivePlace { get; set; }
-        ObservingData<string> IntroduceComment { get; set; }
-
-
-        ObservingData<Sprite> SubProfile_1 { get; set; }
-        ObservingData<Sprite> SubProfile_2 { get; set; }
-        ObservingData<Sprite> SubProfile_3 { get; set; }
-
-        ObservingData<InterestFlagSet> InterestFlag { get; set; }
-
-        ObservingData<VisualDataSet> VisualData { get; set; }
+        public DataTypePairing(){
+            DataNameList = new();
+            foreach (TEnum weapon in Enum.GetValues(typeof(TEnum)))
+            {
+                DataNameList.Add(weapon.ToString());
+            }
+        }
     }
 
-
-    // int 이벤트성(탈것 신물 스킨.. )
-    public enum PlayerGrowth
+    static public class DataTypePairingFunc
     {
-        ExpriencePoint,
-        CharPoint,
-        SkillPoint
-    }
+        static public void RemoveAction<T, TEnum>(this DataTypePairing<T, TEnum> category, TEnum valueName, Action<T> action) where TEnum : Enum
+        {
+            DataManager.instance.RemoveAction(valueName.ToString(), action);
+        }
 
-    public enum VisualType
-    {
-        BaseCostume,
-        BaseJob,
-        BaseColor,
-        WeaponType,
-        DecorHair,
-        DecorFace,
-        PersonalityTitle,
-        PersonalityFrame,
-        PersonalityBubble,
-        MiscMount,
-        Costume
+        static public void AddAction<T, TEnum>(this DataTypePairing<T, TEnum> category, TEnum valueName, Action<T> action,bool isUpdate = false) where TEnum : Enum
+        {
+            DataManager.instance.AddAction(valueName.ToString(), action, isUpdate);
+        }
+
+
+        static public T GetValue<T, TEnum>(this DataTypePairing<T, TEnum> category, TEnum valueName) where TEnum : Enum
+        {
+            return DataManager.instance.GetValue<T>(valueName.ToString());
+        }
+
+        static public void SetValue<T, TEnum>(this DataTypePairing<T, TEnum> category, TEnum valueName, T value) where TEnum : Enum
+        {
+            DataManager.instance.SetValue(valueName.ToString(), value);
+        }
     }
 }

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8465702890096625420}
-  - component: {fileID: 3969021971826405651}
+  - component: {fileID: 7007894201166403600}
   m_Layer: 0
   m_Name: DataManager
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3969021971826405651
+--- !u!114 &7007894201166403600
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,6 +41,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 1668666800618708483}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bb2592524e0410408312d6bdde44ee3, type: 3}
+  m_Script: {fileID: 11500000, guid: 64dfb25b63a2a8749857b58313875ff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 254987a7062f6f04c98937ebb58c9cfa, type: 2}
+  Currency:
+    DataNameList:
+    - GoldCoin
+    - RubiCoin
+    - DiamondCoin
+    - EquipGachaTicket
+    - PetGachaTicket
+    - SkillGachaTicket
+    - PickupGachaTicket
+    - ExperiencePoint
+    - AttributePoint
+    - SkillPoint
+    - ContentPoint01
+    - CratfMaterial01
+    - AlchemyMaterial01
+  UserProfile:
+    DataNameList:
+    - UserName
+    - Sexual
+    - Mbti
+    - LivePlace
+    - InterestFlag

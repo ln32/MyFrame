@@ -1,5 +1,5 @@
 
-public enum DataEnum
+public enum CurrencyData
 {
     GoldCoin = 1,
     RubiCoin = 2,

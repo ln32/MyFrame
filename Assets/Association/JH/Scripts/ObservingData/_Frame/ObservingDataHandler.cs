@@ -1,46 +1,31 @@
+using DataSet;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [CreateAssetMenu(fileName = "DataInitializer", menuName = "ScriptableObjects/DataInitializer", order = 1)]
 public class ObservingDataHandler : ScriptableObject, iDataHandler, iActionHandler
 {
-    // 최초 초기화 여부 bool
-    [SerializeField] private bool isAwaked = false;
 
     // 타입별 딕셔너리 1:1대응
     [SerializeField] private Dictionary<Type, iDictionaryProvider> typeDictionaryMap = new();
 
-    // 타입별 변수명 데이터
-    [SerializeField] List<string> InitNames_string = new();
-    [SerializeField] List<string> InitNames_int = new();
-    [SerializeField] List<string> InitNames_float = new();
-    [SerializeField] List<string> InitNames_Sprite = new();
 
     // 위 InitNames 데이터를 생성하는 함수. 아마 데이터 로드할 때 데이터마다 변수명 엮고 생성할 거 같음.
-    public void AwakeFunc()
+
+    public void AwakeFunc<T, TEnum>(DataTypePairing<T, TEnum> PairObj) where TEnum : Enum
     {
-        if (isAwaked == true)
-            return;
-        //isAwaked = true;
-
-        _InitMacro<string>(InitNames_string);
-        _InitMacro<int>(InitNames_int);
-        _InitMacro<float>(InitNames_float);
-        _InitMacro<Sprite>(InitNames_Sprite);
-
-        void _InitMacro<T>(List<string> target)
+        List<string> target = PairObj.DataNameList;
+        if (!typeDictionaryMap.ContainsKey(typeof(T)))
         {
-            if (!typeDictionaryMap.ContainsKey(typeof(T)))
-            {
-                typeDictionaryMap[typeof(T)] = new TypeDictionary<T>();
-            }
+            typeDictionaryMap[typeof(T)] = new TypeDictionary<T>();
+        }
 
-            for (int i = 0; i < target.Count; i++)
-            {
-                string valueName = target[i];
-                typeDictionaryMap[typeof(T)].AddData_withName(valueName);
-            }
+        for (int i = 0; i < target.Count; i++)
+        {
+            string valueName = target[i];
+            typeDictionaryMap[typeof(T)].AddData_withName(valueName);
         }
     }
 
