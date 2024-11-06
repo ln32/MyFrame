@@ -29,6 +29,17 @@ public class ObservingDataHandler : ScriptableObject, iDataHandler, iActionHandl
         }
     }
 
+    public void AwakeFunc<T>(string dataName)
+    {
+        if (!typeDictionaryMap.ContainsKey(typeof(T)))
+        {
+            typeDictionaryMap[typeof(T)] = new TypeDictionary<T>();
+        }
+
+        string valueName = dataName;
+        typeDictionaryMap[typeof(T)].AddData_withName(valueName);
+    }
+
     // 딕셔너리 등록 및 초기화
     private void EnsureDictionaryExists<T>()
     {

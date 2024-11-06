@@ -17,16 +17,16 @@ public class Sample_Presenter : MonoBehaviour
     }
     private void OnEnable()
     {
-        actionController.UserProfile.AddAction(UserProfileData.UserName, reactGUI.ReactFunc_UserNameSample, true);
-        actionController.Currency.AddAction(CurrencyData.GoldCoin, reactGUI.ReactFunc_GoldSample, true);
-        actionController.Currency.AddAction(CurrencyData.DiamondCoin, reactGUI.ReactFunc_DiaSample, true);
+        actionController.STRING_UserProfile.AddAction(UserProfileData.UserName, reactGUI.ReactFunc_UserNameSample, true);
+        actionController.INT_Currency.AddAction(CurrencyData.GoldCoin, reactGUI.ReactFunc_GoldSample, true);
+        actionController.INT_Currency.AddAction(CurrencyData.DiamondCoin, reactGUI.ReactFunc_DiaSample, true);
     }
 
     // 리스너 할당 해제 
     private void OnDisable()
     {
-        actionController?.UserProfile.RemoveAction(UserProfileData.UserName, reactGUI.ReactFunc_UserNameSample);
-        actionController?.Currency.RemoveAction(CurrencyData.GoldCoin, reactGUI.ReactFunc_GoldSample);
-        actionController?.Currency.RemoveAction(CurrencyData.DiamondCoin, reactGUI.ReactFunc_DiaSample);
+        actionController?.STRING_UserProfile.RemoveAction(UserProfileData.UserName, reactGUI.ReactFunc_UserNameSample);
+        actionController?.INT_Currency.RemoveAction(CurrencyData.GoldCoin, reactGUI.ReactFunc_GoldSample);
+        actionController?.INT_Currency.RemoveAction(CurrencyData.DiamondCoin, reactGUI.ReactFunc_DiaSample);
     }
 }
