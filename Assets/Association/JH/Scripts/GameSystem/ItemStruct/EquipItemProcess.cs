@@ -4,7 +4,7 @@ using UnityEngine.Rendering;
 
 public static class EquipItemProcess
 {
-    public static Item EquipItem(MainCharacter basePlatform, IEquipable item)
+    public static Item EquipItem(MainGameCharacter basePlatform, IEquipable item)
     {
         Item oldItem = null;
         EquipPart equipPart = item.EquipPart;
@@ -25,8 +25,6 @@ public static class EquipItemProcess
                 equips.Remove(equipPart);
                 (oldItem as IEquipable).ApplyUnequipSpec(EquipItemPlatform);
             }
-
-
 
             if (target != null)
                 equips.Add(equipPart, target);

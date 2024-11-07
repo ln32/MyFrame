@@ -5,7 +5,7 @@ using UnityEngine;
 
 public interface IRule
 {
-    bool IsAllowed(MainCharacter character, IEquipable item);
+    bool IsAllowed(MainGameCharacter character, IEquipable item);
 }
 
 
@@ -20,7 +20,7 @@ namespace RestrictionRules
             requiredLevel = level;
         }
 
-        public bool IsAllowed(MainCharacter character, IEquipable item)
+        public bool IsAllowed(MainGameCharacter character, IEquipable item)
         {
             if (character.Level >= requiredLevel)
                 return true;
@@ -40,7 +40,7 @@ namespace RestrictionRules
             requiredClasses = _requiredClasses.ToList();
         }
 
-        public bool IsAllowed(MainCharacter character, IEquipable item)
+        public bool IsAllowed(MainGameCharacter character, IEquipable item)
         {
             if (requiredClasses.Any(requiredClass => requiredClass == character.BattleClass.GetType()))
                 return true;

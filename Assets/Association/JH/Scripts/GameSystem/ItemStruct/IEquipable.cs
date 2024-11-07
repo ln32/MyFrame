@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Rendering;
-using UnityEngine.TextCore.Text;
 
 public interface IEquipable
 {
@@ -11,7 +10,7 @@ public interface IEquipable
     public EquipPart EquipPart { get; }
 
 
-    public bool CanEquip(MainCharacter character)
+    public bool CanEquip(MainGameCharacter character)
     {
         return RestrictionRules.All(rule => rule.IsAllowed(character, this));
     }

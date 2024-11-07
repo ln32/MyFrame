@@ -1,15 +1,40 @@
-using DataSet;
 using System;
 using System.Collections.Generic;
+using DataSet;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 [CreateAssetMenu(fileName = "DataInitializer", menuName = "ScriptableObjects/DataInitializer", order = 1)]
 public class ObservingDataHandler : ScriptableObject, iDataHandler, iActionHandler
 {
-
     // 타입별 딕셔너리 1:1대응
     [SerializeField] private Dictionary<Type, iDictionaryProvider> typeDictionaryMap = new();
+
+    public void AddAction<T>(string valueName, Action<T> reactAction, bool updateData = false)
+    {
+        var target = GetObservingData<T>(valueName);
+        target.onChange += reactAction;
+
+        if (updateData)
+            reactAction(target.Data);
+    }
+
+    public void RemoveAction<T>(string valueName, Action<T> reactAction)
+    {
+        var target = GetObservingData<T>(valueName);
+        target.onChange -= reactAction;
+    }
+
+    public void SetValue<T>(string valueName, T value)
+    {
+        var target = GetObservingData<T>(valueName);
+        target.Data = value;
+    }
+
+    public T GetValue<T>(string valueName)
+    {
+        var target = GetObservingData<T>(valueName);
+        return target.Data;
+    }
 
 
     // 위 InitNames 데이터를 생성하는 함수. 아마 데이터 로드할 때 데이터마다 변수명 엮고 생성할 거 같음.
@@ -29,7 +54,7 @@ public class ObservingDataHandler : ScriptableObject, iDataHandler, iActionHandl
         }
     }
 
-    public void AwakeFunc<T>(string dataName)
+    public void InitValue<T>(string dataName)
     {
         if (!typeDictionaryMap.ContainsKey(typeof(T)))
         {
@@ -64,33 +89,6 @@ public class ObservingDataHandler : ScriptableObject, iDataHandler, iActionHandl
         }
 
         throw new Exception($"Dictionary for type {typeof(T).Name} not found");
-    }
-
-    public void SetValue<T>(string valueName, T value)
-    {
-        var target = GetObservingData<T>(valueName);
-        target.Data = value;
-    }
-
-    public T GetValue<T>(string valueName)
-    {
-        var target = GetObservingData<T>(valueName);
-        return target.Data;
-    }
-
-    public void AddAction<T>(string valueName, Action<T> reactAction, bool updateData = false)
-    {
-        var target = GetObservingData<T>(valueName);
-        target.onChange += reactAction;
-
-        if (updateData)
-            reactAction(target.Data);
-    }
-
-    public void RemoveAction<T>(string valueName, Action<T> reactAction)
-    {
-        var target = GetObservingData<T>(valueName);
-        target.onChange -= reactAction;
     }
 }
 
