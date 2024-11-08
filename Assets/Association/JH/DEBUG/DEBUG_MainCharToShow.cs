@@ -1,7 +1,4 @@
 using Sirenix.OdinInspector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -13,11 +10,17 @@ public class DEBUG_MainCharToShow : MonoBehaviour
     public SerializedDictionary<EquipPart, Item> equipItems;
 
     [Button]
-    void InitFunc()
+    public void InitFunc()
     {
+        mc.Start();
         toshow = mc.Level + " / " + (mc.BattleClass).GetType().Name;
-        equipItems = mc.EquipItemPlatform.equipItems;
+        foreach (var item in equipItems)
+        {
+            if (mc.EquipItemPlatform.equipItems.ContainsKey(item.Key))
+                equipItems[item.Key] = mc.EquipItemPlatform.equipItems[item.Key];
+            else
+                equipItems.Remove(item.Key);
+        }
+
     }
-
-
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -8,7 +9,7 @@ public static class EquipItemProcess
     {
         Item oldItem = null;
         EquipPart equipPart = item.EquipPart;
-        SerializedDictionary<EquipPart, Item> equips = basePlatform.EquipItemPlatform.equipItems;
+        Dictionary<EquipPart, Item> equips = basePlatform.EquipItemPlatform.equipItems;
         IBattlePropertyComposition EquipItemPlatform = basePlatform.EquipItemPlatform;
 
         try

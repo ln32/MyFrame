@@ -81,7 +81,7 @@ public class ObservingDataHandler : ScriptableObject, iDataHandler, iActionHandl
 
         if (typeDictionaryMap[typeof(T)] is TypeDictionary<T> typeDict)
         {
-            var data = typeDict.GetData<T>(valueName);
+            var data = typeDict.GetData(valueName);
             if (data == null)
                 throw new Exception($"Value '{valueName}' of type {typeof(T).Name} not found");
 

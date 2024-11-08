@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 public interface IEquipable
 {
     public string Name { get; }
-    public SerializedDictionary<string, int> properties { get; }
+    public Dictionary<string, int> properties { get; }
     public List<IRule> RestrictionRules { get; }
     public EquipPart EquipPart { get; }
 

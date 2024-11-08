@@ -10,10 +10,10 @@ public class Item : IEquipable
     public EquipPart EquipPart { get; set; }
 
     [SerializeField]
-    public SerializedDictionary<string, int> properties { get; } = new();
+    public Dictionary<string, int> properties { get; } = new();
 
     [SerializeField]
-    public SerializedDictionary<string, OptionHistory> history { get; } = new();
+    public Dictionary<string, OptionHistory> history { get; } = new();
 
   
 
