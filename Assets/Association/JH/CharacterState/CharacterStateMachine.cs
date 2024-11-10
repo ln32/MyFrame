@@ -5,6 +5,7 @@ public class CharacterStateMachine : StateMachine
 {
     public CharacterStateMachine(IState state)
     {
+
         SetCurrentState(state);
     }
 
