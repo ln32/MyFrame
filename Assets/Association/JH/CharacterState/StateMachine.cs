@@ -24,6 +24,7 @@ namespace DesignPatterns.StateMachines
             if (state == null)
                 throw new ArgumentNullException(nameof(state));
 
+
             if (CurrentState != null && m_CurrentPlayCoroutine != null) 
             {
                 //interrupt currently executing state
@@ -31,7 +32,6 @@ namespace DesignPatterns.StateMachines
             }
             
             CurrentState = state;
-            
             Coroutines.StartCoroutine(Play());
         }
 
@@ -105,7 +105,8 @@ namespace DesignPatterns.StateMachines
         {
             if (m_LoopCoroutine == null) //already stopped
                 return;
-            
+
+            Debug.Log((CurrentState != null) + " / " + (m_CurrentPlayCoroutine == null));
             if (CurrentState != null && m_CurrentPlayCoroutine != null) 
             {
                 //interrupt currently executing state
@@ -127,6 +128,7 @@ namespace DesignPatterns.StateMachines
             {
                 if (CurrentState != null && m_CurrentPlayCoroutine == null) //current state is done playing
                 {
+                    CurrentState.Exit();
                     if (CurrentState.ValidateLinks(out var nextState))
                     {
                         if (m_PlayLock)
@@ -187,5 +189,28 @@ public static class Coroutines
             s_CoroutineRunner.StopCoroutine(coroutine);
             coroutine = null;
         }
+    }
+}
+
+public class ActionPointer
+{
+    private Action Action { get; set; }
+        
+    public ActionPointer(ref Action _Action)
+    {
+        _Action += () => { Action?.Invoke(); };
+    }
+
+    public void AddAction(Action target)
+    {
+        Action += target;
+    }
+
+    public void RemoveAction(Action target)
+    {
+        Action -= target;
+        Action -= () => { Action?.Invoke(); };  // 덧붙여진 델리게이트를 명시적으로 제거
+        Action = null;  // Action 참조를 null로 설정하여 GC가 참조를 끊을 수 있게 함
+
     }
 }

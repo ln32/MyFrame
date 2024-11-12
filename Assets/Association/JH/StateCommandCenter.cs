@@ -1,9 +1,12 @@
 using DesignPatterns.StateMachines;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.UIElements;
+using static UnityEditor.Rendering.InspectorCurveEditor;
 
 public class StateCommandCenter : MonoBehaviour
 {
@@ -73,23 +76,51 @@ public class StateCommandCenter : MonoBehaviour
     /// </summary>
     private void SetStates()
     {
-        CurrState = new State(null, "MainMenuState", m_Debug);
         // Menu states (optional names added for debugging)
-        m_MainMenuState = CurrState;
-        m_SolidMenuState = new State(null, "SolidMenuState", m_Debug);
-        m_DesignPatternMenuState = new State(null, "DesignPatternsMenuState", m_Debug);
-        m_ResourcesMenuState = new State(null, "ResourcesMenuState", m_Debug);
+        m_MainMenuState = new State(null,"m_MainMenuState",true);
+        m_SolidMenuState = new State(null, "m_SolidMenuState", true);
+        m_DesignPatternMenuState = new State(null, "m_DesignPatternMenuState", true);
+        m_ResourcesMenuState = new State(null, "m_ResourcesMenuState", true);
     }
 
+    Action act0;
+    Action act1;
+    Action act2;
+    ActionPointer actionPointer;
     /// <summary>
     /// This defines how the different states can transition to other states.
     /// </summary>
     private void AddLinks()
     {
-        // Transition from main menu to submenu states
-        m_MainMenuState.AddLink(new EventLink(new ActionWrapper("m_SolidMenuState"), m_SolidMenuState));
-        m_MainMenuState.AddLink(new EventLink(new ActionWrapper("m_DesignPatternMenuState"), m_DesignPatternMenuState));
-        m_MainMenuState.AddLink(new EventLink(new ActionWrapper("m_ResourcesMenuState"), m_ResourcesMenuState));
+        act0 = PrintFunc;
+        act1 = new Action(() => { Debug.Log("act1"); });
+        act2 = new Action(() => { Debug.Log("act2"); });
 
+        // Transition from main menu to submenu states
+        m_MainMenuState.AddLink(new EventLink(new ActionWrapper(ref act0), m_SolidMenuState));
+        m_SolidMenuState.AddLink(new EventLink(new ActionWrapper(ref act1), m_DesignPatternMenuState));
+        m_DesignPatternMenuState.AddLink(new EventLink(new ActionWrapper(ref act2), m_MainMenuState));
+    }
+    
+    void PrintFunc()
+    {
+        Debug.Log("act0");
+    }
+
+    [Button]
+    public void Setact0()
+    {
+        act0.Invoke();
+    }
+
+    [Button]
+    public void Setact1()
+    {
+        act1.Invoke();
+    }
+    [Button]
+    public void Setact2()
+    {
+        act2.Invoke();
     }
 }

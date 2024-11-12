@@ -33,6 +33,7 @@ namespace DesignPatterns.StateMachines
         // Called when entering the state
         public virtual void Exit()
         {
+            LogCurrentState();
         }
 
         public virtual void AddLink(ILink link)
@@ -60,12 +61,12 @@ namespace DesignPatterns.StateMachines
         // Returns true if a valid transition is found.
         public virtual bool ValidateLinks(out IState nextState)
         {
-
             if (m_Links != null && m_Links.Count > 0)
             {
                 foreach (var link in m_Links)
                 {
                     var result = link.Validate(out nextState);
+                    Debug.Log(result);
                     if (result)
                     {
                         return true;
@@ -102,7 +103,6 @@ namespace DesignPatterns.StateMachines
                 message = message.Substring(0, 100);
                 Debug.Log(message);
             }
-                
         }
     }
 }

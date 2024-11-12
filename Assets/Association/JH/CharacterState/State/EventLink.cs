@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
 namespace DesignPatterns.StateMachines
@@ -12,12 +13,14 @@ namespace DesignPatterns.StateMachines
     {
         public Action<Action> Subscribe { get; set; }
         public Action<Action> Unsubscribe { get; set; }
-
-        public ActionWrapper(string msg) {
-            Subscribe = (Action a) => { Debug.Log("SC : " + msg); a?.Invoke(); };
-            Unsubscribe = (Action a) => { Debug.Log("Un : " + msg); a?.Invoke(); };
+        public ActionWrapper(ref Action act0)
+        {
+            ActionPointer actionPointer = new ActionPointer(ref act0);
+            Subscribe += (Action enableFlag) => { actionPointer.AddAction(enableFlag); };
+            Unsubscribe += (Action enableFlag) => { actionPointer.RemoveAction(enableFlag); };
         }
     }
+
 
     /// <summary>
     /// A link that listens for a specific event and becomes open for transition if the event is raised.
@@ -36,8 +39,8 @@ namespace DesignPatterns.StateMachines
 
         public EventLink(ActionWrapper eventActionWrapper, IState nextState)
         {
-            m_NextState = nextState;
             m_ActionWrapper = eventActionWrapper;
+            m_NextState = nextState;
         }
 
         public bool Validate(out IState nextState)
@@ -48,11 +51,13 @@ namespace DesignPatterns.StateMachines
 
         public void OnEventRaised()
         {
+            Debug.Log("YES");
             m_EventRaised = true;
         }
 
         public void Enable()
         {
+            Debug.Log("Enable");
             m_ActionWrapper.Subscribe(OnEventRaised);
             m_EventRaised = false;
         }
