@@ -209,8 +209,11 @@ public class ActionPointer
     public void RemoveAction(Action target)
     {
         Action -= target;
-        Action -= () => { Action?.Invoke(); };  // 덧붙여진 델리게이트를 명시적으로 제거
-        Action = null;  // Action 참조를 null로 설정하여 GC가 참조를 끊을 수 있게 함
-
+        Action -= () => { Action?.Invoke(); };
+        Action = null;
+    }
+    public void Invoke()
+    {
+        Action?.Invoke();
     }
 }

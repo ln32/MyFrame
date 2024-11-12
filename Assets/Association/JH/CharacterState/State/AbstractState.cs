@@ -66,7 +66,6 @@ namespace DesignPatterns.StateMachines
                 foreach (var link in m_Links)
                 {
                     var result = link.Validate(out nextState);
-                    Debug.Log(result);
                     if (result)
                     {
                         return true;

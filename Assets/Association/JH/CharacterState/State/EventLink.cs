@@ -13,9 +13,9 @@ namespace DesignPatterns.StateMachines
     {
         public Action<Action> Subscribe { get; set; }
         public Action<Action> Unsubscribe { get; set; }
-        public ActionWrapper(ref Action act0)
+        public ActionWrapper(ref Action targetAction)
         {
-            ActionPointer actionPointer = new ActionPointer(ref act0);
+            ActionPointer actionPointer = new ActionPointer(ref targetAction);
             Subscribe += (Action enableFlag) => { actionPointer.AddAction(enableFlag); };
             Unsubscribe += (Action enableFlag) => { actionPointer.RemoveAction(enableFlag); };
         }
@@ -51,13 +51,11 @@ namespace DesignPatterns.StateMachines
 
         public void OnEventRaised()
         {
-            Debug.Log("YES");
             m_EventRaised = true;
         }
 
         public void Enable()
         {
-            Debug.Log("Enable");
             m_ActionWrapper.Subscribe(OnEventRaised);
             m_EventRaised = false;
         }
