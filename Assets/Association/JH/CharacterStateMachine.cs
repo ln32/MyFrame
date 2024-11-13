@@ -6,12 +6,8 @@ using UnityEngine.UIElements;
 
 public class CharacterStateMachine : MonoBehaviour
 {
-    public AnimationProcessor processor;
-
-    // Inspector fields
-    [Header("Preload (Splash Screen)")]
-    [Tooltip("Prefab assets that load first. These can include level management Prefabs or textures, sounds, etc.")]
-    [SerializeField] GameObject[] m_PreloadedAssets;  // Required assets to load before the GameStateManager sets up states
+    public AnimationProcessor _AnimationProcessor;
+    public CharacterStateMachineBinder AnimationProcessor { get; set; }
 
     [Space(10)]
     [Tooltip("Debug state changes in the console")]
@@ -38,8 +34,8 @@ public class CharacterStateMachine : MonoBehaviour
 
     private void Start()
     {
+        AnimationProcessor = _AnimationProcessor;
         Initialize();
-        
     }
 
     [Button]
@@ -47,9 +43,6 @@ public class CharacterStateMachine : MonoBehaviour
     {
         // Set up the coroutines helper for non-MonoBehaviours
         Coroutines.Initialize(this);
-
-        // Load any assets or prefabs required to start the game
-        InstantiatePreloadedAssets();
 
         // Define the Game States
         SetStates();
@@ -64,17 +57,7 @@ public class CharacterStateMachine : MonoBehaviour
     {
         // Start with the main menu scene
         m_StateMachine.Run(IdleState);
-    }
-
-    // Use this to preload any assets. This is an opportunity to load any prefabs (with textures, models, etc.) 
-    // in advance to avoid loading during gameplay 
-    private void InstantiatePreloadedAssets()
-    {
-        foreach (var asset in m_PreloadedAssets)
-        {
-            if (asset != null)
-                Instantiate(asset);
-        }
+        AnimationProcessor = _AnimationProcessor ;
     }
 
     /// <summary>
@@ -83,11 +66,11 @@ public class CharacterStateMachine : MonoBehaviour
     private void SetStates()
     {
         // Menu states (optional names added for debugging)
-        IdleState = new State(IdleStateFunc, "Idle",true);
-        AttackState = new State(AttackStateFunc, "Attack", true);
-        DamagedState = new State(DamagedStateFunc, "OnDamaged", true);
-        MoveState = new State(MoveStateFunc, "Move", true);
-        DeadState = new State(DeadStateFunc, "Dead", true);
+        IdleState = new State(IdleStateFunc, "Idle");
+        AttackState = new State(AttackStateFunc, "Attack");
+        DamagedState = new State(DamagedStateFunc, "OnDamaged");
+        MoveState = new State(MoveStateFunc, "Move");
+        DeadState = new State(DeadStateFunc, "Dead");
     }
 
     /// <summary>
@@ -111,51 +94,52 @@ public class CharacterStateMachine : MonoBehaviour
         MoveState.AddLink(new EventLink(new ActionWrapper(ref TimeToIdle), IdleState));
     }
 
-
-    public int CaseIndex;
     [Button]
-    public void Setact0()
+    public void Event_Attack()
     {
-        switch (CaseIndex)
-        {
-            case 1:
-                OnAttack.Invoke();
-                break;
-            case 2:
-                OnDamaged.Invoke();
-                break;
-            case 3:
-                OnMove.Invoke();
-                break;
-            case 4:
-                TimeToIdle.Invoke();
-                break;
-            default: break;
-        }
+        OnAttack.Invoke();
+    }
+
+    [Button]
+    public void Event_Damaged()
+    {
+        OnDamaged.Invoke();
+    }
+
+    [Button]
+    public void Event_Move()
+    {
+        OnMove.Invoke();
+    }
+
+    [Button]
+    public void Event_TimeToIdle()
+    {
+        AnimationProcessor.IdleAnimation();
     }
 
     public void IdleStateFunc()
     {
-        Debug.Log("IdleStateFunc");
+        AnimationProcessor.MoveAnimation();
     }
 
     public void AttackStateFunc()
     {
-        processor.StartTimeAction(1f, TimeToIdle);
+        AnimationProcessor.AttackAnimation(TimeToIdle);
     }
 
     public void DamagedStateFunc()
     {
-        processor.StartTimeAction(3f, TimeToIdle);
+        AnimationProcessor.DamagedAnimation(TimeToIdle);
     }
 
     public void MoveStateFunc()
     {
-        Debug.Log("MoveStateFunc");
+        AnimationProcessor.MoveAnimation();
     }
 
     public void DeadStateFunc()
     {
-        Debug.Log("DeadStateFunc");
+        AnimationProcessor.DeadAnimation(()=>Debug.Log("I am dead"));
     }
 }

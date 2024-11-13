@@ -16,13 +16,13 @@ namespace DesignPatterns.StateMachines
         /// <param name="onExecute">An event that is invoked when the state is executed</param>
         ///
         // Constructor takes delegate to execute and optional name (for debugging)
-        public State(Action onExecute, string stateName = nameof(State), bool enableDebug = true)
+        public State(Action onExecute, string stateName = nameof(State))
         {
             m_OnExecute = onExecute;
             Name = stateName;
 
             // Log the state changes in the console
-            DebugEnabled = enableDebug;
+            DebugEnabled = true;
         }
 
         public override IEnumerator Execute()

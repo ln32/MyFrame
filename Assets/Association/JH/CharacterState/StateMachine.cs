@@ -128,7 +128,6 @@ namespace DesignPatterns.StateMachines
             {
                 if (CurrentState != null && m_CurrentPlayCoroutine == null) //current state is done playing
                 {
-                    CurrentState.Exit();
                     if (CurrentState.ValidateLinks(out var nextState))
                     {
                         if (m_PlayLock)

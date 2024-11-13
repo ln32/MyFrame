@@ -33,7 +33,6 @@ namespace DesignPatterns.StateMachines
         // Called when entering the state
         public virtual void Exit()
         {
-            LogCurrentState();
         }
 
         public virtual void AddLink(ILink link)
