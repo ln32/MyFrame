@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static DG.Tweening.DOTweenAnimation;
 
-public class AnimationProcessor : MonoBehaviour, CharacterStateMachineBinder
+public class TempAnimationProcessor : MonoBehaviour, CharacterStateMachineBinder
 {
     IEnumerator CurrAnimation;
     public void AttackAnimation(Action callback)
@@ -15,7 +15,7 @@ public class AnimationProcessor : MonoBehaviour, CharacterStateMachineBinder
             CurrAnimation = null;
         }
 
-        CurrAnimation = DebugRoutine("AttackAnimation",0.5f, callback);
+        CurrAnimation = DebugRoutine("AttackAnimation",1f, callback);
         StartCoroutine(CurrAnimation);
     }
 
@@ -27,7 +27,7 @@ public class AnimationProcessor : MonoBehaviour, CharacterStateMachineBinder
             CurrAnimation = null;
         }
 
-        CurrAnimation = DebugRoutine("DamagedAnimation", 1.0f, callback);
+        CurrAnimation = DebugRoutine("DamagedAnimation", 0.5f, callback);
         StartCoroutine(CurrAnimation);
     }
 
@@ -39,7 +39,7 @@ public class AnimationProcessor : MonoBehaviour, CharacterStateMachineBinder
             CurrAnimation = null;
         }
 
-        CurrAnimation = DebugRoutine("DeadAnimation", 2f, callback);
+        CurrAnimation = DebugRoutine("DeadAnimation", 1f, callback);
         StartCoroutine(CurrAnimation);
     }
 
@@ -72,20 +72,20 @@ public class AnimationProcessor : MonoBehaviour, CharacterStateMachineBinder
                 break;
 
             Debug.Log($"State : {animation}");
-            yield return null;
+            yield return new WaitForSeconds(0.2f);
         }
     }
 
     private IEnumerator DebugRoutine(string animation, float time, Action action)
     {
         float elapsedTime = 0f;
-
+        float startTime = Time.time;
         while (elapsedTime < time)
         {
-            elapsedTime += Time.deltaTime;
+            elapsedTime = Time.time - startTime;
             float progress = Mathf.Clamp01(elapsedTime / time) * 100; // 퍼센트 계산
-            Debug.Log($"{animation} : {progress:F2}%");
-            yield return null;
+            Debug.Log($"{animation} : {progress:F1}%");
+            yield return new WaitForSeconds(0.25f);
         }
 
         action?.Invoke();

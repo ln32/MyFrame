@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,16 +9,21 @@ namespace DesignPatterns.StateMachines
     /// </summary>
     public abstract class AbstractState : IState
     {
-        /// <summary>
-        /// The name of the state used for debugging purposes
-        /// </summary>
-        public virtual string Name { get; set; }
+        private readonly List<ILink> m_Links = new();
 
         // Enable debug messages
         protected bool m_Debug = false;
-        readonly List<ILink> m_Links = new();
 
-        public bool DebugEnabled { get => m_Debug; set => m_Debug = value; }
+        /// <summary>
+        ///     The name of the state used for debugging purposes
+        /// </summary>
+        public virtual string Name { get; set; }
+
+        public bool DebugEnabled
+        {
+            get => m_Debug;
+            set => m_Debug = value;
+        }
 
         // Called when entering the state
         public virtual void Enter()
@@ -33,6 +37,7 @@ namespace DesignPatterns.StateMachines
         // Called when entering the state
         public virtual void Exit()
         {
+            Debug.Log(Name + " is End!! ");
         }
 
         public virtual void AddLink(ILink link)
@@ -97,7 +102,8 @@ namespace DesignPatterns.StateMachines
         {
             if (m_Debug)
             {
-                string message = "[AbstractState] Current state: " + Name + "(" + this.GetType().Name + ") ----------------------------------------------------------";
+                var message = "[AbstractState] Current state: " + Name + "(" + GetType().Name +
+                              ") ----------------------------------------------------------";
                 message = message.Substring(0, 100);
                 Debug.Log(message);
             }

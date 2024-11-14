@@ -1,14 +1,14 @@
-
 using System;
 
 namespace AnimationState
 {
     public interface IIdle
-    {    /// <summary>
-         /// 대기 애니메이션
-         /// 루프
-         /// 상태머신쪽에서 애니메이션을 끊을것으로 예상 됨. 
-         /// </summary>
+    {
+        /// <summary>
+        ///     대기 애니메이션
+        ///     루프
+        ///     상태머신쪽에서 애니메이션을 끊을것으로 예상 됨.
+        /// </summary>
         public void IdleAnimation();
     }
 
@@ -26,7 +26,7 @@ namespace AnimationState
     {
         /// <summary>
         /// 공격 애니메이션
-        /// 1회성, 콜백 존재
+        /// 1회성, 콜백 존재 콜백 2개로 해야할 지 고민중.
         /// </summary>
         /// <param name="callback"> 애니메이션 종료 시 호출 </param>
         public void AttackAnimation(Action callback);

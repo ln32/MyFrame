@@ -3,10 +3,11 @@ using System.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class MainGameCharacter : MonoBehaviour
+public class MainGameCharacter : MonoBehaviour, IStateMachine
 {
     public int Level = 20;
 
+    public CharacterStateMachine _GetStateMachine;
 
     [SerializeField] public ItemInventory ItemInventory;
     public AchievementSpec AchievementSpec;
@@ -25,22 +26,38 @@ public class MainGameCharacter : MonoBehaviour
         ItemInventory = new ItemInventory();
     }
 
+    public CharacterStateMachine GetStateMachine => _GetStateMachine;
+
+    [Button]
+    public void IdleFunc()
+    {
+        _GetStateMachine.Event_TimeToIdle();
+        //BattleEventProcessor.TryBattleActionProcess(new CharacterAttacker(this, new DefaultAttack()), new CharacterDefender(this));
+    }
 
     [Button]
     public void AttackFunc()
     {
-        BattleEventProcessor.TryAttackProcess(new CharacterAttacker(this), new CharacterDefender(this));
+        _GetStateMachine.Event_Attack();
+        BattleEventProcessor.TryBattleActionProcess(new CharacterBattleRole(this, new DefaultAttack()),
+            new CharacterBattleRole(this));
     }
 
-    public void DelayMsg(float delay, Action action)
+    [Button]
+    public void SkillAttackFunc()
     {
-        StartCoroutine(PrintAfterDelay(delay, action));
+        BattleEventProcessor.TryBattleActionProcess(new CharacterBattleRole(this), new CharacterBattleRole(this));
     }
 
-    IEnumerator PrintAfterDelay(float delay, Action action)
+    public void DelayedAction(float delay, Action<IDefender> callback)
+    {
+        StartCoroutine(PrintAfterDelay(delay, () => callback(new CharacterBattleRole(this))));
+    }
+
+    private IEnumerator PrintAfterDelay(float delay, Action callback)
     {
         // Play Animation
         yield return new WaitForSeconds(delay);
-        action?.Invoke();
+        callback?.Invoke();
     }
 }

@@ -1,36 +1,34 @@
+using System;
 using DesignPatterns.StateMachines;
 using Sirenix.OdinInspector;
-using System;
 using UnityEngine;
-using UnityEngine.UIElements;
 
+public interface IStateMachine
+{
+    CharacterStateMachine GetStateMachine { get; }
+}
+
+// TODO : 내 상태 interface 시키기
 public class CharacterStateMachine : MonoBehaviour
 {
-    public AnimationProcessor _AnimationProcessor;
-    public CharacterStateMachineBinder AnimationProcessor { get; set; }
+    [Space(10)] [Tooltip("Debug state changes in the console")] [SerializeField]
+    private bool m_Debug;
 
-    [Space(10)]
-    [Tooltip("Debug state changes in the console")]
-    [SerializeField] bool m_Debug;
-
-    StateMachine m_StateMachine = new StateMachine();
-
-
-    IState IdleState;
+    public TempAnimationProcessor _AnimationProcessor;
     IState AttackState;
-    IState DamagedState;
-    IState MoveState;
-    IState DeadState; 
-  
-    Action OnAttack;   
-    Action OnDamaged;
-    Action OnMove;
-
-    Action TimeToIdle;
-    Action OnDead;
-    Action NullAction = () => {; };
 
     public State CurrState;
+    IState DamagedState;
+    private IState DeadState;
+
+
+    private IState IdleState;
+
+    private readonly StateMachine m_StateMachine = new();
+    private IState MoveState;
+
+    private Action NullAction = () => { ; };
+    public CharacterStateMachineBinder AnimationProcessor { get; set; }
 
     private void Start()
     {
@@ -47,6 +45,8 @@ public class CharacterStateMachine : MonoBehaviour
         // Define the Game States
         SetStates();
         AddLinks();
+        OnAttack += () => m_StateMachine.FakeLoop();
+        OnTimeToIdle += () => m_StateMachine.FakeLoop();
 
         // Start the State Machine
         RunStateMachine();
@@ -57,11 +57,33 @@ public class CharacterStateMachine : MonoBehaviour
     {
         // Start with the main menu scene
         m_StateMachine.Run(IdleState);
-        AnimationProcessor = _AnimationProcessor ;
     }
 
+
+    public void IdleStateFunc()
+    {
+        AnimationProcessor.IdleAnimation();
+    }
+
+    public void DamagedStateFunc()
+    {
+        AnimationProcessor.DamagedAnimation(OnTimeToIdle);
+    }
+
+    public void MoveStateFunc()
+    {
+        AnimationProcessor.MoveAnimation();
+    }
+
+    public void DeadStateFunc()
+    {
+        AnimationProcessor.DeadAnimation(() => Debug.Log("I am dead"));
+    }
+
+    #region Define
+
     /// <summary>
-    /// Defines the runtime states of the game/tutorial application.
+    /// This defines how the different states can transition to other states.
     /// </summary>
     private void SetStates()
     {
@@ -73,9 +95,6 @@ public class CharacterStateMachine : MonoBehaviour
         DeadState = new State(DeadStateFunc, "Dead");
     }
 
-    /// <summary>
-    /// This defines how the different states can transition to other states.
-    /// </summary>
     private void AddLinks()
     {
         // Transition from main menu to submenu states
@@ -83,63 +102,81 @@ public class CharacterStateMachine : MonoBehaviour
         IdleState.AddLink(new EventLink(new ActionWrapper(ref OnMove), MoveState));
         IdleState.AddLink(new EventLink(new ActionWrapper(ref OnAttack), AttackState));
 
-        DamagedState.AddLink(new EventLink(new ActionWrapper(ref TimeToIdle), IdleState));
+        DamagedState.AddLink(new EventLink(new ActionWrapper(ref OnTimeToIdle), IdleState));
 
-        AttackState.AddLink(new EventLink(new ActionWrapper(ref TimeToIdle), IdleState));
+        AttackState.AddLink(new EventLink(new ActionWrapper(ref OnTimeToIdle), IdleState));
         AttackState.AddLink(new EventLink(new ActionWrapper(ref OnDamaged), DamagedState));
 
         MoveState.AddLink(new EventLink(new ActionWrapper(ref OnDamaged), DamagedState));
         MoveState.AddLink(new EventLink(new ActionWrapper(ref OnMove), MoveState));
         MoveState.AddLink(new EventLink(new ActionWrapper(ref OnAttack), AttackState));
-        MoveState.AddLink(new EventLink(new ActionWrapper(ref TimeToIdle), IdleState));
+        MoveState.AddLink(new EventLink(new ActionWrapper(ref OnTimeToIdle), IdleState));
     }
 
-    [Button]
+    #endregion Define
+
+
+    #region OnAttack
+
+    private Action OnAttack;
+
     public void Event_Attack()
     {
         OnAttack.Invoke();
     }
 
-    [Button]
+    public void AttackStateFunc()
+    {
+        AnimationProcessor.DamagedAnimation(OnTimeToIdle);
+    }
+
+    #endregion OnAttack
+
+
+    #region OnDamaged
+
+    private Action OnDamaged;
+
     public void Event_Damaged()
     {
         OnDamaged.Invoke();
     }
 
-    [Button]
+    #endregion OnDamag
+
+
+    #region OnMove
+
+    private Action OnMove;
+
     public void Event_Move()
     {
         OnMove.Invoke();
     }
 
-    [Button]
+    #endregion OnMove
+
+
+    #region ToIdle
+
+    private Action OnTimeToIdle;
+
     public void Event_TimeToIdle()
     {
-        AnimationProcessor.IdleAnimation();
+        OnTimeToIdle.Invoke();
     }
 
-    public void IdleStateFunc()
+    #endregion ToIdle
+
+
+    #region OnDead
+
+    private Action OnDead;
+
+    public void Event_OnDead()
     {
-        AnimationProcessor.MoveAnimation();
+        OnDead();
     }
 
-    public void AttackStateFunc()
-    {
-        AnimationProcessor.AttackAnimation(TimeToIdle);
-    }
-
-    public void DamagedStateFunc()
-    {
-        AnimationProcessor.DamagedAnimation(TimeToIdle);
-    }
-
-    public void MoveStateFunc()
-    {
-        AnimationProcessor.MoveAnimation();
-    }
-
-    public void DeadStateFunc()
-    {
-        AnimationProcessor.DeadAnimation(()=>Debug.Log("I am dead"));
-    }
+    #endregion OnDead
 }

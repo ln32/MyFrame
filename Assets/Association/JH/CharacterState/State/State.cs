@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace DesignPatterns.StateMachines
 {
@@ -22,7 +20,7 @@ namespace DesignPatterns.StateMachines
             Name = stateName;
 
             // Log the state changes in the console
-            DebugEnabled = true;
+            DebugEnabled = false;
         }
 
         public override IEnumerator Execute()

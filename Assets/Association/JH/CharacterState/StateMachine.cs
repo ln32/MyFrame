@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace DesignPatterns.StateMachines
@@ -11,9 +10,17 @@ namespace DesignPatterns.StateMachines
     /// </summary>
     public class StateMachine
     {
+        protected Coroutine m_CurrentPlayCoroutine;
+
+        protected Coroutine m_LoopCoroutine;
+
+        protected bool m_PlayLock;
+
         // The current state the statemachine is in
         public IState CurrentState { get; protected set; }
-        
+
+        public bool IsRunning => m_LoopCoroutine != null;
+
         /// <summary>
         /// Finalizes the previous state and then runs the new state
         /// </summary>
@@ -25,18 +32,16 @@ namespace DesignPatterns.StateMachines
                 throw new ArgumentNullException(nameof(state));
 
 
-            if (CurrentState != null && m_CurrentPlayCoroutine != null) 
+            if (CurrentState != null && m_CurrentPlayCoroutine != null)
             {
                 //interrupt currently executing state
                 Skip();
             }
-            
+
             CurrentState = state;
             Coroutines.StartCoroutine(Play());
         }
 
-        protected Coroutine m_CurrentPlayCoroutine;
-        protected bool m_PlayLock;
         /// <summary>
         /// Runs the life cycle methods of the current state.
         /// </summary>
@@ -46,7 +51,7 @@ namespace DesignPatterns.StateMachines
             if (!m_PlayLock)
             {
                 m_PlayLock = true;
-                
+
                 CurrentState.Enter();
 
                 //keep a ref to execute coroutine of the current state
@@ -54,7 +59,7 @@ namespace DesignPatterns.StateMachines
                 m_CurrentPlayCoroutine = Coroutines.StartCoroutine(CurrentState.Execute());
 
                 yield return m_CurrentPlayCoroutine;
-                
+
                 m_CurrentPlayCoroutine = null;
             }
         }
@@ -67,7 +72,7 @@ namespace DesignPatterns.StateMachines
         {
             if (CurrentState == null)
                 throw new Exception($"{nameof(CurrentState)} is null!");
-            
+
             if (m_CurrentPlayCoroutine != null)
             {
                 Coroutines.StopCoroutine(ref m_CurrentPlayCoroutine);
@@ -77,24 +82,23 @@ namespace DesignPatterns.StateMachines
                 m_PlayLock = false;
             }
         }
-        
+
         public virtual void Run(IState state)
         {
             SetCurrentState(state);
             Run();
         }
-        
-        protected Coroutine m_LoopCoroutine;
+
         /// <summary>
         /// Turns on the main loop of the StateMachine.
         /// This method does not resume previous state if called after Stop()
         /// and the client needs to set the state manually.
         /// </summary>
-        public virtual void Run() 
+        public virtual void Run()
         {
             if (m_LoopCoroutine != null) //already running
                 return;
-            
+
             m_LoopCoroutine = Coroutines.StartCoroutine(Loop());
         }
 
@@ -106,13 +110,12 @@ namespace DesignPatterns.StateMachines
             if (m_LoopCoroutine == null) //already stopped
                 return;
 
-            Debug.Log((CurrentState != null) + " / " + (m_CurrentPlayCoroutine == null));
-            if (CurrentState != null && m_CurrentPlayCoroutine != null) 
+            if (CurrentState != null && m_CurrentPlayCoroutine != null)
             {
                 //interrupt currently executing state
                 Skip();
             }
-            
+
             Coroutines.StopCoroutine(ref m_LoopCoroutine);
             CurrentState = null;
         }
@@ -124,7 +127,7 @@ namespace DesignPatterns.StateMachines
         /// <returns></returns>
         protected virtual IEnumerator Loop()
         {
-            while (true)
+            while (false)
             {
                 if (CurrentState != null && m_CurrentPlayCoroutine == null) //current state is done playing
                 {
@@ -147,7 +150,24 @@ namespace DesignPatterns.StateMachines
             }
         }
 
-        public bool IsRunning => m_LoopCoroutine != null;
+
+        public void FakeLoop()
+        {
+            if (CurrentState != null && m_CurrentPlayCoroutine == null) //current state is done playing
+                if (CurrentState.ValidateLinks(out var nextState))
+                {
+                    if (m_PlayLock)
+                    {
+                        //finalize current state
+                        CurrentState.Exit();
+                        m_PlayLock = false;
+                    }
+
+                    CurrentState.DisableLinks();
+                    SetCurrentState(nextState);
+                    CurrentState.EnableLinks();
+                }
+        }
     }
 }
 
@@ -193,12 +213,12 @@ public static class Coroutines
 
 public class ActionPointer
 {
-    private Action Action { get; set; }
-        
     public ActionPointer(ref Action _Action)
     {
         _Action += () => { Action?.Invoke(); };
     }
+
+    private Action Action { get; set; }
 
     public void AddAction(Action target)
     {
@@ -211,6 +231,7 @@ public class ActionPointer
         Action -= () => { Action?.Invoke(); };
         Action = null;
     }
+
     public void Invoke()
     {
         Action?.Invoke();
