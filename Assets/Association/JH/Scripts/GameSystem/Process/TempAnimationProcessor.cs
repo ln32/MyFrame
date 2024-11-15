@@ -64,7 +64,7 @@ public class TempAnimationProcessor : MonoBehaviour, CharacterStateMachineBinder
     private IEnumerator DebugRoutine(string animation)
     {
         float elapsedTime = 0f;
-
+        Debug.Log("start");
         while (true)
         {
             elapsedTime += Time.deltaTime;

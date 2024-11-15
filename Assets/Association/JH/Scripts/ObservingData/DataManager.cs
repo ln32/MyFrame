@@ -2,10 +2,8 @@ using System;
 using DataSet;
 using UnityEngine;
 
-public class DataManager : MonoBehaviour
+public class DataManager : MonoSingleton<DataManager>
 {
-    public static DataManager instance;
-
     [SerializeField] private ObservingDataHandler data;
     [SerializeField] public DataTypePairing<int, CurrencyData> INT_Currency = new();
     [SerializeField] public DataTypePairing<string, UserProfileData> STRING_UserProfile = new();
@@ -17,6 +15,11 @@ public class DataManager : MonoBehaviour
     {
         data.AwakeFunc(INT_Currency);
         data.AwakeFunc(STRING_UserProfile);
+    }
+
+    public void AddValue(string _name)
+    {
+        data.InitValue<int>(_name);
     }
 
     public void AddAction<T>(string valueName, Action<T> action, bool updateData = false)

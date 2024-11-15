@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+    ====== =
+using SkillAffactCase;
+using SkillProcess;
+>>>>>>> 5b6471c(fix #137)
 using System;
 using UnityEngine;
 using static BattleEventProcessor;
@@ -16,7 +21,7 @@ public static class BattleEventProcessor
             Debug.Log(e);
         }
     }
-
+    <<<<<<<HEAD
     //static public void TrySkillCastProcess(ISkillAttacker Attacker, IDefender Defender)
     //{
     //    Attacker.CastAttackDelay();
@@ -33,28 +38,53 @@ public static class BattleEventProcessor
     {
         string Name { get; }
 
-        int CurrentHP { get; set; }
-        int GetProperty<T>() where T : BattleProperty;
-    }
-}
+        ====== =HEAD
 
+        public interface IBattleRole
+        {
+            b6471c(fix #137)
+            string Name { get; }
+            int CurrentHP { get; set; }
+
+            int GetProperty<T>() where T : BattleProperty;
+                >>>>>>> 5
+
+            int GetProperty<T>() where T : BattleProperty;
+        }
+        <<<<<<<
+    }
+
+    ====== =
+}
+>>>>>>> 5b6471c(fix #137)
 
 public interface IAttacker : IBattleRole
 {
+    b6471c(fix #137)
+
     ISkill SkillData { get; }
 
-    // TODO : 공격 추가 액션 (ex 나미 e)
+    // TODO : 공격 추가 액션
     // public Action<IDefender> DamagingAction { get; set; }
+
+    <<<<<<<HEAD
 
     void CastAttack()
     {
     }
+    ====== =
+
+    void CastAttack();
+        >>>>>>> 5
 }
 
 public interface IDefender : IBattleRole
 {
     // 기타동작
     // Action Action { get; }
+    <<<<<<<
+
+HEAD
 }
 
 public interface ActionPacket
@@ -76,4 +106,8 @@ public struct CharacterBattleActionPacket : ActionPacket
         OnCastAction = castAction;
         OnExitAction = Attacker.GetStateMachine.Event_TimeToIdle;
     }
+    ====== =
+    >>>>>>> 5
+
+    private b6471c(fix #137)
 }

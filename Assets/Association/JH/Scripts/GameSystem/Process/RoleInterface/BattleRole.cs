@@ -1,5 +1,6 @@
 
 using SkillAffactCase;
+using SkillProcess;
 using System.Collections.Generic;
 using UnityEngine;
 using static BattleEventProcessor;
@@ -40,7 +41,7 @@ public class CharacterBattleRole : IAttacker, IDefender
 
     void IAttacker.CastAttack()
     {
-        Debug.Log("CastAttack!!!");
-        character.DelayedAction(1, (IDefender target) => { SkillData.SkillActivate(this, target); });
+        Debug.Log("CastAttack!!!"); 
+        SkillCast.SkillCastProcess(this, SkillData);
     }
 }

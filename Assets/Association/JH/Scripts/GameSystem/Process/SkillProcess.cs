@@ -1,26 +1,38 @@
+using DesignPatterns.StateMachines;
 using SkillAffactCase;
 using System;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 
 namespace SkillProcess
 {
-    public static class CastProcess
+    public static class SkillCast
     {
-        static void SkillCastProcess(IAttacker attacker, ISkill skill)
+        public static void SkillCastProcess(IAttacker attacker, ISkill skill)
         {
+            Action<IDefender> activation = (IDefender target) => {
+                SkillActivate.SkillActivateProcess(attacker, (attacker as CharacterBattleRole).character as IDefender , skill);
+                Debug.Log("Skill");
+            };
 
+            if (attacker is CharacterBattleRole && skill is ICastAnimationSkill)
+                AnimationProcess((attacker as CharacterBattleRole).character, skill as ICastAnimationSkill, () => activation(attacker as CharacterBattleRole));
         }
 
-
+        static void AnimationProcess(IStateMachine attacker, ICastAnimationSkill skill, Action activation)
+        {
+            attacker.GetStateMachine.Event_CastAttack(activation);
+        }
     }
-    public static class ActivateProcess
+
+    public static class SkillActivate
     {
-        /// <summary>
+        /// <summary> 
         /// 예상 활용
         /// Action<IDefender> skillaction = (IDefender target) => { ActivateSkillProcess(attacker,target,skill); };
         /// </summary>
-        static bool SkillActivateProcess(IAttacker attacker, IDefender defender, ISkill skill)
+        public static bool SkillActivateProcess(IAttacker attacker, IDefender defender, ISkill skill)
         {
             if (skill is IDamagingSkill)
                 DamagingProcess(attacker, defender, skill as IDamagingSkill);
@@ -44,7 +56,8 @@ namespace SkillProcess
         // 사망 판정
         static void DamagingProcess(IAttacker Attacker, IDefender Defender, IDamagingSkill DamagingSkill)
         {
-            Defender.CurrentHP -= Attacker.GetProperty<ATK_BattleProperty>() * DamagingSkill.SkillDamageRatio;
+            Debug.Log("DamagingProcess"); 
+            //Defender.CurrentHP -= Attacker.GetProperty<ATK_BattleProperty>() * DamagingSkill.SkillDamageRatio;
         }
 
         static void DebuffProcess(IAttacker Attacker, IDefender Defender, IDebuffSkill DebuffSkill)

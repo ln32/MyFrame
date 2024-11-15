@@ -15,7 +15,7 @@ namespace DesignPatterns.StateMachines
         protected bool m_Debug = false;
 
         /// <summary>
-        ///     The name of the state used for debugging purposes
+        /// The name of the state used for debugging purposes
         /// </summary>
         public virtual string Name { get; set; }
 
@@ -102,10 +102,6 @@ namespace DesignPatterns.StateMachines
         {
             if (m_Debug)
             {
-                var message = "[AbstractState] Current state: " + Name + "(" + GetType().Name +
-                              ") ----------------------------------------------------------";
-                message = message.Substring(0, 100);
-                Debug.Log(message);
             }
         }
     }

@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -32,32 +30,28 @@ public class MainGameCharacter : MonoBehaviour, IStateMachine
     public void IdleFunc()
     {
         _GetStateMachine.Event_TimeToIdle();
-        //BattleEventProcessor.TryBattleActionProcess(new CharacterAttacker(this, new DefaultAttack()), new CharacterDefender(this));
     }
 
     [Button]
     public void AttackFunc()
     {
-        _GetStateMachine.Event_Attack();
+        ISkill skill = new DefaultAttack();
+        CharacterBattleRole temp = new CharacterBattleRole(this, skill);
+        IAttacker attacker = temp;
+        IDefender defender = temp;
+
         BattleEventProcessor.TryBattleActionProcess(new CharacterBattleRole(this, new DefaultAttack()),
             new CharacterBattleRole(this));
     }
 
     [Button]
-    public void SkillAttackFunc()
+    public void SkillFunc()
     {
-        BattleEventProcessor.TryBattleActionProcess(new CharacterBattleRole(this), new CharacterBattleRole(this));
-    }
+        ISkill skill = new Fireball();
+        CharacterBattleRole temp = new CharacterBattleRole(this, skill);
+        IAttacker attacker = temp;
+        IDefender defender = temp;
 
-    public void DelayedAction(float delay, Action<IDefender> callback)
-    {
-        StartCoroutine(PrintAfterDelay(delay, () => callback(new CharacterBattleRole(this))));
-    }
-
-    private IEnumerator PrintAfterDelay(float delay, Action callback)
-    {
-        // Play Animation
-        yield return new WaitForSeconds(delay);
-        callback?.Invoke();
+        BattleEventProcessor.TryBattleActionProcess(attacker, new CharacterBattleRole(this));
     }
 }
