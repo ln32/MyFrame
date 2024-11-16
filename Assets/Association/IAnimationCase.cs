@@ -1,5 +1,5 @@
 using System;
-
+// TODO : Animation 붙이기
 namespace AnimationState
 {
     public interface IIdle

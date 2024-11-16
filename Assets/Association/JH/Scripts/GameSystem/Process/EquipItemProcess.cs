@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class EquipItemProcess
 {
-    public static Item EquipItem(MainGameCharacter targetCharacter, IEquipable item)
+    public static Item EquipItem(MainCharacter targetCharacter, IEquipable item)
     {
         Item oldItem = null;
         try

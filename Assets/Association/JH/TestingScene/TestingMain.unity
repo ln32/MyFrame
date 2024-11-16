@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <isPointerSizeUp>k__BackingField: 1
-  <popup>k__BackingField: {fileID: 0}
+  <PopupPrefab>k__BackingField: {fileID: 0}
 --- !u!1 &161701395
 GameObject:
   m_ObjectHideFlags: 0
@@ -1303,7 +1303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <isPointerSizeUp>k__BackingField: 1
-  <popup>k__BackingField: {fileID: 0}
+  <PopupPrefab>k__BackingField: {fileID: 0}
 --- !u!1 &588207285
 GameObject:
   m_ObjectHideFlags: 0
@@ -1471,7 +1471,6 @@ GameObject:
   - component: {fileID: 647976981}
   - component: {fileID: 647976983}
   - component: {fileID: 647976982}
-  - component: {fileID: 647976984}
   m_Layer: 0
   m_Name: GameObject (1)
   m_TagString: Untagged
@@ -1523,20 +1522,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Level: 20
---- !u!114 &647976984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 647976980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd12e0f52a0a4024db60019c80e8a567, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mc: {fileID: 647976983}
-  toshow: 20 / WarriorBattleClass
 --- !u!1 &666612850
 GameObject:
   m_ObjectHideFlags: 0
@@ -1655,6 +1640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f398a45fb18d4234787eda1735496a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <View>k__BackingField: {fileID: 0}
 --- !u!1 &717729470
 GameObject:
   m_ObjectHideFlags: 0

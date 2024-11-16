@@ -1,7 +1,4 @@
 using System;
-using UnityEngine;
-using UnityEngine.UIElements;
-
 
 namespace DesignPatterns.StateMachines
 {
@@ -11,14 +8,21 @@ namespace DesignPatterns.StateMachines
     // contains a default delegate
     public class ActionWrapper
     {
-        public Action<Action> Subscribe { get; set; }
-        public Action<Action> Unsubscribe { get; set; }
         public ActionWrapper(ref Action targetAction)
         {
             ActionPointer actionPointer = new ActionPointer(ref targetAction);
             Subscribe += (Action enableFlag) => { actionPointer.AddAction(enableFlag); };
             Unsubscribe += (Action enableFlag) => { actionPointer.RemoveAction(enableFlag); };
         }
+
+        public ActionWrapper(ActionPointer actionPointer)
+        {
+            Subscribe += enableFlag => { actionPointer.AddAction(enableFlag); };
+            Unsubscribe += enableFlag => { actionPointer.RemoveAction(enableFlag); };
+        }
+
+        public Action<Action> Subscribe { get; set; }
+        public Action<Action> Unsubscribe { get; set; }
     }
 
 
@@ -27,15 +31,13 @@ namespace DesignPatterns.StateMachines
     /// If the current state is linked to next step by this link type, the state machine waits for the 
     /// event to be triggered and then moves to the next step.
     /// </summary>
-
     public class EventLink : ILink
     {
-        IState m_NextState;
-
-        bool m_EventRaised;
-
         // Wraps the event message for easier unregistration
         ActionWrapper m_ActionWrapper;
+
+        private bool m_EventRaised;
+        private readonly IState m_NextState;
 
         public EventLink(ActionWrapper eventActionWrapper, IState nextState)
         {
@@ -49,11 +51,6 @@ namespace DesignPatterns.StateMachines
             return m_EventRaised;
         }
 
-        public void OnEventRaised()
-        {
-            m_EventRaised = true;
-        }
-
         public void Enable()
         {
             m_ActionWrapper.Subscribe(OnEventRaised);
@@ -64,6 +61,11 @@ namespace DesignPatterns.StateMachines
         {
             m_ActionWrapper.Unsubscribe(OnEventRaised);
             m_EventRaised = false;
+        }
+
+        public void OnEventRaised()
+        {
+            m_EventRaised = true;
         }
     }
 }

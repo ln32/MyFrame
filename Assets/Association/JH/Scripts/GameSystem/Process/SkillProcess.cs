@@ -13,7 +13,6 @@ namespace SkillProcess
         {
             Action<IDefender> activation = (IDefender target) => {
                 SkillActivate.SkillActivateProcess(attacker, (attacker as CharacterBattleRole).character as IDefender , skill);
-                Debug.Log("Skill");
             };
 
             if (attacker is CharacterBattleRole && skill is ICastAnimationSkill)
@@ -22,6 +21,7 @@ namespace SkillProcess
 
         static void AnimationProcess(IStateMachine attacker, ICastAnimationSkill skill, Action activation)
         {
+            Debug.Log("AnimationProcess");
             attacker.GetStateMachine.Event_CastAttack(activation);
         }
     }

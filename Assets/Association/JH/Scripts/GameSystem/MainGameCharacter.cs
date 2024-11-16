@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using SkillAffactCase;
 using UnityEngine;
 
 public class MainGameCharacter : MonoBehaviour, IStateMachine
@@ -29,7 +30,7 @@ public class MainGameCharacter : MonoBehaviour, IStateMachine
     [Button]
     public void IdleFunc()
     {
-        _GetStateMachine.Event_TimeToIdle();
+        _GetStateMachine.IdleState.SwitchState.Invoke();
     }
 
     [Button]
@@ -40,8 +41,7 @@ public class MainGameCharacter : MonoBehaviour, IStateMachine
         IAttacker attacker = temp;
         IDefender defender = temp;
 
-        BattleEventProcessor.TryBattleActionProcess(new CharacterBattleRole(this, new DefaultAttack()),
-            new CharacterBattleRole(this));
+        BattleEventProcessor.TryBattleActionProcess(attacker, defender);
     }
 
     [Button]
@@ -52,6 +52,6 @@ public class MainGameCharacter : MonoBehaviour, IStateMachine
         IAttacker attacker = temp;
         IDefender defender = temp;
 
-        BattleEventProcessor.TryBattleActionProcess(attacker, new CharacterBattleRole(this));
+        BattleEventProcessor.TryBattleActionProcess(attacker, defender);
     }
 }

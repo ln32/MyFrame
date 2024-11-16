@@ -1,21 +1,22 @@
 using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using static DG.Tweening.DOTweenAnimation;
 
 public class TempAnimationProcessor : MonoBehaviour, CharacterStateMachineBinder
 {
     IEnumerator CurrAnimation;
+
     public void AttackAnimation(Action callback)
     {
+        Debug.Log("attack anim!!!");
+
         if (CurrAnimation != null)
         {
             StopCoroutine(CurrAnimation);
             CurrAnimation = null;
         }
 
-        CurrAnimation = DebugRoutine("AttackAnimation",1f, callback);
+        CurrAnimation = DebugRoutine("AttackAnimation", 1f, callback);
         StartCoroutine(CurrAnimation);
     }
 
@@ -45,6 +46,8 @@ public class TempAnimationProcessor : MonoBehaviour, CharacterStateMachineBinder
 
     public void IdleAnimation()
     {
+        Debug.Log("idle anim!!!");
+
         if (CurrAnimation != null)
             StopCoroutine(CurrAnimation);
 

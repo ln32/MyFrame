@@ -7,28 +7,33 @@ namespace DesignPatterns.StateMachines
     /// A generic empty state. Pass onExecute action into Constructor to run once when entering the state
     /// (or null to do nothing)
     /// </summary>
+    /// 
     public class State : AbstractState
     {
         readonly Action m_OnExecute;
+        private readonly Action m_OnStart;
+
 
         /// <param name="onExecute">An event that is invoked when the state is executed</param>
         ///
         // Constructor takes delegate to execute and optional name (for debugging)
-        public State(Action onExecute, string stateName = nameof(State))
+        public State(string stateName, Action onStart, Action onExecute)
         {
             m_OnExecute = onExecute;
+            m_OnStart = onStart;
             Name = stateName;
+        }
 
-            // Log the state changes in the console
-            DebugEnabled = false;
+
+        public override void Enter()
+        {
+            m_OnStart?.Invoke();
+            EnableLinks();
         }
 
         public override IEnumerator Execute()
         {
             yield return null;
-
-            if (m_Debug)
-                base.LogCurrentState();
 
             // Invokes the m_OnExecute Action if it exists
             m_OnExecute?.Invoke();

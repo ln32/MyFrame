@@ -31,7 +31,6 @@ namespace DesignPatterns.StateMachines
             if (state == null)
                 throw new ArgumentNullException(nameof(state));
 
-
             if (CurrentState != null && m_CurrentPlayCoroutine != null)
             {
                 //interrupt currently executing state
@@ -89,11 +88,6 @@ namespace DesignPatterns.StateMachines
             Run();
         }
 
-        /// <summary>
-        /// Turns on the main loop of the StateMachine.
-        /// This method does not resume previous state if called after Stop()
-        /// and the client needs to set the state manually.
-        /// </summary>
         public virtual void Run()
         {
             if (m_LoopCoroutine != null) //already running
@@ -154,6 +148,7 @@ namespace DesignPatterns.StateMachines
         public void FakeLoop()
         {
             if (CurrentState != null && m_CurrentPlayCoroutine == null) //current state is done playing
+            {
                 if (CurrentState.ValidateLinks(out var nextState))
                 {
                     if (m_PlayLock)
@@ -167,6 +162,7 @@ namespace DesignPatterns.StateMachines
                     SetCurrentState(nextState);
                     CurrentState.EnableLinks();
                 }
+            }
         }
     }
 }
@@ -213,6 +209,10 @@ public static class Coroutines
 
 public class ActionPointer
 {
+    public ActionPointer()
+    {
+    }
+
     public ActionPointer(ref Action _Action)
     {
         _Action += () => { Action?.Invoke(); };

@@ -2,8 +2,10 @@ using System;
 using DataSet;
 using UnityEngine;
 
-public class DataManager : MonoSingleton<DataManager>
+public class DataManager : MonoBehaviour
 {
+    public static DataManager instance;
+
     [SerializeField] private ObservingDataHandler data;
     [SerializeField] public DataTypePairing<int, CurrencyData> INT_Currency = new();
     [SerializeField] public DataTypePairing<string, UserProfileData> STRING_UserProfile = new();
