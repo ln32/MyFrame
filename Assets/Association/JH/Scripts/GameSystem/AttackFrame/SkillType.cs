@@ -1,16 +1,17 @@
 namespace SkillAffactCase
 {
-    public interface ISkill { 
-        void SkillActivate(IAttacker attacker, IDefender defender); 
+    public interface ICastingSkill
+    {
+        void SkillActivate(IAttacker attacker, IDefender defender);
     }
 
-    public interface IStateDamageSkill { }
+    public interface IStateDamageSkill
+    {
+    }
 
-    public interface ICoolTimeSkill { float CoolTime{ get; set; } }
-
-    public interface ICastAnimationSkill 
-    { 
-        float CastingDelay{ get; set; }
+    public interface ICastAnimationSkill
+    {
+        float CastingDelay { get; set; }
         float RestoreDelay { get; set; }
     }
 

@@ -1,21 +1,16 @@
-
+using System.Collections.Generic;
 using SkillAffactCase;
 using SkillProcess;
-using System.Collections.Generic;
 using UnityEngine;
 using static BattleEventProcessor;
 
 public class CharacterBattleRole : IAttacker, IDefender
 {
-    public int CurrentHP { get; set; }
-    string IBattleRole.Name { get { return character.name; } }
-    public ISkill SkillData { get; }
-
+    private readonly List<IBattlePropertyComposition> specList = new();
     public MainGameCharacter character;
-    List<IBattlePropertyComposition> specList = new();
     public float LastAttackTime = 0;
 
-    public CharacterBattleRole(MainGameCharacter _character, ISkill _SkillData = null)
+    public CharacterBattleRole(MainGameCharacter _character, ICastingSkill iCastingSkillData = null)
     {
         character = _character;
 
@@ -23,9 +18,15 @@ public class CharacterBattleRole : IAttacker, IDefender
         specList.Add(character.AchievementSpec);
         specList.Add(character.CharacterTypeSpec);
 
-        SkillData = _SkillData == null ? new Fireball() : _SkillData;
+        ICastingSkillData = iCastingSkillData == null ? new Fireball() : iCastingSkillData;
         CurrentHP = (this as IBattleRole).GetProperty<MaxHP_BattleProperty>();
     }
+
+    public int CurrentHP { get; set; }
+
+    string IBattleRole.Name => character.name;
+
+    public ICastingSkill ICastingSkillData { get; }
 
     int IBattleRole.GetProperty<T>()
     {
@@ -41,7 +42,7 @@ public class CharacterBattleRole : IAttacker, IDefender
 
     void IAttacker.CastAttack()
     {
-        Debug.Log("CastAttack!!!"); 
-        SkillCast.SkillCastProcess(this, SkillData);
+        Debug.Log("CastAttack!!!");
+        SkillCast.SkillCastProcess(this, ICastingSkillData);
     }
 }

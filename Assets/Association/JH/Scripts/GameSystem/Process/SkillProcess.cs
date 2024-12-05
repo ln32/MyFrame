@@ -1,22 +1,22 @@
-using DesignPatterns.StateMachines;
-using SkillAffactCase;
 using System;
-using UnityEditor.Experimental.GraphView;
+using SkillAffactCase;
 using UnityEngine;
-
 
 namespace SkillProcess
 {
     public static class SkillCast
     {
-        public static void SkillCastProcess(IAttacker attacker, ISkill skill)
+        public static void SkillCastProcess(IAttacker attacker, ICastingSkill iCastingSkill)
         {
-            Action<IDefender> activation = (IDefender target) => {
-                SkillActivate.SkillActivateProcess(attacker, (attacker as CharacterBattleRole).character as IDefender , skill);
+            Action<IDefender> activation = (IDefender target) =>
+            {
+                SkillActivate.SkillActivateProcess(attacker,
+                    (attacker as CharacterBattleRole).character as IDefender, iCastingSkill);
             };
 
-            if (attacker is CharacterBattleRole && skill is ICastAnimationSkill)
-                AnimationProcess((attacker as CharacterBattleRole).character, skill as ICastAnimationSkill, () => activation(attacker as CharacterBattleRole));
+            if (attacker is CharacterBattleRole && iCastingSkill is ICastAnimationSkill)
+                AnimationProcess((attacker as CharacterBattleRole).character, iCastingSkill as ICastAnimationSkill,
+                    () => activation(attacker as CharacterBattleRole));
         }
 
         static void AnimationProcess(IStateMachine attacker, ICastAnimationSkill skill, Action activation)
@@ -32,20 +32,20 @@ namespace SkillProcess
         /// 예상 활용
         /// Action<IDefender> skillaction = (IDefender target) => { ActivateSkillProcess(attacker,target,skill); };
         /// </summary>
-        public static bool SkillActivateProcess(IAttacker attacker, IDefender defender, ISkill skill)
+        public static bool SkillActivateProcess(IAttacker attacker, IDefender defender, ICastingSkill iCastingSkill)
         {
-            if (skill is IDamagingSkill)
-                DamagingProcess(attacker, defender, skill as IDamagingSkill);
+            if (iCastingSkill is IDamagingSkill)
+                DamagingProcess(attacker, defender, iCastingSkill as IDamagingSkill);
 
-            if (skill is IDebuffSkill)
-                DebuffProcess(attacker, defender, skill as IDebuffSkill);
+            if (iCastingSkill is IDebuffSkill)
+                DebuffProcess(attacker, defender, iCastingSkill as IDebuffSkill);
 
-            if (skill is IBuffSkill)
-                BuffProcess(attacker, defender, skill as IBuffSkill);
+            if (iCastingSkill is IBuffSkill)
+                BuffProcess(attacker, defender, iCastingSkill as IBuffSkill);
 
             // skill이 아무것도 상속 안할때를 생각하고 bool return, 그냥 void return 해야하나
             // (ex. 위 프로세스 하나도 해당 x)
-            return skill == null;
+            return iCastingSkill == null;
         }
 
         // TODO
@@ -56,7 +56,7 @@ namespace SkillProcess
         // 사망 판정
         static void DamagingProcess(IAttacker Attacker, IDefender Defender, IDamagingSkill DamagingSkill)
         {
-            Debug.Log("DamagingProcess"); 
+            Debug.Log("DamagingProcess");
             //Defender.CurrentHP -= Attacker.GetProperty<ATK_BattleProperty>() * DamagingSkill.SkillDamageRatio;
         }
 
@@ -70,8 +70,4 @@ namespace SkillProcess
             Debug.Log("BuffProcess");
         }
     }
-
 }
-
-
-

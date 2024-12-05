@@ -28,7 +28,7 @@ public static class BattleEventProcessor
 
 public interface IAttacker : IBattleRole
 {
-    ISkill SkillData { get; }
+    ICastingSkill ICastingSkillData { get; }
 
     // TODO : 공격 추가 액션
     // public Action<IDefender> DamagingAction { get; set; }

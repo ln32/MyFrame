@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Association/JH/ScriptableObject/Object/XMLReader.asset.meta
+guid: d1db4db139a0684419ea3ff7b6dec019
+========
+guid: 17b756aa1465c4d47a9b23a8708c2838
+>>>>>>>> bf5526e (Merged PR 6: 스킬 시스템 구현 fix #Project-SR/128):Assets/ScriptableObjects/SkillData/SkillData_00_Dictionary.asset.meta
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

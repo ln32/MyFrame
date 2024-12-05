@@ -36,8 +36,8 @@ public class MainGameCharacter : MonoBehaviour, IStateMachine
     [Button]
     public void AttackFunc()
     {
-        ISkill skill = new DefaultAttack();
-        CharacterBattleRole temp = new CharacterBattleRole(this, skill);
+        ICastingSkill iCastingSkill = new DefaultAttack();
+        var temp = new CharacterBattleRole(this, iCastingSkill);
         IAttacker attacker = temp;
         IDefender defender = temp;
 
@@ -47,8 +47,8 @@ public class MainGameCharacter : MonoBehaviour, IStateMachine
     [Button]
     public void SkillFunc()
     {
-        ISkill skill = new Fireball();
-        CharacterBattleRole temp = new CharacterBattleRole(this, skill);
+        ICastingSkill iCastingSkill = new Fireball();
+        var temp = new CharacterBattleRole(this, iCastingSkill);
         IAttacker attacker = temp;
         IDefender defender = temp;
 
