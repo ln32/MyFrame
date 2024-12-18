@@ -5,25 +5,25 @@ public class ProjectileComponent : MonoBehaviour
     public SpriteRenderer projectileImage;
 
     public float projectileSpeed;
-    public Transform target;
+    public Vector3 target;
+    public float ReachTime => Vector2.Distance(transform.position, target) / projectileSpeed;
 
     private void Update()
     {
         Vector3 previousPosition = transform.position;
 
-        if (target)
-        {
-            // 타겟 방향 계산 (Z축 일치시킴)
-            Vector3 target2D = GetAngle(out Vector3 directionToTarget, out float projectedDistance);
+        // 타겟 방향 계산 (Z축 일치시킴)
+        var target2D = GetAngle(out var directionToTarget, out var projectedDistance);
 
-            // 이동 거리 내에 대상이 있는가 ? 적중 : 이동
-            if (projectedDistance >= Vector3.Distance(previousPosition, target2D))
-                OnHit();
-            else
-                MoveProjectile(directionToTarget, projectedDistance);
+        // 이동 거리 내에 대상이 있는가 ? 적중 : 이동
+        if (projectedDistance >= Vector3.Distance(previousPosition, target2D))
+        {
+            OnHit();
         }
         else
-            NabeDebug.Log("Target is not assigned!");
+        {
+            MoveProjectile(directionToTarget, projectedDistance);
+        }
     }
 
     private void MoveProjectile(Vector3 directionToTarget, float projectedDistance)
@@ -33,7 +33,7 @@ public class ProjectileComponent : MonoBehaviour
 
     private Vector3 GetAngle(out Vector3 directionToTarget, out float projectedDistance)
     {
-        Vector3 target2D = new(target.position.x, target.position.y, transform.position.z);
+        Vector3 target2D = new(target.x, target.y, transform.position.z);
         directionToTarget = (target2D - transform.position).normalized;
         projectedDistance = projectileSpeed * Time.deltaTime;
         return target2D;
@@ -42,6 +42,7 @@ public class ProjectileComponent : MonoBehaviour
     private void OnHit()
     {
         NabeDebug.Log("OnHit");
+
         Destroy(gameObject);
     }
 }

@@ -1,43 +1,51 @@
-using SkillAffactCase;
 using System;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 [Serializable]
-public class DefaultSkill : IProjectileSkill, ICoolTimeSkill
+public class DefaultSkillFrame
 {
-    [SerializeField] private float recentCastTime;
     protected InstantSkillData Data;
 
-    public DefaultSkill() { Data = null; }
+    public DefaultSkillFrame()
+    {
+        Data = null;
+        CastContext = null;
+    }
 
-    public DefaultSkill(InstantSkillData data)
+    public DefaultSkillFrame(InstantSkillData data, int priorityIndex)
     {
         Data = data;
-        recentCastTime = -1;
+        PriorityIndex = priorityIndex;
+        RecentCastTime = Time.time;
+        CastContext = new CastContext(this);
     }
 
-    float ICoolTimeSkill.CoolTime => Data.coolTime;
+    public int Id => Data.id;
+    public string SkillName => Data.skillName;
 
-    float ICoolTimeSkill.RecentCastTime
-    {
-        get => recentCastTime;
-        set => recentCastTime = value;
-    }
+    public int PriorityIndex { get; set; }
+    public float Cooldown => Data.cooldown;
+    public float RecentCastTime { get; set; }
 
-    int ISkill.Id => Data.id;
-    string ISkill.SkillName => Data.name;
 
-    ProjectileComponent IProjectileSkill.GetInstantProjectileObject(Transform attacker, Transform defender)
-    {
-        ProjectileComponent projectileGame
-            = Object.Instantiate(Data.projectileComponent, attacker.position, Quaternion.identity, attacker);
+    public ProjectileComponent ProjectileComponent => Data.projectileComponent;
+    public float ProjectileSpeed => Data.projectileSpeed;
 
-        ApplyProjectileData(defender, projectileGame);
+    public float DamageRate => Data.damageRate;
+    public float EffectRadius => Data.effectRadius;
+    public int SearchCastTargetCount => Data.searchCastTargetCount;
 
-        return projectileGame;
-    }
+    public bool IsDot => Data.isDot;
+    public int RepeatCount => Data.repeatCount;
+    public float TimeGap => Data.repeatCount;
+    public int EffectOnRadiusTargetCount => Data.effectOnRadiusTargetCount;
 
+    public Vector2 CastPointCase => Data.castPointCase;
+    public Vector2 TargetPointCase => Data.targetPointCase;
+    public TargetingCase TargetingCase => Data.targetingCase;
+    public CastContext CastContext { get; set; }
+
+    internal float RemainCoolDown => Mathf.Max(RecentCastTime + Cooldown - Time.time, 0);
 
     public bool IsNull()
     {
@@ -49,39 +57,34 @@ public class DefaultSkill : IProjectileSkill, ICoolTimeSkill
         Data = null;
     }
 
-    private void ApplyProjectileData(Transform defender, ProjectileComponent projectileGame)
+    public void CastCooldown(float currentTime)
     {
-        projectileGame.target = defender;
-
-        if (projectileGame.projectileImage)
-        {
-            projectileGame.projectileImage.sprite = Data.projectileSprite;
-            projectileGame.projectileImage.color = Data.projectileColor;
-        }
-
-        projectileGame.projectileSpeed = Data.projectileSpeed;
-        projectileGame.transform.localScale = Data.projectileSize;
+        RecentCastTime = currentTime;
     }
 
-
-    public void SetData(InstantSkillData data, float currTime = 0)
+    /// <returns>
+    ///     True - 해당 skill 쿨타임, 시전 불가 \n
+    ///     False - 해당 skill 시전 가능
+    /// </returns>
+    public bool IsCoolingTime(float currentTime)
     {
-        if (currTime == 0)
-        {
-            currTime = Time.time;
-        }
+        // currentTime < 0 = 생성시 쿨타임, 최초 시전에 쿨타임 비교 없음.
+        if (RecentCastTime < 0)
+            return false;
 
-        Data = data;
-
-        recentCastTime = Data == null ? -2 : currTime;
+        return RecentCastTime + Cooldown > currentTime;
     }
+}
 
-    public static DefaultSkill[] CreateArray(int size)
+
+public static class DefaultSkillCreateArray
+{
+    public static DefaultSkillFrame[] CreateArray(int size)
     {
-        DefaultSkill[] array = new DefaultSkill[size];
+        var array = new DefaultSkillFrame[size];
         for (int i = 0; i < size; i++)
         {
-            array[i] = new DefaultSkill();
+            array[i] = new DefaultSkillFrame();
         }
 
         return array;

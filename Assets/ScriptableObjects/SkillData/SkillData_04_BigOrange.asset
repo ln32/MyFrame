@@ -13,10 +13,19 @@ MonoBehaviour:
   m_Name: SkillData_04_BigOrange
   m_EditorClassIdentifier: 
   id: 4
-  skillName: SkillData_04_BigOrange
-  projectileComponent: {fileID: 3208776422106190751, guid: 76113112f88d7c540ab8cf1e7a39d448, type: 3}
-  coolTime: 10
+  skillName: 4
+  cooldown: 4.3
+  damageRate: -1
+  effectRadius: 0.1
+  searchCastTargetCount: 1
+  effectOnRadiusTargetCount: 1
+  isDot: 0
+  tickRate: -1
+  tickCount: 1
   projectileSpeed: 5
-  projectileSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  projectileColor: {r: 1, g: 0.5925149, b: 0, a: 1}
-  projectileSize: {x: 3, y: 3}
+  projectileComponent: {fileID: 3208776422106190751, guid: 76113112f88d7c540ab8cf1e7a39d448, type: 3}
+  repeatCount: 1
+  timeGap: -1
+  targetingCase: 0
+  castPointCase: {x: 0, y: 0}
+  targetPointCase: {x: 0, y: 0}

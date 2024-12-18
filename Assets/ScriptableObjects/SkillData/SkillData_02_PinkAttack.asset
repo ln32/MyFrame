@@ -13,10 +13,19 @@ MonoBehaviour:
   m_Name: SkillData_02_PinkAttack
   m_EditorClassIdentifier: 
   id: 2
-  skillName: SkillData_02_DefalultAttack
-  projectileComponent: {fileID: 3208776422106190751, guid: 76113112f88d7c540ab8cf1e7a39d448, type: 3}
-  coolTime: 1.2
+  skillName: 2
+  cooldown: 2.1
+  damageRate: -1
+  effectRadius: 0.1
+  searchCastTargetCount: 1
+  effectOnRadiusTargetCount: 1
+  isDot: 0
+  tickRate: -1
+  tickCount: 1
   projectileSpeed: 3
-  projectileSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  projectileColor: {r: 0.94716984, g: 0.2198148, b: 0.9362707, a: 1}
-  projectileSize: {x: 1, y: 1.5}
+  projectileComponent: {fileID: 3208776422106190751, guid: 76113112f88d7c540ab8cf1e7a39d448, type: 3}
+  repeatCount: 1
+  timeGap: -1
+  targetingCase: 0
+  castPointCase: {x: 0, y: 1}
+  targetPointCase: {x: 0, y: 0}

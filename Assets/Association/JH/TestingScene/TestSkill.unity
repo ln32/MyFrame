@@ -128,7 +128,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 254664821}
-  - component: {fileID: 254664822}
   m_Layer: 0
   m_Name: MainScenario
   m_TagString: Untagged
@@ -151,23 +150,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &254664822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 254664820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35c5562663574fab96746e3e906526af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillDataDictionary: {fileID: 11400000, guid: 17b756aa1465c4d47a9b23a8708c2838, type: 2}
-  vm: {fileID: 525516291}
-  archer: {fileID: 1395367531}
-  monster: {fileID: 1943291863}
-  IsAuto: 1
 --- !u!1 &525516286
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,6 +494,7 @@ GameObject:
   - component: {fileID: 1395367530}
   - component: {fileID: 1395367529}
   - component: {fileID: 1395367531}
+  - component: {fileID: 1395367532}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Untagged
@@ -601,6 +584,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d701775539aecc242927876565ce34d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1395367532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1395367528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c5562663574fab96746e3e906526af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CoreCaster: {fileID: 1395367531}
+  IsAuto: 0
+  initSkillRandom: 1
+--- !u!1 &1478421445
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1478421446}
+  m_Layer: 0
+  m_Name: StageScenario
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1478421446
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478421445}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.1224117, y: -3.6836882, z: -0.18427889}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1943291860
 GameObject:
   m_ObjectHideFlags: 0
@@ -3831,3 +3860,4 @@ SceneRoots:
   - {fileID: 1987890882}
   - {fileID: 1395367530}
   - {fileID: 1943291862}
+  - {fileID: 1478421446}

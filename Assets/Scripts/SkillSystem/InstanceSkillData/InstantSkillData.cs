@@ -3,24 +3,31 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "InstantSkillData", menuName = "Skill/InstantSkillData")]
 public class InstantSkillData : ScriptableObject
 {
-    // 기본 정보
     public int id;
     public string skillName;
 
+    public float cooldown = -1f;
+
+    public float damageRate = -1f;
+
+    public float effectRadius = 0.1f;
+
+    public int searchCastTargetCount = 1;
+
+    public int effectOnRadiusTargetCount = 1;
+
+    public bool isDot;
+    public float tickRate = -1f;
+    public int tickCount = 1;
+
+    public float projectileSpeed = -1f;
     public ProjectileComponent projectileComponent;
 
-    public float coolTime;
+    public int repeatCount = 1;
+    public float timeGap = -1f;
 
-    public int projectileSpeed;
-    public Sprite projectileSprite;
-    public Color projectileColor;
-    public Vector2 projectileSize;
+    public Vector2 castPointCase;
+    public Vector2 targetPointCase;
 
-    // 이펙트
-    //public GameObject trailEffect;
-    //public GameObject explosionEffect;
-
-    // 효과음
-    //public AudioClip launchSound;
-    //public AudioClip impactSound;
+    public TargetingCase targetingCase = TargetingCase.First;
 }

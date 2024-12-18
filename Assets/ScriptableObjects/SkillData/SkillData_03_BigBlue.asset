@@ -13,10 +13,19 @@ MonoBehaviour:
   m_Name: SkillData_03_BigBlue
   m_EditorClassIdentifier: 
   id: 3
-  skillName: SkillData_03_BigBlue
-  projectileComponent: {fileID: 3208776422106190751, guid: 76113112f88d7c540ab8cf1e7a39d448, type: 3}
-  coolTime: 5
+  skillName: 3
+  cooldown: 3.2
+  damageRate: -1
+  effectRadius: 0.1
+  searchCastTargetCount: 1
+  effectOnRadiusTargetCount: 1
+  isDot: 0
+  tickRate: -1
+  tickCount: 1
   projectileSpeed: 4
-  projectileSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  projectileColor: {r: 0, g: 0.13886376, b: 0.9924528, a: 1}
-  projectileSize: {x: 2, y: 2}
+  projectileComponent: {fileID: 3208776422106190751, guid: 76113112f88d7c540ab8cf1e7a39d448, type: 3}
+  repeatCount: 1
+  timeGap: -1
+  targetingCase: 0
+  castPointCase: {x: 0, y: 0}
+  targetPointCase: {x: 0, y: 0}
