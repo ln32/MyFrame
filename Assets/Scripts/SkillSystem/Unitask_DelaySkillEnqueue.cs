@@ -9,12 +9,19 @@ public class Unitask_DelaySkillEnqueue
 
     public async UniTaskVoid RepeatedAction(Action func, int count, float timegapMs)
     {
+        if (func == null || count <= 0 || (count > 1 && timegapMs <= 0))
+        {
+            NabeDebug.Log($"Except by : {func == null} / {count <= 0} / {count > 1 && timegapMs <= 0}");
+            throw new Exception();
+        }
+
         int tempValue = (int)(timegapMs * 1000);
 
         CancellationTokenSource cts = new();
         _activeTasks.Add(cts);
 
-        for (int i = 0; i < count; i++)
+        func();
+        for (int i = 1; i < count; i++)
         {
             await UniTask.Delay(tempValue, cancellationToken: cts.Token);
             func();

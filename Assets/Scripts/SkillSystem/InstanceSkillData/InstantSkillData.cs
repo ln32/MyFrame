@@ -24,7 +24,7 @@ public class InstantSkillData : ScriptableObject
     public ProjectileComponent projectileComponent;
 
     public int repeatCount = 1;
-    public float timeGap = -1f;
+    public float repeatTimeGap = -1f;
 
     public Vector2 castPointCase;
     public Vector2 targetPointCase;

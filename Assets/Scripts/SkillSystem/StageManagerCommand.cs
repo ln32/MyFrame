@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class StageManagerCommunicate
+public class StageManagerCommand
 {
     public static List<Vector3> GetPositionsFromObjects()
     {
@@ -21,10 +21,10 @@ public class StageManagerCommunicate
         return positions;
     }
 
-    public static bool HitPointEvent_ByDistance(SkillCasterComponent caster, Vector3 point, DefaultSkillFrame skill)
+    public static bool HitPointEvent_ByDistance(SkillCasterComponent caster, Vector3 point, InstantSkillData data)
     {
-        int searchCastTargetCount = skill.SearchCastTargetCount;
-        float effectRadius = skill.EffectRadius;
+        int searchCastTargetCount = data.searchCastTargetCount;
+        float effectRadius = data.effectRadius;
 
         IList<GameObject> objects = StageManager.Instance.SpawnedMonsterList;
 

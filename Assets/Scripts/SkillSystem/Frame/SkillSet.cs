@@ -17,7 +17,7 @@ public class DefaultSkillFrame
         Data = data;
         PriorityIndex = priorityIndex;
         RecentCastTime = Time.time;
-        CastContext = new CastContext(this);
+        CastContext = new CastContext(Data);
     }
 
     public int Id => Data.id;
