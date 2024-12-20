@@ -17,15 +17,15 @@ public class CastContext
             {
                 ExecuteOnce(caster);
             },
-            _data.repeatCount,
-            _data.repeatTimeGap
+            _data.loopCount,
+            _data.loopTimeGap
         ).Forget();
     }
 
     private void ExecuteOnce(SkillCasterComponent caster)
     {
         List<Vector3> targets =
-            GetCastTargetingPointProcess.GetProcess(_data, StageManagerCommand.GetPositionsFromObjects());
+            GetCastTargetingPointProcess.GetProcess(_data, caster.TargetingRule.GetPositionsFromObjects());
 
         // TODO : castCount / tick 계산 후 반복
         foreach (Vector3 targetPoint in targets)
@@ -43,5 +43,5 @@ public enum TargetingCase
 {
     First,
     Random,
-    BestRange
+    RangeEffect
 }

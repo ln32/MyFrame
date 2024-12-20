@@ -19,17 +19,4 @@ public class Dummy_SkillCasterFactory : MonoBehaviour
             Instance = this;
         }
     }
-
-    /*
-    public SkillCasterComponent archer;
-    public SkillCasterComponent CreateMonster()
-    {
-        SkillCasterComponent _archer = Instantiate(archer);
-
-        //_archer.RegistSkill(new DefaultSkill(skillDataDictionary.GetSkillData(3), 2));
-        //_archer.RegistSkill(new DefaultSkill(skillDataDictionary.GetSkillData(4), 3));
-
-        return _archer;
-    }
-    */
 }

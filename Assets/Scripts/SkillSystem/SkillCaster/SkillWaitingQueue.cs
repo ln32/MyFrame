@@ -23,13 +23,34 @@ public class SkillWaitingQueue
                 continue;
 
             // 시전에 성공 시 프로세스 아웃
-            if (SkillActivationProcess.IsCastable(skill))
+            if (SkillCastProcess.IsCastable(skill))
             {
                 var rtnSkill = Queue[index];
                 Queue[index] = null;
 
                 return rtnSkill;
             }
+        }
+
+        return null;
+    }
+
+    public BattleSkill TryCastSkillBySlotIndex(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= Queue.Length) return null;
+
+        var skill = Queue[slotIndex];
+
+        if (skill == null || skill.IsNull()) return null;
+
+
+        // 시전에 성공 시 프로세스 아웃
+        if (SkillCastProcess.IsCastable(skill))
+        {
+            var rtnSkill = Queue[slotIndex];
+            Queue[slotIndex] = null;
+
+            return rtnSkill;
         }
 
         return null;

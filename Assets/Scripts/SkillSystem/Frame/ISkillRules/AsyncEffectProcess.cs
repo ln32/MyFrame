@@ -1,20 +1,18 @@
 // 기본 단일 타겟팅
 
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public static class AsyncEffectProcess
 {
     public static void Process(InstantSkillData data, SkillCasterComponent caster, Vector3 targetPoint, float reachTime)
     {
-        if (data.isDot)
+        if (data.isDot == false)
         {
-            DamageOverTimeEffectProcess(data, caster, targetPoint, reachTime);
+            AsyncSingleEffectProcess(data, caster, targetPoint, reachTime);
         }
         else
         {
-            AsyncSingleEffectProcess(data, caster, targetPoint, reachTime);
+            DamageOverTimeEffectProcess(data, caster, targetPoint, reachTime);
         }
     }
 
@@ -22,55 +20,44 @@ public static class AsyncEffectProcess
         Vector3 targetPoint, float reachTime)
     {
         int effectOnRadiusTargetCount = data.effectOnRadiusTargetCount;
+        float effectRadius = data.effectRadius;
 
         if (reachTime <= 0)
         {
             return;
         }
 
-        List<Vector3> targetTransform = StageManagerCommand.GetPositionsFromObjects()
-            .OrderBy(e => Vector2.Distance(targetPoint, new Vector2(e.x, e.y)))
-            .Take(effectOnRadiusTargetCount).ToList();
-
-        for (int i = 0; i < targetTransform.Count; i++)
+        caster.DelayUnitask.DelayedAction(() =>
         {
-            Vector3 target = targetTransform[i];
-            caster.DelayUnitask.DelayedAction(() =>
+            if (caster.TargetingRule.HitPointEvent_ByDistance(targetPoint, data))
             {
-                StageManagerCommand.HitPointEvent_ByDistance(caster, target, data);
-                NabeDebug.Log($"{caster.Transform.name} is attack {target} with {data.skillName}");
-            }, reachTime).Forget();
-        }
+                NabeDebug.Log($"{caster.transform.name} is attack {targetPoint} with {data.skillName}");
+            }
+        }, reachTime).Forget();
     }
 
     private static void DamageOverTimeEffectProcess(InstantSkillData data, SkillCasterComponent caster,
         Vector3 targetPoint, float reachTime)
     {
         int effectOnRadiusTargetCount = data.effectOnRadiusTargetCount;
-        int repeatCount = data.repeatCount;
-        float timeGap = data.repeatTimeGap;
+        int tickCount = data.tickCount;
+        float timeGap = data.tickRate;
+        float effectRadius = data.effectRadius;
 
         if (reachTime <= 0)
         {
-            NabeDebug.Log($" ReachTime Error : {caster.Transform.name}");
+            NabeDebug.Log($" ReachTime Error : {caster.transform.name}");
             return;
         }
 
-        List<Vector3> list = StageManagerCommand.GetPositionsFromObjects()
-            .OrderBy(e => Vector2.Distance(targetPoint, new Vector2(e.x, e.y)))
-            .Take(effectOnRadiusTargetCount).ToList();
-
-        for (int i = 0; i < list.Count; i++)
+        caster.DelayUnitask.DelayedAction(() =>
         {
-            Vector3 target = list[i];
+            NabeDebug.Log($"{caster.transform.name} is attack {targetPoint} with {data.skillName}");
             caster.DelayUnitask.RepeatedAction(
-                () =>
-                {
-                    StageManagerCommand.HitPointEvent_ByDistance(caster, target, data);
-                },
-                repeatCount,
+                () => { caster.TargetingRule.HitPointEvent_ByDistance(targetPoint, data); },
+                tickCount,
                 timeGap
             );
-        }
+        }, reachTime).Forget();
     }
 }

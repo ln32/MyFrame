@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class StageManagerCommand
+public class HeroSkillCasterComponent : ITargetingRule
 {
-    public static List<Vector3> GetPositionsFromObjects()
+    public List<Vector3> GetPositionsFromObjects()
     {
         IList<GameObject> objects = StageManager.Instance.SpawnedMonsterList;
         List<Vector3> positions = new();
@@ -21,9 +21,9 @@ public class StageManagerCommand
         return positions;
     }
 
-    public static bool HitPointEvent_ByDistance(SkillCasterComponent caster, Vector3 point, InstantSkillData data)
+    public bool HitPointEvent_ByDistance(Vector3 point, InstantSkillData data)
     {
-        int searchCastTargetCount = data.searchCastTargetCount;
+        int effectOnRadiusTargetCount = data.effectOnRadiusTargetCount;
         float effectRadius = data.effectRadius;
 
         IList<GameObject> objects = StageManager.Instance.SpawnedMonsterList;
@@ -42,10 +42,10 @@ public class StageManagerCommand
         foreach (var item in sortedObjects)
         {
             item.GameObject.GetComponent<Damageable>().OnDamaged();
-            searchCastTargetCount--;
+            effectOnRadiusTargetCount--;
             hitOccured = true;
 
-            if (searchCastTargetCount <= 0)
+            if (effectOnRadiusTargetCount <= 0)
             {
                 break;
             }

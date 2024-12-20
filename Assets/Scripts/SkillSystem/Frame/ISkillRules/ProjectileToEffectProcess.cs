@@ -16,7 +16,7 @@ public static class ProjectileToEffectProcess
 
         reachTime = 0.1f;
 
-        Vector3 casterV3 = caster.Transform.position + CastPoint;
+        Vector3 casterV3 = caster.transform.position + CastPoint;
 
         ProjectileComponent projectile = Object.Instantiate(projectileComponent);
         projectile.transform.position = casterV3;

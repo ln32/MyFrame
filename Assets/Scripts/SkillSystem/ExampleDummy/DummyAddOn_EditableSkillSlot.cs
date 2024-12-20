@@ -6,30 +6,31 @@ using UnityEngine;
 public class DummyAddOn_EditableSkillSlot : MonoBehaviour
 {
     [SerializeField] private List<int> skillList;
-
-    public bool initSkillRandom = true;
+    [SerializeField] private bool initSkill = true;
     private SkillCasterComponent _coreCaster;
 
     private void Start()
     {
         _coreCaster = GetComponent<SkillCasterComponent>();
-        RegistSkill();
+        if (initSkill)
+        {
+            RegistSkill();
+        }
     }
 
     [Button]
     public void RegistSkill()
     {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < _coreCaster.SkillSlotCount; i++)
         {
             if (skillList[i] == 0)
             {
                 continue;
             }
 
-            InstantSkillData skillData =
-                Dummy_SkillCasterFactory.Instance.skillDataDictionary.GetSkillData(skillList[i]);
-
-            _coreCaster.RegistSkill(new BattleSkill(skillData, i));
+            _coreCaster.RegistSkill(
+                new BattleSkill(Dummy_SkillCasterFactory.Instance.skillDataDictionary.GetSkillData(skillList[i]), i)
+            );
         }
     }
 }

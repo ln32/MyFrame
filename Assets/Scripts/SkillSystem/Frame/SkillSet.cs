@@ -36,8 +36,8 @@ public class BattleSkill
     public int SearchCastTargetCount => Data.searchCastTargetCount;
 
     public bool IsDot => Data.isDot;
-    public int RepeatCount => Data.repeatCount;
-    public float TimeGap => Data.repeatCount;
+    public int LoopCount => Data.loopCount;
+    public float LoopTimeGap => Data.loopTimeGap;
     public int EffectOnRadiusTargetCount => Data.effectOnRadiusTargetCount;
 
     public Vector2 CastPointCase => Data.castPointCase;

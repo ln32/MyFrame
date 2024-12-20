@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public static class SkillActivationProcess
+public static class SkillCastProcess
 {
     public static bool IsCastable(BattleSkill skill)
     {
@@ -18,6 +18,26 @@ public static class SkillActivationProcess
             return;
         }
 
+        CastProcess(caster, skill);
+    }
+
+
+    public static void TryCastSkillAt(SkillCasterComponent caster, int index)
+    {
+        BattleSkill skill = caster.SkillWaitingQueue.TryCastSkillBySlotIndex(index);
+
+        if (skill == null)
+        {
+            NabeDebug.Log("Skill Is NUll");
+            return;
+        }
+
+        CastProcess(caster, skill);
+    }
+
+
+    private static void CastProcess(SkillCasterComponent caster, BattleSkill skill)
+    {
         // cast 시전
         skill.CastContext.ExecuteTargeting(caster);
 

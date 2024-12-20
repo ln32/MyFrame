@@ -2,28 +2,20 @@ using UnityEngine;
 
 public class SkillCasterComponent : MonoBehaviour
 {
-    public Transform Transform => transform;
-    public BattleSkill[] SkillSlots { get; set; } = DefaultSkillCreateArray.CreateArray(6);
-    public SkillWaitingQueue SkillWaitingQueue { get; set; } = new(6);
-    public Unitask_DelaySkillEnqueue DelayUnitask { get; } = new();
+    [SerializeField] private int skillSlotCount;
+    private ITargetingPool _myITargetingCase;
+    public ITargetingRule TargetingRule;
+    public int SkillSlotCount => skillSlotCount;
+    public BattleSkill[] SkillSlots { get; set; }
+    public SkillWaitingQueue SkillWaitingQueue { get; set; }
+    public Unitask_DelaySkillEnqueue DelayUnitask { get; set; }
 
-    private void Start()
+    private void Awake()
     {
-        StartCoolDown();
-    }
-
-    private void StartCoolDown()
-    {
-        for (int i = 0; i < SkillSlots.Length; i++)
-        {
-            if (SkillSlots[i].IsNull())
-            {
-                continue;
-            }
-
-            SkillSlots[i].PriorityIndex = i;
-            SkillWaitingQueue.Enqueue(i, SkillSlots[i]);
-        }
+        SkillSlots = DefaultSkillCreateArray.CreateArray(skillSlotCount);
+        SkillWaitingQueue = new SkillWaitingQueue(skillSlotCount);
+        DelayUnitask = new Unitask_DelaySkillEnqueue();
+        TargetingRule = ITargetingRule.Get(_myITargetingCase);
     }
 
     public bool RegistSkill(BattleSkill newData)
@@ -54,7 +46,6 @@ public class SkillCasterComponent : MonoBehaviour
         }, coolTimeSkill.Cooldown).Forget();
     }
 
-
     private void RemoveLegacy(int newSkillIndex)
     {
         for (int index = 0; index < SkillSlots.Length; index++)
@@ -74,7 +65,7 @@ public class SkillCasterComponent : MonoBehaviour
 
     private bool CheckIndexRange(int slotIndex)
     {
-        if (slotIndex < 0 || slotIndex > 5)
+        if (slotIndex < 0 || slotIndex > SkillSlotCount)
         {
             NabeDebug.Log("Invalid slot index.");
             return false;

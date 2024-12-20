@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(SkillCasterComponent))]
 public class DummyAddOn_TryCasting : MonoBehaviour
 {
-    public bool IsAuto = true;
+    public bool isAuto = true;
     private SkillCasterComponent _coreCaster;
 
     private void Start()
@@ -11,11 +11,12 @@ public class DummyAddOn_TryCasting : MonoBehaviour
         _coreCaster = GetComponent<SkillCasterComponent>();
     }
 
-
     // 자동사냥 프로세스 대리
     private void Update()
     {
-        if (IsAuto)
-            SkillActivationProcess.TryCastSkillProcess(_coreCaster);
+        if (isAuto)
+        {
+            SkillCastProcess.TryCastSkillProcess(_coreCaster);
+        }
     }
 }
