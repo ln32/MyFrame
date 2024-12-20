@@ -3,11 +3,16 @@ using UnityEngine;
 public class SkillCasterComponent : MonoBehaviour
 {
     public Transform Transform => transform;
-    public DefaultSkillFrame[] SkillSlots { get; set; } = DefaultSkillCreateArray.CreateArray(6);
-    public SkillWaitingQueue SkillWaitingQueue { get; set; } = new SkillWaitingQueue(6);
+    public BattleSkill[] SkillSlots { get; set; } = DefaultSkillCreateArray.CreateArray(6);
+    public SkillWaitingQueue SkillWaitingQueue { get; set; } = new(6);
     public Unitask_DelaySkillEnqueue DelayUnitask { get; } = new();
 
     private void Start()
+    {
+        StartCoolDown();
+    }
+
+    private void StartCoolDown()
     {
         for (int i = 0; i < SkillSlots.Length; i++)
         {
@@ -21,7 +26,7 @@ public class SkillCasterComponent : MonoBehaviour
         }
     }
 
-    public bool RegistSkill(DefaultSkillFrame newData)
+    public bool RegistSkill(BattleSkill newData)
     {
         int slotIndex = -1;
         slotIndex = newData.PriorityIndex;
@@ -41,7 +46,7 @@ public class SkillCasterComponent : MonoBehaviour
         return true;
     }
 
-    public void ApplyCoolDown(DefaultSkillFrame coolTimeSkill)
+    public void ApplyCoolDown(BattleSkill coolTimeSkill)
     {
         DelayUnitask.DelayedAction(() =>
         {
@@ -54,7 +59,7 @@ public class SkillCasterComponent : MonoBehaviour
     {
         for (int index = 0; index < SkillSlots.Length; index++)
         {
-            DefaultSkillFrame skill = SkillSlots[index];
+            BattleSkill skill = SkillSlots[index];
             if (skill.IsNull())
             {
                 continue;
@@ -62,7 +67,7 @@ public class SkillCasterComponent : MonoBehaviour
 
             if (skill.Id == newSkillIndex)
             {
-                SkillSlots[index] = new DefaultSkillFrame();
+                SkillSlots[index] = new BattleSkill();
             }
         }
     }

@@ -33,7 +33,7 @@ public class SkillSlotViewModel : MonoBehaviour
             return;
         }
 
-        DefaultSkillFrame[] slots = _model.SkillSlots;
+        BattleSkill[] slots = _model.SkillSlots;
         for (int i = 0; i < slots.Length; i++)
         {
             view.ApplyCooltime_SkillSlotGUI(i, slots[i]);

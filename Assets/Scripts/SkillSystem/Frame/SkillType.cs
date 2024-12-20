@@ -2,7 +2,7 @@ using UnityEngine;
 
 public static class SkillActivationProcess
 {
-    public static bool IsCastable(DefaultSkillFrame skill)
+    public static bool IsCastable(BattleSkill skill)
     {
         if (skill.IsCoolingTime(Time.time)) return false;
 
@@ -11,7 +11,7 @@ public static class SkillActivationProcess
 
     public static void TryCastSkillProcess(SkillCasterComponent caster)
     {
-        DefaultSkillFrame skill = caster.SkillWaitingQueue.TryCastPrioritySkill();
+        BattleSkill skill = caster.SkillWaitingQueue.TryCastPrioritySkill();
 
         if (skill == null)
         {

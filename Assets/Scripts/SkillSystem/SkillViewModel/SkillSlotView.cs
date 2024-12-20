@@ -9,7 +9,7 @@ public class SkillSlotView : MonoBehaviour
     [SerializeField] internal List<TextMeshProUGUI> cooltimeTexts;
     [SerializeField] internal List<TextMeshProUGUI> skillTexts;
 
-    public void ApplyCooltime_SkillSlotGUI(int i, DefaultSkillFrame skill)
+    public void ApplyCooltime_SkillSlotGUI(int i, BattleSkill skill)
     {
         SkillSlotContainer data = new(skill);
 
@@ -26,7 +26,7 @@ public struct SkillSlotContainer
     public float ratio;
     public string ratioText;
 
-    public SkillSlotContainer(DefaultSkillFrame skill)
+    public SkillSlotContainer(BattleSkill skill)
     {
         if (skill.IsNull() == false)
         {

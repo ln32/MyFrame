@@ -2,17 +2,17 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class DefaultSkillFrame
+public class BattleSkill
 {
     protected InstantSkillData Data;
 
-    public DefaultSkillFrame()
+    public BattleSkill()
     {
         Data = null;
         CastContext = null;
     }
 
-    public DefaultSkillFrame(InstantSkillData data, int priorityIndex)
+    public BattleSkill(InstantSkillData data, int priorityIndex)
     {
         Data = data;
         PriorityIndex = priorityIndex;
@@ -79,12 +79,12 @@ public class DefaultSkillFrame
 
 public static class DefaultSkillCreateArray
 {
-    public static DefaultSkillFrame[] CreateArray(int size)
+    public static BattleSkill[] CreateArray(int size)
     {
-        var array = new DefaultSkillFrame[size];
+        var array = new BattleSkill[size];
         for (int i = 0; i < size; i++)
         {
-            array[i] = new DefaultSkillFrame();
+            array[i] = new BattleSkill();
         }
 
         return array;

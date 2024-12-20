@@ -1,18 +1,18 @@
 public class SkillWaitingQueue
 {
-    public DefaultSkillFrame[] Queue;
+    public BattleSkill[] Queue;
 
     public SkillWaitingQueue(int count)
     {
-        Queue = new DefaultSkillFrame[count];
+        Queue = new BattleSkill[count];
     }
 
-    public void Enqueue(int index, DefaultSkillFrame skill)
+    public void Enqueue(int index, BattleSkill skill)
     {
         Queue[index] = skill;
     }
 
-    public DefaultSkillFrame TryCastPrioritySkill()
+    public BattleSkill TryCastPrioritySkill()
     {
         // TODO : 스킬 우선순위 따지기.
         for (int index = 0; index < Queue.Length; index++)
