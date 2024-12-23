@@ -11,19 +11,33 @@ public static class ProjectileToEffectProcess
     {
         ProjectileComponent projectileComponent = data.projectileComponent;
         float projectileSpeed = data.projectileSpeed;
-        Vector3 CastPoint = data.castPointCase;
-        Vector3 TargetPoint = data.targetPointCase;
+        Vector3 castPoint = data.castPointCase;
 
         reachTime = 0.1f;
 
-        Vector3 casterV3 = caster.transform.position + CastPoint;
+        Vector3 casterV3 = caster.transform.position + castPoint;
 
         ProjectileComponent projectile = Object.Instantiate(projectileComponent);
         projectile.transform.position = casterV3;
 
         // 타겟팅 방식에 따라 타겟을 설정 (예: 첫 번째 적)
-        projectile.target = targetV3 + TargetPoint;
+        projectile.target = targetV3;
         projectile.projectileSpeed = projectileSpeed;
         reachTime = projectile.ReachTime;
+    }
+
+    public static void ProjectileProcess2(InstantSkillData data, SkillCasterComponent caster, Vector3 targetV3)
+    {
+        ProjectileComponent projectileComponent = data.projectileComponent;
+        float projectileSpeed = data.projectileSpeed;
+        Vector3 castPoint = data.castPointCase;
+        Vector3 casterV3 = caster.transform.position + castPoint;
+
+        ProjectileComponent projectile = Object.Instantiate(projectileComponent);
+        projectile.transform.position = casterV3;
+
+        // 타겟팅 방식에 따라 타겟을 설정 (예: 첫 번째 적)
+        projectile.target = targetV3;
+        projectile.projectileSpeed = projectileSpeed;
     }
 }

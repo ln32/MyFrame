@@ -41,7 +41,6 @@ public class BattleSkill
     public int EffectOnRadiusTargetCount => Data.effectOnRadiusTargetCount;
 
     public Vector2 CastPointCase => Data.castPointCase;
-    public Vector2 TargetPointCase => Data.targetPointCase;
     public TargetingCase TargetingCase => Data.targetingCase;
     public CastContext CastContext { get; set; }
 

@@ -35,8 +35,6 @@ public class InstantSkillData : ScriptableObject
 
 
     // 의도 : 동적 소환 위치
-    // 의도 : 피격 랜덤
     public Vector2 castPointCase;
-    public Vector2 targetPointCase;
     public TargetingCase targetingCase = TargetingCase.First;
 }

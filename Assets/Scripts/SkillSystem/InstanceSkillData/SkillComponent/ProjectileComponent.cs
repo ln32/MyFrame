@@ -3,7 +3,6 @@ using UnityEngine;
 public class ProjectileComponent : MonoBehaviour
 {
     public SpriteRenderer projectileImage;
-
     public float projectileSpeed;
     public Vector3 target;
     public float ReachTime => Vector2.Distance(transform.position, target) / projectileSpeed;
