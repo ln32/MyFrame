@@ -3,7 +3,7 @@ public static class StageGUIEvent
     public static void ButtonEvent_SkillSlot(int index)
     {
         SkillCasterComponent caster = StageManager.Instance.MainCharacter.GetComponent<SkillCasterComponent>();
-        SkillCastProcess.TryCastSkillAt(caster, index);
+        SkillCastProcess.TryCastSlotSkill(caster, index);
     }
 
     public static void ButtonEvent_AutoSetting(bool value)

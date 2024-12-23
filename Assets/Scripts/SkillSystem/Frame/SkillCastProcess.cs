@@ -21,8 +21,7 @@ public static class SkillCastProcess
         CastProcess(caster, skill);
     }
 
-
-    public static void TryCastSkillAt(SkillCasterComponent caster, int index)
+    public static void TryCastSlotSkill(SkillCasterComponent caster, int index)
     {
         BattleSkill skill = caster.SkillWaitingQueue.TryCastSkillBySlotIndex(index);
 
@@ -34,7 +33,6 @@ public static class SkillCastProcess
 
         CastProcess(caster, skill);
     }
-
 
     private static void CastProcess(SkillCasterComponent caster, BattleSkill skill)
     {

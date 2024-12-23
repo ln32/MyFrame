@@ -21,8 +21,10 @@ public static class ProjectileToEffectProcess
         projectile.transform.position = casterV3;
 
         // 타겟팅 방식에 따라 타겟을 설정 (예: 첫 번째 적)
-        projectile.target = targetV3;
-        projectile.projectileSpeed = projectileSpeed;
+        projectile.srcV3 = casterV3;
+        projectile.dstV3 = targetV3;
+
+        projectile.reachTime = projectileSpeed;
         reachTime = projectile.ReachTime;
     }
 
@@ -37,7 +39,8 @@ public static class ProjectileToEffectProcess
         projectile.transform.position = casterV3;
 
         // 타겟팅 방식에 따라 타겟을 설정 (예: 첫 번째 적)
-        projectile.target = targetV3;
-        projectile.projectileSpeed = projectileSpeed;
+        projectile.srcV3 = casterV3;
+        projectile.dstV3 = targetV3;
+        projectile.reachTime = projectileSpeed;
     }
 }
