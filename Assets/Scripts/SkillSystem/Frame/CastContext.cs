@@ -15,14 +15,14 @@ public class CastContext
         caster.DelayUnitask.RepeatedAction(
             () =>
             {
-                ExecuteOnce(caster);
+                ExecuteOnceSync(caster);
             },
             _data.loopCount,
             _data.loopTimeGap
         ).Forget();
     }
 
-    private void ExecuteOnce(SkillCasterComponent caster)
+    private void ExecuteOnceSync(SkillCasterComponent caster)
     {
         List<Vector3> targets =
             GetCastTargetingPointProcess.GetProcess(_data, caster.TargetingRule.GetPositionsFromObjects());
@@ -31,9 +31,9 @@ public class CastContext
         foreach (Vector3 targetPoint in targets)
         {
             // With Instance Projectile 
-            ProjectileToEffectProcess.ProjectileProcess(_data, caster, targetPoint, out float reachTime);
-            // 투사체 영향 비동기
-            AsyncEffectProcess.Process(_data, caster, targetPoint, reachTime);
+            ProjectileToEffectProcess.ProjectileProcess(_data, caster, targetPoint,
+                point => EffectContainerProcess.Process(_data, caster, point)
+            );
         }
     }
 }

@@ -2,9 +2,10 @@
 
 using UnityEngine;
 
-public static class AsyncEffectProcess
+public static class EffectContainerProcess
 {
-    public static void Process(InstantSkillData data, SkillCasterComponent caster, Vector3 targetPoint, float reachTime)
+    public static void Process(InstantSkillData data, SkillCasterComponent caster, Vector3 targetPoint,
+        float reachTime = 0)
     {
         if (data.isDot == false)
         {
@@ -16,13 +17,11 @@ public static class AsyncEffectProcess
         }
     }
 
+
     private static void AsyncSingleEffectProcess(InstantSkillData data, SkillCasterComponent caster,
         Vector3 targetPoint, float reachTime)
     {
-        int effectOnRadiusTargetCount = data.effectOnRadiusTargetCount;
-        float effectRadius = data.effectRadius;
-
-        if (reachTime <= 0)
+        if (reachTime < 0)
         {
             return;
         }
@@ -36,13 +35,12 @@ public static class AsyncEffectProcess
         }, reachTime).Forget();
     }
 
+
     private static void DamageOverTimeEffectProcess(InstantSkillData data, SkillCasterComponent caster,
         Vector3 targetPoint, float reachTime)
     {
-        int effectOnRadiusTargetCount = data.effectOnRadiusTargetCount;
         int tickCount = data.tickCount;
         float timeGap = data.tickRate;
-        float effectRadius = data.effectRadius;
 
         if (reachTime <= 0)
         {
@@ -57,7 +55,7 @@ public static class AsyncEffectProcess
                 () => { caster.TargetingRule.HitPointEvent_ByDistance(targetPoint, data); },
                 tickCount,
                 timeGap
-            );
+            ).Forget();
         }, reachTime).Forget();
     }
 }

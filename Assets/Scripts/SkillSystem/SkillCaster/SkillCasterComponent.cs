@@ -3,7 +3,7 @@ using UnityEngine;
 public class SkillCasterComponent : MonoBehaviour
 {
     [SerializeField] private int skillSlotCount;
-    private ITargetingPool _myITargetingCase;
+    [SerializeField] internal TeamType MyTeam = TeamType.Monster;
     public ITargetingRule TargetingRule;
     public int SkillSlotCount => skillSlotCount;
     public BattleSkill[] SkillSlots { get; set; }
@@ -15,7 +15,7 @@ public class SkillCasterComponent : MonoBehaviour
         SkillSlots = DefaultSkillCreateArray.CreateArray(skillSlotCount);
         SkillWaitingQueue = new SkillWaitingQueue(skillSlotCount);
         DelayUnitask = new Unitask_DelaySkillEnqueue();
-        TargetingRule = ITargetingRule.Get(_myITargetingCase);
+        TargetingRule = ITargetingRule.Get(MyTeam);
     }
 
     public bool RegistSkill(BattleSkill newData)

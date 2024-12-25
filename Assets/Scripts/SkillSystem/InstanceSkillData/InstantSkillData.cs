@@ -23,11 +23,10 @@ public class InstantSkillData : ScriptableObject
 
     [field: Title("[ Effect ]")] public float effectRadius = 0.1f;
 
-    public int effectOnRadiusTargetCount = 1;
+    public bool isUpdate = true;
+    public int effectTargetPerCast = 1;
 
     [field: Title("[ Proj ]")] public float projectileSpeed = -1f;
-
-    public ProjectileComponent projectileComponent;
 
     [field: Title("[ Loop ]")] public int loopCount = 1;
 

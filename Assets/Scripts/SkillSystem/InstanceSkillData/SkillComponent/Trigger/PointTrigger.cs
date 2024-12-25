@@ -1,15 +1,9 @@
 using UnityEngine;
 
-public class PointTrigger : MonoBehaviour, IEventChecker
+public class PointTrigger : MonoBehaviour
 {
-    [SerializeField] private SkillHitContainer skillHitContainer;
     [SerializeField] private float range;
     [SerializeField] private Transform trans;
-
-    private void Start()
-    {
-        skillHitContainer.EventChecker = this;
-    }
 
     public bool Check(Vector2 position)
     {

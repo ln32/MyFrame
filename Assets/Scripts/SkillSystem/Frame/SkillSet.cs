@@ -28,7 +28,6 @@ public class BattleSkill
     public float RecentCastTime { get; set; }
 
 
-    public ProjectileComponent ProjectileComponent => Data.projectileComponent;
     public float ProjectileSpeed => Data.projectileSpeed;
 
     public float DamageRate => Data.damageRate;
@@ -38,7 +37,7 @@ public class BattleSkill
     public bool IsDot => Data.isDot;
     public int LoopCount => Data.loopCount;
     public float LoopTimeGap => Data.loopTimeGap;
-    public int EffectOnRadiusTargetCount => Data.effectOnRadiusTargetCount;
+    public int EffectTargetPerCast => Data.effectTargetPerCast;
 
     public Vector2 CastPointCase => Data.castPointCase;
     public TargetingCase TargetingCase => Data.targetingCase;

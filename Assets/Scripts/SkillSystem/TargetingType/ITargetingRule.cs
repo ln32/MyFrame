@@ -7,18 +7,18 @@ public interface ITargetingRule
     public List<Vector3> GetPositionsFromObjects();
     public bool HitPointEvent_ByDistance(Vector3 point, InstantSkillData data);
 
-    public static ITargetingRule Get(ITargetingPool pool)
+    public static ITargetingRule Get(TeamType pool)
     {
         return pool switch
         {
-            ITargetingPool.Hero => new HeroSkillCasterComponent(),
-            ITargetingPool.Monster => new MonsterSkillCasterComponent(),
+            TeamType.Hero => new HeroSkillCasterComponent(),
+            TeamType.Monster => new MonsterSkillCasterComponent(),
             _ => throw new ArgumentOutOfRangeException(nameof(pool), pool, null)
         };
     }
 }
 
-public enum ITargetingPool
+public enum TeamType
 {
     Hero,
     Monster

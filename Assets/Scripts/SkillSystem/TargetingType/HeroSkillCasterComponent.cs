@@ -23,7 +23,7 @@ public class HeroSkillCasterComponent : ITargetingRule
 
     public bool HitPointEvent_ByDistance(Vector3 point, InstantSkillData data)
     {
-        int effectOnRadiusTargetCount = data.effectOnRadiusTargetCount;
+        int effectTargetPerCast = data.effectTargetPerCast;
         float effectRadius = data.effectRadius;
 
         IList<GameObject> objects = StageManager.Instance.SpawnedMonsterList;
@@ -42,10 +42,10 @@ public class HeroSkillCasterComponent : ITargetingRule
         foreach (var item in sortedObjects)
         {
             item.GameObject.GetComponent<Damageable>().OnDamaged();
-            effectOnRadiusTargetCount--;
+            effectTargetPerCast--;
             hitOccured = true;
 
-            if (effectOnRadiusTargetCount <= 0)
+            if (effectTargetPerCast <= 0)
             {
                 break;
             }
