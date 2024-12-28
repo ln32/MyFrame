@@ -28,6 +28,7 @@ public static class EffectContainerProcess
 
         caster.DelayUnitask.DelayedAction(() =>
         {
+            // try & bool
             if (caster.TargetingRule.HitPointEvent_ByDistance(targetPoint, data))
             {
                 NabeDebug.Log($"{caster.transform.name} is attack {targetPoint} with {data.skillName}");

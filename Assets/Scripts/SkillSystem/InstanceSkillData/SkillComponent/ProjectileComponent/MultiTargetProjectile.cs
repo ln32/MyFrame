@@ -1,10 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class MultiTargetProjectile : ProjectileComponent
+[RequireComponent(typeof(Collider2D))]
+public class MultiTargetProjectile : CastVisualComponent
 {
     private Collider2D _col;
     private ITargetingRule _rule;
-    private SkillHitContainer<Vector3> _skillHitContainer;
+    private readonly HashSet<Vector3> _skillHitContainer = new();
 
     private void Start()
     {
@@ -22,16 +24,13 @@ public class MultiTargetProjectile : ProjectileComponent
 
         foreach (Vector3 pointV3 in _rule.GetPositionsFromObjects())
         {
-            if (_skillHitContainer.IsContain(pointV3))
-            {
+            if (_skillHitContainer.Contains(pointV3))
                 continue;
-            }
 
             if (_col.OverlapPoint(pointV3))
             {
+                _skillHitContainer.TryAddObject(pointV3);
                 onHit?.Invoke(pointV3);
-
-                _skillHitContainer.AddObject(pointV3);
             }
         }
 
@@ -48,6 +47,5 @@ public class MultiTargetProjectile : ProjectileComponent
     public void InitValue(ITargetingRule rule)
     {
         _rule = rule;
-        _skillHitContainer = new SkillHitContainer<Vector3>();
     }
 }

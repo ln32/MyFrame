@@ -13,19 +13,20 @@ MonoBehaviour:
   m_Name: SkillData_01_DefalultAttack
   m_EditorClassIdentifier: 
   id: 1
+  level: 0
+  grade: 0
   skillName: 1
-  cooldown: 5
   damageRate: 1
-  effectRadius: 0.1
-  searchCastTargetCount: 2
-  effectOnRadiusTargetCount: 1
   isDot: 0
   tickRate: -1
   tickCount: 1
-  projectileSpeed: 4
-  projectileComponent: {fileID: 3208776422106190751, guid: 76113112f88d7c540ab8cf1e7a39d448, type: 3}
-  repeatCount: 1
-  repeatTimeGap: -1
+  cooldown: 5
+  searchCastTargetCount: 2
+  effectRadius: 0.1
+  isUpdate: 0
+  effectTargetPerCast: 1
   targetingCase: 0
-  castPointCase: {x: 0, y: 5}
-  targetPointCase: {x: 0, y: 0}
+  projectileSpeed: 4
+  loopCount: 1
+  loopTimeGap: -1
+  castPointCase: {x: 0, y: 0}

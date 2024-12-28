@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class ProjectileComponent : MonoBehaviour
+public class CastVisualComponent : MonoBehaviour
 {
     public SpriteRenderer projectileImage;
 
@@ -12,7 +12,12 @@ public class ProjectileComponent : MonoBehaviour
     public float projectileSpeed;
 
     public float reachTime;
-    internal Action<Vector3> onHit = v3 => { NabeDebug.Log("OnHit : " + v3); };
+
+    internal Action<Vector3> onHit = v3 =>
+    {
+        // 이펙트용 맞은자리 v3 존재
+        //NabeDebug.Log("OnHit : " + v3);
+    };
 
     public void SetReachTime()
     {

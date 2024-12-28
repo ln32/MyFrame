@@ -38,7 +38,6 @@ public class CastContext
     }
 }
 
-
 public enum TargetingCase
 {
     First,

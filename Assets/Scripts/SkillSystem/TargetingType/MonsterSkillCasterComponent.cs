@@ -1,4 +1,3 @@
-using Battle;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +19,7 @@ public class MonsterSkillCasterComponent : ITargetingRule
             return false;
         }
 
-        hero.GetComponent<Damageable>().OnDamaged();
+        //hero.GetComponent<Damageable>().OnDamaged();
         return true;
     }
 }

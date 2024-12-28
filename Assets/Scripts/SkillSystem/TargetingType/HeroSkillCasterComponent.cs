@@ -1,4 +1,3 @@
-using Battle;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -41,7 +40,7 @@ public class HeroSkillCasterComponent : ITargetingRule
         // 정렬된 객체 순서대로 처리
         foreach (var item in sortedObjects)
         {
-            item.GameObject.GetComponent<Damageable>().OnDamaged();
+            //item.GameObject.GetComponent<Damageable>().OnDamaged();
             effectTargetPerCast--;
             hitOccured = true;
 

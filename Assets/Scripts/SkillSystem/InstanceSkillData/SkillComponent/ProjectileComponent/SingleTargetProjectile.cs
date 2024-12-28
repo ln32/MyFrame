@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SingleTargetProjectile : ProjectileComponent
+public class SingleTargetProjectile : CastVisualComponent
 {
     private void Update()
     {
