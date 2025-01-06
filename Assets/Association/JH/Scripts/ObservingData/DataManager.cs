@@ -1,10 +1,11 @@
-using DataSet;
 using System;
+using DataSet;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
-public class DataManager : MonoSingleton<DataManager>
+public class DataManager : MonoBehaviour
 {
+    public static DataManager instance;
+
     [SerializeField] private ObservingDataHandler data;
     [SerializeField] public DataTypePairing<int, CurrencyData> INT_Currency = new();
     [SerializeField] public DataTypePairing<string, UserProfileData> STRING_UserProfile = new();
@@ -19,7 +20,9 @@ public class DataManager : MonoSingleton<DataManager>
     }
 
     public void AddAction<T>(string valueName, Action<T> action, bool updateData = false)
-    => data.AddAction(valueName, action, updateData);
+    {
+        data.AddAction(valueName, action, updateData);
+    }
 
     public void RemoveAction<T>(string valueName, Action<T> action)
         => data.RemoveAction(valueName, action);
@@ -41,6 +44,7 @@ public class DataManager : MonoSingleton<DataManager>
                     isParsed = true;
                     break;
                 }
+
                 if (value is float floatValue)
                 {
                     float cash = GetValue<float>(valueName);
@@ -48,6 +52,7 @@ public class DataManager : MonoSingleton<DataManager>
                     isParsed = true;
                     break;
                 }
+
                 if (value is double doubleValue)
                 {
                     double cash = GetValue<double>(valueName);
@@ -55,6 +60,7 @@ public class DataManager : MonoSingleton<DataManager>
                     isParsed = true;
                     break;
                 }
+
                 if (value is long longValue)
                 {
                     long cash = GetValue<long>(valueName);
@@ -62,6 +68,7 @@ public class DataManager : MonoSingleton<DataManager>
                     isParsed = true;
                     break;
                 }
+
                 if (value is string stringValue)
                 {
                     string cash = GetValue<string>(valueName);
@@ -73,15 +80,15 @@ public class DataManager : MonoSingleton<DataManager>
 
             if (!isParsed)
                 throw new ArgumentException("Wrong SetDelta Case - " + typeof(T).Name);
-
         }
         catch (Exception)
         {
-
             throw;
         }
     }
 
     public T GetValue<T>(string valueName)
-    { return data.GetValue<T>(valueName); }
+    {
+        return data.GetValue<T>(valueName);
+    }
 }

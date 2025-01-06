@@ -9,18 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1ef78b6bcd88fc4aa439e5b78e73511, type: 3}
-  m_Name: FloatArrayData
+  m_Script: {fileID: 11500000, guid: 23f759d96f74daa45967750adaf45af6, type: 3}
+  m_Name: XMLReader
   m_EditorClassIdentifier: 
-  floatArrays:
-  - 5.1608086
-  - 98.17263
-  - 1.164639
-  - 98.30174
-  - 11.986828
-  floatArrays2:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
+  xmlFileName: data.xml
+  inputName: Table_A
+  inputIndex: 2
+  todebug: []
