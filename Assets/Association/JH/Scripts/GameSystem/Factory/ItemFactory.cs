@@ -1,3 +1,5 @@
+using RestrictionRules;
+
 public static class ItemFactory
 {
     public static Item CreateWeapon()
@@ -11,8 +13,8 @@ public static class ItemFactory
         item.SetOption("Default", typeof(ATK_SPD_BattleProperty).Name, 10);
         item.SetOption("Default", typeof(MaxHP_BattleProperty).Name, 20);
 
-        item.RestrictionRules.Add(new RestrictionRules.LevelRestrictionRule(10));
-        item.RestrictionRules.Add(new RestrictionRules.ClassRestrictionRule(typeof(WarriorBattleClass)));
+        item.RestrictionRules.Add(new LevelRestrictionRule(10));
+        item.RestrictionRules.Add(new ClassRestrictionRule(typeof(WarriorBattleClass)));
 
         return item;
     }
@@ -27,8 +29,8 @@ public static class ItemFactory
         item.SetOption("Default", typeof(DEF_BattleProperty).Name, 5);
         item.SetOption("Default", typeof(MaxHP_BattleProperty).Name, 15);
 
-        item.RestrictionRules.Add(new RestrictionRules.LevelRestrictionRule(5));
-        item.RestrictionRules.Add(new RestrictionRules.ClassRestrictionRule(typeof(WarriorBattleClass)));
+        item.RestrictionRules.Add(new LevelRestrictionRule(5));
+        item.RestrictionRules.Add(new ClassRestrictionRule(typeof(WarriorBattleClass)));
 
         return item;
     }
@@ -44,11 +46,12 @@ public static class ItemFactory
         item.SetOption("Default", typeof(MaxHP_BattleProperty).Name, 20);
         item.SetOption("Default", typeof(MaxHP_BattleProperty).Name, 20);
 
-        item.RestrictionRules.Add(new RestrictionRules.LevelRestrictionRule(10));
-        item.RestrictionRules.Add(new RestrictionRules.ClassRestrictionRule(typeof(WarriorBattleClass)));
+        item.RestrictionRules.Add(new LevelRestrictionRule(10));
+        item.RestrictionRules.Add(new ClassRestrictionRule(typeof(WarriorBattleClass)));
 
         return item;
     }
+
     public static Item CreateArmor2()
     {
         var item = new Item();
@@ -59,10 +62,9 @@ public static class ItemFactory
         item.SetOption("Default", typeof(DEF_BattleProperty).Name, 100);
         item.SetOption("Default", typeof(DEF_BattleProperty).Name, 100);
 
-        item.RestrictionRules.Add(new RestrictionRules.LevelRestrictionRule(5));
-        item.RestrictionRules.Add(new RestrictionRules.ClassRestrictionRule(typeof(WarriorBattleClass)));
+        item.RestrictionRules.Add(new LevelRestrictionRule(5));
+        item.RestrictionRules.Add(new ClassRestrictionRule(typeof(WarriorBattleClass)));
 
         return item;
     }
-
 }

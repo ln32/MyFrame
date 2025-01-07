@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-
-public class Proto_Gacha : MonoBehaviour
+public class PrototypeProcessor : MonoBehaviour
 {
     public List<CommandUnit> toggleList = new();
     private int currentIndex = -1;
@@ -13,9 +10,7 @@ public class Proto_Gacha : MonoBehaviour
     {
         // 마우스 클릭 시 이벤트 실행
         if (Input.GetMouseButtonDown(0)) // 0은 좌클릭
-        {
             ExecuteNextEvent();
-        }
     }
 
     private void ExecuteNextEvent()
@@ -26,10 +21,7 @@ public class Proto_Gacha : MonoBehaviour
 
     private void ChangeView()
     {
-        for (int i = 0; i < toggleList.Count; i++)
-        {
-            toggleList[i].SetActiveFalse_Func();
-        }
+        for (var i = 0; i < toggleList.Count; i++) toggleList[i].SetActiveFalse_Func();
 
         toggleList[currentIndex].InvokeFunc();
     }
