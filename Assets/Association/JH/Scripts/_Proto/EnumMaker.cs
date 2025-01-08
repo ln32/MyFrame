@@ -36,7 +36,7 @@ public class EnumMaker : MonoBehaviour
             var enumFilePath = Path.Combine(currentDirectory, EnumScriptName + ".cs");
 
             // Enum 파일에 들어갈 내용
-            var enumContent = $@"
+            string enumContent = $@"
 public enum {EnumScriptName}
 {{
     {string.Join(",\n    ", enumEntries)}

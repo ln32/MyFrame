@@ -12,7 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f759d96f74daa45967750adaf45af6, type: 3}
   m_Name: XMLReader
   m_EditorClassIdentifier: 
+<<<<<<<< HEAD:Assets/Association/JH/ScriptableObject/Object/XMLReader.asset
   xmlFileName: data.xml
   inputName: Table_A
   inputIndex: 2
   todebug: []
+========
+  TargetData:
+  - 1
+  - 2
+  - 3
+  - 4
+  NormalizeForm:
+  - 0.1
+  - 0.2
+  - 0.3
+  - 0.4
+  SnowballForm:
+  - 0.1
+  - 0.3
+  - 0.6
+  - 1
+>>>>>>>> 6833cb7 (data - item 중간 과정):Assets/Association/JH/ScriptableObject/Object/Scriptable/FloatArrayData.asset
