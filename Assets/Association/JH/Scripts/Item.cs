@@ -1,21 +1,16 @@
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Rendering;
 
 public class Item : IEquipable
 {
+    public Dictionary<string, OptionHistory> history { get; } = new();
+
     public string Name { get; set; }
     public List<IRule> RestrictionRules { get; } = new();
 
     public EquipPart EquipPart { get; set; }
 
-    [SerializeField]
     public Dictionary<string, int> properties { get; } = new();
 
-    [SerializeField]
-    public Dictionary<string, OptionHistory> history { get; } = new();
-
-  
 
     public void SetOption(string optionId, string _propName, int _propValue)
     {

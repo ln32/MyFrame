@@ -19,6 +19,11 @@ public class DataManager : MonoBehaviour
         data.AwakeFunc(STRING_UserProfile);
     }
 
+    public void AddValue(string _name)
+    {
+        data.InitValue<int>(_name);
+    }
+
     public void AddAction<T>(string valueName, Action<T> action, bool updateData = false)
     {
         data.AddAction(valueName, action, updateData);
