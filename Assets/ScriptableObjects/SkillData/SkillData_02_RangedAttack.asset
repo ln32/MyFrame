@@ -10,22 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b427bd9cf3fb956438e1d380dff79818, type: 3}
-  m_Name: SkillData_03_BigBlue
+  m_Name: SkillData_02_RangedAttack
   m_EditorClassIdentifier: 
-  id: 3
-  skillName: 3
-  cooldown: 3.2
+  id: 2
+  level: 0
+  grade: 0
+  skillName: 2
   damageRate: -1
-  effectRadius: 0.1
-  searchCastTargetCount: 1
-  effectOnRadiusTargetCount: 1
   isDot: 0
   tickRate: -1
   tickCount: 1
-  projectileSpeed: 4
-  projectileComponent: {fileID: 3208776422106190751, guid: 76113112f88d7c540ab8cf1e7a39d448, type: 3}
-  repeatCount: 1
-  timeGap: -1
-  targetingCase: 0
+  cooldown: 2.1
+  searchCastTargetCount: 1
+  effectRadius: 0.1
+  isUpdate: 1
+  effectTargetPerCast: 1
+  targetingCase: 1
+  projectileSpeed: 3
+  loopCount: 1
+  loopTimeGap: -1
   castPointCase: {x: 0, y: 0}
-  targetPointCase: {x: 0, y: 0}

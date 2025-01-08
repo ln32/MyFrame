@@ -13,10 +13,20 @@ MonoBehaviour:
   m_Name: SkillData_01_DefalultAttack
   m_EditorClassIdentifier: 
   id: 1
-  skillName: SkillData_01_DefalultAttack
-  projectileComponent: {fileID: 3208776422106190751, guid: 76113112f88d7c540ab8cf1e7a39d448, type: 3}
-  coolTime: 1.2
-  projectileSpeed: 2
-  projectileSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  projectileColor: {r: 1, g: 1, b: 1, a: 1}
-  projectileSize: {x: 1, y: 1}
+  level: 0
+  grade: 0
+  skillName: 1
+  damageRate: 1
+  isDot: 0
+  tickRate: -1
+  tickCount: 1
+  cooldown: 5
+  searchCastTargetCount: 2
+  effectRadius: 0.1
+  isUpdate: 0
+  effectTargetPerCast: 1
+  targetingCase: 0
+  projectileSpeed: 4
+  loopCount: 1
+  loopTimeGap: -1
+  castPointCase: {x: 0, y: 0}

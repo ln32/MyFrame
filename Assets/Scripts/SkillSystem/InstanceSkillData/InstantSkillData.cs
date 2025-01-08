@@ -1,26 +1,39 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "InstantSkillData", menuName = "Skill/InstantSkillData")]
 public class InstantSkillData : ScriptableObject
 {
-    // 기본 정보
-    public int id;
+    [field: Title("[ Base ]")] public int id;
+
+    public int level;
+    public int grade;
     public string skillName;
 
-    public ProjectileComponent projectileComponent;
+    [field: Title("[ Damage ]")] public float damageRate = -1f;
 
-    public float coolTime;
+    [field: Title("[ DOT ]")] public bool isDot;
 
-    public int projectileSpeed;
-    public Sprite projectileSprite;
-    public Color projectileColor;
-    public Vector2 projectileSize;
+    public float tickRate = -1f;
+    public int tickCount = 1;
 
-    // 이펙트
-    //public GameObject trailEffect;
-    //public GameObject explosionEffect;
+    [field: Title("[ Cast ]")] public float cooldown = -1f;
 
-    // 효과음
-    //public AudioClip launchSound;
-    //public AudioClip impactSound;
+    public int searchCastTargetCount = 1;
+
+    [field: Title("[ Effect ]")] public float effectRadius = 0.1f;
+
+    public bool isUpdate = true;
+    public int effectTargetPerCast = 1;
+
+    [field: Title("[ Proj ]")] public float projectileSpeed = -1f;
+
+    [field: Title("[ Loop ]")] public int loopCount = 1;
+
+    public float loopTimeGap = -1f;
+
+
+    // 의도 : 동적 소환 위치
+    public Vector2 castPointCase;
+    public TargetingCase targetingCase = TargetingCase.First;
 }
